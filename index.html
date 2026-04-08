@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポケモン対面チェッカー</title>
+    <title>ポケチャン 対面チェッカー（全ポケ対応）</title>
     <style>
         body { font-family: sans-serif; background: #f0f2f5; padding: 10px; color: #333; }
-        .container { max-width: 500px; margin: 0 auto; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .container { max-width: 520px; margin: 0 auto; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .inputs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
         input { padding: 12px; font-size: 16px; border: 1px solid #ddd; border-radius: 5px; }
         button { padding: 12px; background: #e3350d; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
@@ -16,17 +16,19 @@
         .opp-card { border-left: 5px solid #dc3545; background: #fff8f8; }
         .stats { font-size: 14px; color: #444; font-weight: bold; margin-top: 5px; }
         .advice { margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 5px; font-size: 13px; }
+        .loading { color: #666; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h3>⚔️ 対面チェッカー</h3>
+        <h3>⚔️ ポケチャン 対面チェッカー（全278対応）</h3>
         <div class="inputs">
             <input type="text" id="my_name" placeholder="自分のポケモン名">
             <input type="text" id="opp_name" placeholder="相手のポケモン名">
             <button onclick="checkBattle()">比較する</button>
         </div>
         <div id="result" class="battle-view" style="display:none;">
+            <!-- 前のバージョンと同じカード表示 -->
             <div class="card my-card">
                 <b>自分: <span id="out_my_name"></span></b>
                 <div id="out_my_types"></div>
@@ -39,34 +41,53 @@
                 <div class="advice" id="out_advice"></div>
             </div>
         </div>
+        <div id="status" class="loading">データ読み込み中...</div>
     </div>
 
     <script>
-        // --- データベース (ここに日本語で直接書けば文字化けしません) ---
-        const POKEMON_DB = {
-            "リザードン": { types: ["ほのお", "ひこう"], stats: { hp: 78, atk: 84, def: 78, spA: 109, spD: 85, spe: 100 }, advice: "岩4倍に注意。" },
-            "カメックス": { types: ["みず"], stats: { hp: 79, atk: 83, def: 100, spA: 85, spD: 105, spe: 78 }, advice: "からをやぶるを警戒。" },
-            "フシギバナ": { types: ["くさ", "どく"], stats: { hp: 80, atk: 82, def: 83, spA: 100, spD: 100, spe: 80 }, advice: "宿り木の種に注意。" }
-        };
+        let POKEMON_DB = {};
+
+        // JSONを読み込む
+        async function loadDatabase() {
+            try {
+                const response = await fetch('pokemon-db.json');
+                POKEMON_DB = await response.json();
+                document.getElementById('status').style.display = 'none';
+                console.log('ポケモンデータ読み込み完了:', Object.keys(POKEMON_DB).length + '体');
+            } catch (e) {
+                document.getElementById('status').innerText = 'pokemon-db.json の読み込みに失敗しました。ファイル名を確認してください。';
+                console.error(e);
+            }
+        }
 
         function checkBattle() {
-            const my = POKEMON_DB[document.getElementById('my_name').value.trim()];
-            const opp = POKEMON_DB[document.getElementById('opp_name').value.trim()];
+            const myInput = document.getElementById('my_name').value.trim();
+            const oppInput = document.getElementById('opp_name').value.trim();
+
+            const my = POKEMON_DB[myInput];
+            const opp = POKEMON_DB[oppInput];
 
             if (my && opp) {
                 document.getElementById('result').style.display = 'flex';
-                document.getElementById('out_my_name').innerText = document.getElementById('my_name').value;
-                document.getElementById('out_my_types').innerText = "タイプ: " + my.types.join('/');
-                document.getElementById('out_my_stats').innerText = `S:${my.stats.spe} H:${my.stats.hp}`;
 
-                document.getElementById('out_opp_name').innerText = document.getElementById('opp_name').value;
-                document.getElementById('out_opp_types').innerText = "タイプ: " + opp.types.join('/');
-                document.getElementById('out_opp_stats').innerText = `S:${opp.stats.spe} H:${opp.stats.hp} ${opp.stats.spe > my.stats.spe ? '(相手が先手)' : ''}`;
-                document.getElementById('out_advice').innerText = "💡 " + opp.advice;
+                // 自分側
+                document.getElementById('out_my_name').innerText = myInput;
+                document.getElementById('out_my_types').innerText = "タイプ: " + my.types.join(' / ');
+                document.getElementById('out_my_stats').innerText = `S:${my.stats.spe} H:${my.stats.hp} A:${my.stats.atk}`;
+
+                // 相手側
+                document.getElementById('out_opp_name').innerText = oppInput;
+                document.getElementById('out_opp_types').innerText = "タイプ: " + opp.types.join(' / ');
+                const speedText = opp.stats.spe > my.stats.spe ? ' （相手先手）' : '';
+                document.getElementById('out_opp_stats').innerText = `S:${opp.stats.spe} H:${opp.stats.hp} A:${opp.stats.atk}${speedText}`;
+                document.getElementById('out_advice').innerText = "💡 " + (opp.advice || "対面注意点を自分で編集してね");
             } else {
-                alert("図鑑にない名前です（リザードン 等で試してね）");
+                alert("DBにないポケモンです。正確な名前で入力してください（例: メガリザードンY）");
             }
         }
+
+        // ページ読み込み時にJSONをロード
+        window.onload = loadDatabase;
     </script>
 </body>
 </html>
