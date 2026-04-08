@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケチャン 対面チェッカー</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; padding: 10px; color: #333; }
+        .container { max-width: 520px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h3 { text-align: center; margin-bottom: 20px; }
+        .inputs { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
+        input { padding: 14px; font-size: 17px; border: 1px solid #ccc; border-radius: 8px; }
+        button { padding: 14px; background: #e3350d; color: white; border: none; border-radius: 8px; font-size: 17px; font-weight: bold; cursor: pointer; }
+        button:hover { background: #c92a0a; }
+        .battle-view { display: flex; flex-direction: column; gap: 15px; }
+        .card { border: 1px solid #eee; padding: 18px; border-radius: 10px; }
+        .my-card { border-left: 6px solid #28a745; background: #f8fff9; }
+        .opp-card { border-left: 6px solid #dc3545; background: #fff8f8; }
+        .stats { font-size: 15px; color: #444; margin-top: 8px; }
+        .advice { margin-top: 12px; padding: 12px; background: #fff3cd; border-radius: 6px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>?? ポケチャン 対面チェッカー</h3>
+        
+        <div class="inputs">
+            <input type="text" id="my_name" placeholder="自分のポケモン名（例: リザードン）">
+            <input type="text" id="opp_name" placeholder="相手のポケモン名">
+            <button onclick="checkBattle()">比較する</button>
+        </div>
+
+        <div id="result" class="battle-view" style="display: none;">
+            <div class="card my-card">
+                <b>自分: <span id="out_my_name"></span></b>
+                <div id="out_my_types"></div>
+                <div class="stats" id="out_my_stats"></div>
+            </div>
+            <div class="card opp-card">
+                <b>相手: <span id="out_opp_name"></span></b>
+                <div id="out_opp_types"></div>
+                <div class="stats" id="out_opp_stats"></div>
+                <div class="advice" id="out_advice"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let POKEMON_DB = {};
+
+        async function loadDatabase() {
+            try {
+                const response = await fetch('pokemon-db.json');
+                if (!response.ok) throw new Error('ファイルが見つかりません');
+                POKEMON_DB = await response.json();
+            } catch (e) {
+                console.error('DB読み込みエラー:', e);
+            }
+        }
+
+        function checkBattle() {
+            const myInput = document.getElementById('my_name').value.trim();
+            const oppInput = document.getElementById('opp_name').value.trim();
+
+            const my = POKEMON_DB[myInput];
+            const opp = POKEMON_DB[oppInput];
+
+            if (my && opp) {
+                document.getElementById('result').style.display = 'flex';
+
+                // 自分側
+                document.getElementById('out_my_name').innerText = myInput;
+                document.getElementById('out_my_types').innerText = "タイプ: " + my.types.join(' / ');
+                document.getElementById('out_my_stats').innerText = `素早さ: ${my.stats.spe}  HP: ${my.stats.hp}`;
+
+                // 相手側
+                document.getElementById('out_opp_name').innerText = oppInput;
+                document.getElementById('out_opp_types').innerText = "タイプ: " + opp.types.join(' / ');
+                const speedText = opp.stats.spe > my.stats.spe ? ' （相手が先手）' : '';
+                document.getElementById('out_opp_stats').innerText = `素早さ: ${opp.stats.spe}  HP: ${opp.stats.hp}${speedText}`;
+                document.getElementById('out_advice').innerText = "?? " + (opp.advice || "対面注意点を後で追加してね");
+            } else {
+                alert("DBにないポケモンです。\n正確な名前で入力してください（例: リザードン、メガリザードンY）");
+            }
+        }
+
+        window.onload = loadDatabase;
+    </script>
+</body>
+</html>
