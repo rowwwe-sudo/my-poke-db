@@ -1,121 +1,166 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポケモン対面チェッカー Pro</title>
-    <style>
-        body { font-family: sans-serif; background: #f0f2f5; padding: 15px; color: #333; margin: 0; }
-        .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .inputs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        input { padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; outline: none; }
-        button { padding: 12px; background: #e3350d; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .card { border: 1px solid #eee; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
-        .my-card { border-left: 6px solid #28a745; background: #f8fff9; }
-        .opp-card { border-left: 6px solid #dc3545; background: #fff8f8; }
-        .type-badge { background: #666; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-right: 4px; }
-        .effective-bad { color: #dc3545; font-weight: bold; font-size: 13px; }
-        .effective-good { color: #28a745; font-weight: bold; font-size: 13px; }
-        .stats { font-family: monospace; font-size: 14px; margin-top: 8px; }
-        .advice { background: #fff3cd; padding: 10px; border-radius: 6px; font-size: 13px; margin-top: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ポケモン対面チェッカー</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#e3350d;--red-dark:#b02a09;--blue:#1a73e8;--green:#0f9960;--bg:#0d0f14;--surface:#161922;--surface2:#1e2230;--border:rgba(255,255,255,0.08);--text:#f0f2f8;--muted:#8890a8}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 0 60px}
+.header{padding:20px 16px 0;display:flex;align-items:center;gap:10px}
+.header-icon{width:36px;height:36px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.header-icon svg{width:20px;height:20px;fill:#fff}
+.header-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff}
+.header-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.search-wrap{padding:16px}
+.search-row{display:grid;grid-template-columns:1fr 32px 1fr;gap:8px;align-items:start;margin-bottom:12px}
+.input-group{display:flex;flex-direction:column;gap:4px;position:relative}
+.input-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.poke-input{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:15px;color:var(--text);font-family:'Zen Kaku Gothic New',sans-serif;outline:none;width:100%;transition:border-color .2s}
+.poke-input:focus{border-color:rgba(255,255,255,0.25)}
+.vs-badge{background:var(--surface2);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--muted);margin-top:18px;flex-shrink:0}
+.suggest-list{position:absolute;top:100%;left:0;right:0;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-top:4px;overflow:hidden;display:none;max-height:180px;overflow-y:auto;z-index:100}
+.suggest-item{padding:10px 14px;font-size:14px;cursor:pointer;border-bottom:1px solid var(--border)}
+.suggest-item:last-child{border-bottom:none}
+.suggest-item:hover{background:var(--surface)}
+.btn-check{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:'Zen Kaku Gothic New',sans-serif;cursor:pointer;transition:background .15s;letter-spacing:.03em}
+.btn-check:hover{background:var(--red-dark)}
+.btn-check:active{transform:scale(.98)}
+.verdict{margin:0 16px 12px;border-radius:14px;padding:18px;text-align:center}
+.verdict.win{background:linear-gradient(135deg,#0a2e1c,#0f3d25);border:1px solid rgba(15,153,96,.3)}
+.verdict.lose{background:linear-gradient(135deg,#2e0a0a,#3d0f0f);border:1px solid rgba(227,53,13,.3)}
+.verdict.draw{background:linear-gradient(135deg,#2e260a,#3d330f);border:1px solid rgba(245,197,24,.3)}
+.verdict-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.verdict-main{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;letter-spacing:.04em}
+.verdict.win .verdict-main{color:#2ecc71}
+.verdict.lose .verdict-main{color:#ff6b5b}
+.verdict.draw .verdict-main{color:#f5c518}
+.verdict-score{font-size:12px;color:var(--muted);margin-top:4px}
+.cards-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:0 16px 12px;align-items:start}
+.poke-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px}
+.poke-card.me{border-top:3px solid var(--green)}
+.poke-card.opp{border-top:3px solid var(--red)}
+.card-side{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.card-side.me{color:var(--green)}
+.card-side.opp{color:var(--red)}
+.card-name{font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.2}
+.types{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.type-pill{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:.04em}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:5px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:10px}
+.stat-item{background:var(--surface2);border-radius:6px;padding:4px 6px;display:flex;justify-content:space-between;align-items:center}
+.stat-name{font-size:10px;color:var(--muted)}
+.stat-val{font-size:13px;font-weight:700}
+.weak-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
+.weak-tag{font-size:10px;font-weight:700;padding:2px 5px;border-radius:4px}
+.x4{background:rgba(227,53,13,.2);color:#ff6b5b;border:1px solid rgba(227,53,13,.3)}
+.x2{background:rgba(245,197,24,.15);color:#f5c518;border:1px solid rgba(245,197,24,.25)}
+.immune{background:rgba(15,153,96,.15);color:#2ecc71;border:1px solid rgba(15,153,96,.25)}
+.half{background:rgba(26,115,232,.15);color:#60a5fa;border:1px solid rgba(26,115,232,.25)}
+.vs-sep{display:flex;align-items:center;justify-content:center;padding-top:42px;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--muted)}
+.advice-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin:0 16px}
+.advice-header{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.advice-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.advice-item{font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.6;display:flex;gap:8px}
+.advice-item:last-child{border-bottom:none;padding-bottom:0}
+.advice-num{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--blue);flex-shrink:0;margin-top:1px}
+.t-ノーマル{background:#a8a090;color:#1a1a1a}.t-ほのお{background:#f07828;color:#fff}.t-みず{background:#6890f0;color:#fff}.t-くさ{background:#78c850;color:#1a1a1a}.t-でんき{background:#f8d030;color:#1a1a1a}.t-こおり{background:#98d8d8;color:#1a1a1a}.t-かくとう{background:#c03028;color:#fff}.t-どく{background:#a040a0;color:#fff}.t-じめん{background:#e0c068;color:#1a1a1a}.t-ひこう{background:#a890f0;color:#fff}.t-エスパー{background:#f85888;color:#fff}.t-むし{background:#a8b820;color:#1a1a1a}.t-いわ{background:#b8a038;color:#1a1a1a}.t-ゴースト{background:#705898;color:#fff}.t-ドラゴン{background:#7038f8;color:#fff}.t-あく{background:#705848;color:#fff}.t-はがね{background:#b8b8d0;color:#1a1a1a}.t-フェアリー{background:#ee99ac;color:#1a1a1a}
+#result{display:none}
+</style>
 </head>
 <body>
-
-<div class="container">
-    <h2 style="text-align:center; color:#e3350d;">⚔️ 対面チェッカー</h2>
-    <div class="inputs">
-        <input type="text" id="my_name" placeholder="自分のポケモン" list="poke-list">
-        <input type="text" id="opp_name" placeholder="相手のポケモン" list="poke-list">
-        <datalist id="poke-list"></datalist>
-        <button onclick="compare()">比較・相性診断</button>
-    </div>
-
-    <div id="result" style="display:none;">
-        <div class="card my-card">
-            <b>自分: <span id="out_my_name"></span></b> <span id="out_my_types"></span>
-            <div class="stats" id="out_my_stats"></div>
-            <div id="my_eff" class="effective-bad"></div>
-        </div>
-        <div class="card opp-card">
-            <b>相手: <span id="out_opp_name"></span></b> <span id="out_opp_types"></span>
-            <div class="stats" id="out_opp_stats"></div>
-            <div id="opp_eff" class="effective-bad"></div>
-            <div class="advice" id="out_advice"></div>
-        </div>
-    </div>
+<div class="header">
+  <div class="header-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93s-3.05 7.44-7 7.93v2.02c5.05-.5 9-4.76 9-9.95S18.05 2.55 13 2.05M11 2.05C5.95 2.55 2 6.81 2 12s3.95 9.45 9 9.95v-2.02C6.05 19.44 4 16 4 12s2.05-7.44 7-7.93V2.05M12 6a6 6 0 0 0-6 6 6 6 0 0 0 6 6 6 6 0 0 0 6-6 6 6 0 0 0-6-6m0 2a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 2a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg></div>
+  <div><div class="header-title">対面チェッカー</div><div class="header-sub">Pokémon Champions 対戦支援</div></div>
 </div>
-
+<div class="search-wrap">
+  <div class="search-row">
+    <div class="input-group">
+      <div class="input-label">自分</div>
+      <input class="poke-input" id="my_name" placeholder="例: ゲンガー" autocomplete="off" oninput="suggest('my_name','my_list')">
+      <div class="suggest-list" id="my_list"></div>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="input-group">
+      <div class="input-label">相手</div>
+      <input class="poke-input" id="opp_name" placeholder="例: ガブリアス" autocomplete="off" oninput="suggest('opp_name','opp_list')">
+      <div class="suggest-list" id="opp_list"></div>
+    </div>
+  </div>
+  <button class="btn-check" onclick="compare()">相性を診断する</button>
+</div>
+<div id="result">
+  <div class="verdict" id="verdict_card">
+    <div class="verdict-label">対面判定</div>
+    <div class="verdict-main" id="verdict_main"></div>
+    <div class="verdict-score" id="verdict_score"></div>
+  </div>
+  <div class="cards-row">
+    <div class="poke-card me" id="my_card"></div>
+    <div class="vs-sep">VS</div>
+    <div class="poke-card opp" id="opp_card"></div>
+  </div>
+  <div class="advice-card">
+    <div class="advice-header"><div class="advice-dot"></div>この対面のアドバイス</div>
+    <div id="advice_list"></div>
+  </div>
+</div>
 <script>
-    const typeChart = {
-        "ノーマル": { "いわ": 0.5, "ゴースト": 0, "はがね": 0.5 },
-        "ほのお": { "ほのお": 0.5, "みず": 0.5, "くさ": 2, "こおり": 2, "むし": 2, "いわ": 0.5, "ドラゴン": 0.5, "はがね": 2 },
-        "みず": { "ほのお": 2, "みず": 0.5, "くさ": 0.5, "じめん": 2, "いわ": 2, "ドラゴン": 0.5 },
-        "でんき": { "みず": 2, "でんき": 0.5, "くさ": 0.5, "じめん": 0, "ひこう": 2, "ドラゴン": 0.5 },
-        "くさ": { "ほのお": 0.5, "みず": 2, "くさ": 0.5, "どく": 0.5, "じめん": 2, "ひこう": 0.5, "むし": 0.5, "いわ": 2, "ドラゴン": 0.5, "はがね": 0.5 },
-        "こおり": { "ほのお": 0.5, "みず": 0.5, "くさ": 2, "こおり": 0.5, "じめん": 2, "ひこう": 2, "ドラゴン": 2, "はがね": 0.5 },
-        "かくとう": { "ノーマル": 2, "こおり": 2, "どく": 0.5, "ひこう": 0.5, "エスパー": 0.5, "むし": 0.5, "いわ": 2, "ゴースト": 0, "あく": 2, "はがね": 2, "フェアリー": 0.5 },
-        "どく": { "くさ": 2, "どく": 0.5, "じめん": 0.5, "いわ": 0.5, "ゴースト": 0.5, "はがね": 0, "フェアリー": 2 },
-        "じめん": { "ほのお": 2, "でんき": 2, "くさ": 0.5, "どく": 2, "むし": 0.5, "いわ": 2, "ひこう": 0, "はがね": 2 },
-        "ひこう": { "でんき": 0.5, "くさ": 2, "かくとう": 2, "むし": 2, "いわ": 0.5, "はがね": 0.5 },
-        "エスパー": { "かくとう": 2, "どく": 2, "エスパー": 0.5, "あく": 0, "はがね": 0.5 },
-        "むし": { "ほのお": 0.5, "くさ": 2, "かくとう": 0.5, "どく": 0.5, "ひこう": 0.5, "エスパー": 2, "ゴースト": 0.5, "あく": 2, "はがね": 0.5, "フェアリー": 0.5 },
-        "いわ": { "ほのお": 2, "こおり": 2, "かくとう": 0.5, "じめん": 0.5, "ひこう": 2, "むし": 2, "はがね": 0.5 },
-        "ゴースト": { "ノーマル": 0, "エスパー": 2, "ゴースト": 2, "あく": 0.5 },
-        "ドラゴン": { "ドラゴン": 2, "はがね": 0.5, "フェアリー": 0 },
-        "あく": { "かくとう": 0.5, "エスパー": 2, "ゴースト": 2, "あく": 0.5, "フェアリー": 0.5 },
-        "はがね": { "ほのお": 0.5, "みず": 0.5, "でんき": 0.5, "こおり": 2, "いわ": 2, "はがね": 0.5, "フェアリー": 2 },
-        "フェアリー": { "ほのお": 0.5, "かくとう": 2, "どく": 0.5, "ドラゴン": 2, "あく": 2, "はがね": 0.5 }
-    };
-
-    let POKEMON_DB = {};
-
-    async function loadDB() {
-        const response = await fetch('./pokemon-db.json');
-        POKEMON_DB = await response.json();
-        const list = document.getElementById('poke-list');
-        Object.keys(POKEMON_DB).forEach(name => {
-            const opt = document.createElement('option');
-            opt.value = name;
-            list.appendChild(opt);
-        });
-    }
-
-    function getEffectiveness(attackTypes, defenseTypes) {
-        let total = 1;
-        attackTypes.forEach(at => {
-            let subtotal = 1;
-            defenseTypes.forEach(dt => {
-                if (typeChart[at] && typeChart[at][dt] !== undefined) subtotal *= typeChart[at][dt];
-            });
-            if (subtotal > total) total = subtotal; // 最も効果の高いタイプを計算
-        });
-        return total;
-    }
-
-    function compare() {
-        const my = POKEMON_DB[document.getElementById('my_name').value.trim()];
-        const opp = POKEMON_DB[document.getElementById('opp_name').value.trim()];
-        if (!my || !opp) return alert("名前を正しく入力してください");
-
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('out_my_name').innerText = document.getElementById('my_name').value;
-        document.getElementById('out_opp_name').innerText = document.getElementById('opp_name').value;
-        
-        // 簡易相性チェック (相手から自分への攻撃)
-        const effToMe = getEffectiveness(opp.types, my.types);
-        document.getElementById('my_eff').innerText = effToMe >= 2 ? "⚠️ 相手の技が効果抜群！" : (effToMe <= 0.5 ? "🛡️ 相手の技はいまひとつ" : "");
-
-        // 自分から相手への攻撃
-        const effToOpp = getEffectiveness(my.types, opp.types);
-        document.getElementById('opp_eff').innerText = effToOpp >= 2 ? "✨ こちらの技が効果抜群！" : "";
-
-        document.getElementById('out_my_stats').innerText = `S:${my.stats.spe} H:${my.stats.hp} A:${my.stats.atk} B:${my.stats.def} C:${my.stats.spA} D:${my.stats.spD}`;
-        document.getElementById('out_opp_stats').innerText = `S:${opp.stats.spe} H:${opp.stats.hp} A:${opp.stats.atk} B:${opp.stats.def} C:${opp.stats.spA} D:${opp.stats.spD} ${opp.stats.spe > my.stats.spe ? ' (相手が速い)' : ''}`;
-        document.getElementById('out_advice').innerText = "💡 " + opp.advice;
-    }
-
-    loadDB();
+const TC={"ノーマル":{"いわ":.5,"ゴースト":0,"はがね":.5},"ほのお":{"ほのお":.5,"みず":.5,"くさ":2,"こおり":2,"むし":2,"いわ":.5,"ドラゴン":.5,"はがね":2},"みず":{"ほのお":2,"みず":.5,"くさ":.5,"じめん":2,"いわ":2,"ドラゴン":.5},"でんき":{"みず":2,"でんき":.5,"くさ":.5,"じめん":0,"ひこう":2,"ドラゴン":.5},"くさ":{"ほのお":.5,"みず":2,"くさ":.5,"どく":.5,"じめん":2,"ひこう":.5,"むし":.5,"いわ":2,"ドラゴン":.5,"はがね":.5},"こおり":{"ほのお":.5,"みず":.5,"くさ":2,"こおり":.5,"じめん":2,"ひこう":2,"ドラゴン":2,"はがね":.5},"かくとう":{"ノーマル":2,"こおり":2,"どく":.5,"ひこう":.5,"エスパー":.5,"むし":.5,"いわ":2,"ゴースト":0,"あく":2,"はがね":2,"フェアリー":.5},"どく":{"くさ":2,"どく":.5,"じめん":.5,"いわ":.5,"ゴースト":.5,"はがね":0,"フェアリー":2},"じめん":{"ほのお":2,"でんき":2,"くさ":.5,"どく":2,"むし":.5,"いわ":2,"ひこう":0,"はがね":2},"ひこう":{"でんき":.5,"くさ":2,"かくとう":2,"むし":2,"いわ":.5,"はがね":.5},"エスパー":{"かくとう":2,"どく":2,"エスパー":.5,"あく":0,"はがね":.5},"むし":{"ほのお":.5,"くさ":2,"かくとう":.5,"どく":.5,"ひこう":.5,"エスパー":2,"ゴースト":.5,"あく":2,"はがね":.5,"フェアリー":.5},"いわ":{"ほのお":2,"こおり":2,"かくとう":.5,"じめん":.5,"ひこう":2,"むし":2,"はがね":.5},"ゴースト":{"ノーマル":0,"エスパー":2,"ゴースト":2,"あく":.5},"ドラゴン":{"ドラゴン":2,"はがね":.5,"フェアリー":0},"あく":{"かくとう":.5,"エスパー":2,"ゴースト":2,"あく":.5,"フェアリー":.5},"はがね":{"ほのお":.5,"みず":.5,"でんき":.5,"こおり":2,"いわ":2,"はがね":.5,"フェアリー":2},"フェアリー":{"ほのお":.5,"かくとう":2,"どく":.5,"ドラゴン":2,"あく":2,"はがね":.5}};
+let DB={};
+async function loadDB(){try{const r=await fetch('./pokemon-db.json');DB=await r.json();}catch(e){console.error('DB load failed',e);}}
+function suggest(iid,lid){
+  const val=document.getElementById(iid).value.trim();
+  const list=document.getElementById(lid);
+  if(!val){list.style.display='none';return;}
+  const m=Object.keys(DB).filter(k=>k.includes(val)).slice(0,8);
+  if(!m.length){list.style.display='none';return;}
+  list.innerHTML=m.map(n=>`<div class="suggest-item" onclick="pick('${iid}','${lid}','${n}')">${n}</div>`).join('');
+  list.style.display='block';
+}
+function pick(iid,lid,name){document.getElementById(iid).value=name;document.getElementById(lid).style.display='none';}
+document.addEventListener('click',e=>{if(!e.target.closest('.input-group'))document.querySelectorAll('.suggest-list').forEach(l=>l.style.display='none');});
+function calcDef(types){const res={};Object.keys(TC).forEach(atk=>{let m=1;(types||[]).forEach(def=>{const row=TC[atk]||{};m*=(row[def]!==undefined?row[def]:1);});res[atk]=m;});return res;}
+function buildCard(el,data,name,sc,sl){
+  const def=calcDef(data.types||[]);
+  const x4=Object.entries(def).filter(([,v])=>v>=4).map(([k])=>k);
+  const x2=Object.entries(def).filter(([,v])=>v===2).map(([k])=>k);
+  const imm=Object.entries(def).filter(([,v])=>v===0).map(([k])=>k);
+  const hlf=Object.entries(def).filter(([,v])=>v<=.5&&v>0).map(([k])=>k);
+  const s=data.stats||{};
+  el.innerHTML=`<div class="card-side ${sc}">${sl}</div><div class="card-name">${name}</div><div class="types">${(data.types||[]).map(t=>`<span class="type-pill t-${t}">${t}</span>`).join('')}</div><div class="sec-lbl">種族値</div><div class="stats-grid"><div class="stat-item"><span class="stat-name">HP</span><span class="stat-val">${s.hp||0}</span></div><div class="stat-item"><span class="stat-name">こうげき</span><span class="stat-val">${s.atk||0}</span></div><div class="stat-item"><span class="stat-name">ぼうぎょ</span><span class="stat-val">${s.def||0}</span></div><div class="stat-item"><span class="stat-name">とくこう</span><span class="stat-val">${s.spA||0}</span></div><div class="stat-item"><span class="stat-name">とくぼう</span><span class="stat-val">${s.spD||0}</span></div><div class="stat-item"><span class="stat-name">すばやさ</span><span class="stat-val">${s.spe||0}</span></div></div><div class="sec-lbl">弱点 / 耐性</div><div class="weak-tags">${x4.map(t=>`<span class="weak-tag x4">${t}×4</span>`).join('')}${x2.map(t=>`<span class="weak-tag x2">${t}×2</span>`).join('')}${imm.map(t=>`<span class="weak-tag immune">${t}無効</span>`).join('')}${hlf.map(t=>`<span class="weak-tag half">${t}½</span>`).join('')}${(!x4.length&&!x2.length&&!imm.length&&!hlf.length)?'<span style="font-size:11px;color:var(--muted)">なし</span>':''}</div>`;
+}
+function compare(){
+  const mn=document.getElementById('my_name').value.trim();
+  const on=document.getElementById('opp_name').value.trim();
+  const my=DB[mn],opp=DB[on];
+  if(!my||!opp){alert('ポケモン名を正しく入力してください');return;}
+  document.querySelectorAll('.suggest-list').forEach(l=>l.style.display='none');
+  const md=calcDef(my.types||[]),od=calcDef(opp.types||[]);
+  let ms=0,os=0;
+  (my.types||[]).forEach(t=>{ms+=(od[t]||1);});
+  (opp.types||[]).forEach(t=>{os+=(md[t]||1);});
+  const vc=document.getElementById('verdict_card');
+  vc.className='verdict';
+  if(ms>os+.5){vc.classList.add('win');document.getElementById('verdict_main').textContent='自分が有利な対面';}
+  else if(os>ms+.5){vc.classList.add('lose');document.getElementById('verdict_main').textContent='相手が有利な対面';}
+  else{vc.classList.add('draw');document.getElementById('verdict_main').textContent='ほぼ互角の対面';}
+  document.getElementById('verdict_score').textContent=`タイプスコア 自分 ${ms.toFixed(1)} / 相手 ${os.toFixed(1)}`;
+  buildCard(document.getElementById('my_card'),my,mn,'me','自分');
+  buildCard(document.getElementById('opp_card'),opp,on,'opp','相手');
+  const myS=my.stats?.spe||0,opS=opp.stats?.spe||0;
+  const spTip=myS>opS?`${mn}の方が素早い（${myS} > ${opS}）`:myS<opS?`${on}の方が素早い（${opS} > ${myS}）`:`素早さが同じ（${myS}）`;
+  const advices=[];
+  if(typeof opp.advice==='string'&&opp.advice&&!opp.advice.includes('の対戦データ'))advices.push(opp.advice);
+  advices.push(spTip);
+  advices.push(ms>os+.5?'タイプ相性で有利。積極的に攻めていきましょう。':os>ms+.5?'タイプ相性で不利。交代を検討しましょう。':'互角の対面。技・持ち物の読み合いが重要です。');
+  document.getElementById('advice_list').innerHTML=advices.slice(0,3).map((a,i)=>`<div class="advice-item"><span class="advice-num">${i+1}</span>${a}</div>`).join('');
+  document.getElementById('result').style.display='block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+loadDB();
 </script>
 </body>
 </html>
