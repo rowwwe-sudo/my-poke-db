@@ -3,105 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポケモン対面チェッカー</title>
+    <title>ポケモン対面チェッカー Pro</title>
     <style>
-        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background: #f0f2f5; padding: 15px; color: #333; margin: 0; }
+        body { font-family: sans-serif; background: #f0f2f5; padding: 15px; color: #333; margin: 0; }
         .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #e3350d; margin-top: 0; }
         .inputs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
         input { padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; outline: none; }
-        button { padding: 12px; background: #e3350d; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s; }
-        button:hover { background: #b12a0a; }
-        .result-area { display: none; flex-direction: column; gap: 12px; }
-        .card { border: 1px solid #eee; padding: 15px; border-radius: 10px; position: relative; }
+        button { padding: 12px; background: #e3350d; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .card { border: 1px solid #eee; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
         .my-card { border-left: 6px solid #28a745; background: #f8fff9; }
         .opp-card { border-left: 6px solid #dc3545; background: #fff8f8; }
-        .label { font-size: 12px; font-weight: bold; color: #666; margin-bottom: 4px; display: block; }
-        .name { font-size: 1.2em; font-weight: bold; }
-        .types { margin-left: 8px; }
         .type-badge { background: #666; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-right: 4px; }
-        .stats { font-family: monospace; font-size: 14px; margin-top: 8px; color: #444; }
-        .advice-box { background: #fff3cd; padding: 10px; border-radius: 6px; font-size: 13px; border-left: 4px solid #ffc107; margin-top: 10px; }
-        .speed-warning { color: #dc3545; font-weight: bold; margin-left: 10px; }
+        .effective-bad { color: #dc3545; font-weight: bold; font-size: 13px; }
+        .effective-good { color: #28a745; font-weight: bold; font-size: 13px; }
+        .stats { font-family: monospace; font-size: 14px; margin-top: 8px; }
+        .advice { background: #fff3cd; padding: 10px; border-radius: 6px; font-size: 13px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>⚔️ 対面チェッカー</h2>
+    <h2 style="text-align:center; color:#e3350d;">⚔️ 対面チェッカー</h2>
     <div class="inputs">
-        <input type="text" id="my_name" placeholder="自分のポケモン名" list="poke-list">
-        <input type="text" id="opp_name" placeholder="相手のポケモン名" list="poke-list">
-        <datalist id="poke-list"></datalist> <button onclick="compare()">比較開始</button>
+        <input type="text" id="my_name" placeholder="自分のポケモン" list="poke-list">
+        <input type="text" id="opp_name" placeholder="相手のポケモン" list="poke-list">
+        <datalist id="poke-list"></datalist>
+        <button onclick="compare()">比較・相性診断</button>
     </div>
 
-    <div id="result" class="result-area">
+    <div id="result" style="display:none;">
         <div class="card my-card">
-            <span class="label">自分</span>
-            <div id="my_info"></div>
-            <div class="stats" id="my_stats"></div>
+            <b>自分: <span id="out_my_name"></span></b> <span id="out_my_types"></span>
+            <div class="stats" id="out_my_stats"></div>
+            <div id="my_eff" class="effective-bad"></div>
         </div>
         <div class="card opp-card">
-            <span class="label">相手</span>
-            <div id="opp_info"></div>
-            <div class="stats" id="opp_stats"></div>
-            <div class="advice-box" id="opp_advice"></div>
+            <b>相手: <span id="out_opp_name"></span></b> <span id="out_opp_types"></span>
+            <div class="stats" id="out_opp_stats"></div>
+            <div id="opp_eff" class="effective-bad"></div>
+            <div class="advice" id="out_advice"></div>
         </div>
     </div>
 </div>
 
 <script>
+    const typeChart = {
+        "ノーマル": { "いわ": 0.5, "ゴースト": 0, "はがね": 0.5 },
+        "ほのお": { "ほのお": 0.5, "みず": 0.5, "くさ": 2, "こおり": 2, "むし": 2, "いわ": 0.5, "ドラゴン": 0.5, "はがね": 2 },
+        "みず": { "ほのお": 2, "みず": 0.5, "くさ": 0.5, "じめん": 2, "いわ": 2, "ドラゴン": 0.5 },
+        "でんき": { "みず": 2, "でんき": 0.5, "くさ": 0.5, "じめん": 0, "ひこう": 2, "ドラゴン": 0.5 },
+        "くさ": { "ほのお": 0.5, "みず": 2, "くさ": 0.5, "どく": 0.5, "じめん": 2, "ひこう": 0.5, "むし": 0.5, "いわ": 2, "ドラゴン": 0.5, "はがね": 0.5 },
+        "こおり": { "ほのお": 0.5, "みず": 0.5, "くさ": 2, "こおり": 0.5, "じめん": 2, "ひこう": 2, "ドラゴン": 2, "はがね": 0.5 },
+        "かくとう": { "ノーマル": 2, "こおり": 2, "どく": 0.5, "ひこう": 0.5, "エスパー": 0.5, "むし": 0.5, "いわ": 2, "ゴースト": 0, "あく": 2, "はがね": 2, "フェアリー": 0.5 },
+        "どく": { "くさ": 2, "どく": 0.5, "じめん": 0.5, "いわ": 0.5, "ゴースト": 0.5, "はがね": 0, "フェアリー": 2 },
+        "じめん": { "ほのお": 2, "でんき": 2, "くさ": 0.5, "どく": 2, "むし": 0.5, "いわ": 2, "ひこう": 0, "はがね": 2 },
+        "ひこう": { "でんき": 0.5, "くさ": 2, "かくとう": 2, "むし": 2, "いわ": 0.5, "はがね": 0.5 },
+        "エスパー": { "かくとう": 2, "どく": 2, "エスパー": 0.5, "あく": 0, "はがね": 0.5 },
+        "むし": { "ほのお": 0.5, "くさ": 2, "かくとう": 0.5, "どく": 0.5, "ひこう": 0.5, "エスパー": 2, "ゴースト": 0.5, "あく": 2, "はがね": 0.5, "フェアリー": 0.5 },
+        "いわ": { "ほのお": 2, "こおり": 2, "かくとう": 0.5, "じめん": 0.5, "ひこう": 2, "むし": 2, "はがね": 0.5 },
+        "ゴースト": { "ノーマル": 0, "エスパー": 2, "ゴースト": 2, "あく": 0.5 },
+        "ドラゴン": { "ドラゴン": 2, "はがね": 0.5, "フェアリー": 0 },
+        "あく": { "かくとう": 0.5, "エスパー": 2, "ゴースト": 2, "あく": 0.5, "フェアリー": 0.5 },
+        "はがね": { "ほのお": 0.5, "みず": 0.5, "でんき": 0.5, "こおり": 2, "いわ": 2, "はがね": 0.5, "フェアリー": 2 },
+        "フェアリー": { "ほのお": 0.5, "かくとう": 2, "どく": 0.5, "ドラゴン": 2, "あく": 2, "はがね": 0.5 }
+    };
+
     let POKEMON_DB = {};
 
-    // 起動時にJSONを読み込む
     async function loadDB() {
-        try {
-            const response = await fetch('./pokemon-db.json');
-            POKEMON_DB = await response.json();
-            
-            // 入力候補（datalist）を作成
-            const list = document.getElementById('poke-list');
-            Object.keys(POKEMON_DB).forEach(name => {
-                const option = document.createElement('option');
-                option.value = name;
-                list.appendChild(option);
+        const response = await fetch('./pokemon-db.json');
+        POKEMON_DB = await response.json();
+        const list = document.getElementById('poke-list');
+        Object.keys(POKEMON_DB).forEach(name => {
+            const opt = document.createElement('option');
+            opt.value = name;
+            list.appendChild(opt);
+        });
+    }
+
+    function getEffectiveness(attackTypes, defenseTypes) {
+        let total = 1;
+        attackTypes.forEach(at => {
+            let subtotal = 1;
+            defenseTypes.forEach(dt => {
+                if (typeChart[at] && typeChart[at][dt] !== undefined) subtotal *= typeChart[at][dt];
             });
-        } catch (e) {
-            console.error("DB読み込み失敗:", e);
-            alert("データの読み込みに失敗しました。ファイルが同じフォルダにあるか確認してください。");
-        }
+            if (subtotal > total) total = subtotal; // 最も効果の高いタイプを計算
+        });
+        return total;
     }
 
     function compare() {
-        const myName = document.getElementById('my_name').value.trim();
-        const oppName = document.getElementById('opp_name').value.trim();
-        const my = POKEMON_DB[myName];
-        const opp = POKEMON_DB[oppName];
+        const my = POKEMON_DB[document.getElementById('my_name').value.trim()];
+        const opp = POKEMON_DB[document.getElementById('opp_name').value.trim()];
+        if (!my || !opp) return alert("名前を正しく入力してください");
 
-        if (!my || !opp) {
-            alert("DBに登録されている名前を正しく入力してください。");
-            return;
-        }
-
-        document.getElementById('result').style.display = 'flex';
-
-        // 自分の情報表示
-        document.getElementById('my_info').innerHTML = `<span class="name">${myName}</span>` + 
-            my.types.map(t => `<span class="type-badge">${t}</span>`).join('');
-        document.getElementById('my_stats').innerText = `H:${my.stats.hp} A:${my.stats.atk} B:${my.stats.def} C:${my.stats.spA} D:${my.stats.spD} S:${my.stats.spe}`;
-
-        // 相手の情報表示
-        let speedHtml = `H:${opp.stats.hp} A:${opp.stats.atk} B:${opp.stats.def} C:${opp.stats.spA} D:${opp.stats.spD} S:${opp.stats.spe}`;
-        if (opp.stats.spe > my.stats.spe) speedHtml += ` <span class="speed-warning">◀先手！</span>`;
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('out_my_name').innerText = document.getElementById('my_name').value;
+        document.getElementById('out_opp_name').innerText = document.getElementById('opp_name').value;
         
-        document.getElementById('opp_info').innerHTML = `<span class="name">${oppName}</span>` + 
-            opp.types.map(t => `<span class="type-badge">${t}</span>`).join('');
-        document.getElementById('opp_stats').innerHTML = speedHtml;
-        document.getElementById('opp_advice').innerHTML = `💡 <b>アドバイス:</b><br>${opp.advice}`;
+        // 簡易相性チェック (相手から自分への攻撃)
+        const effToMe = getEffectiveness(opp.types, my.types);
+        document.getElementById('my_eff').innerText = effToMe >= 2 ? "⚠️ 相手の技が効果抜群！" : (effToMe <= 0.5 ? "🛡️ 相手の技はいまひとつ" : "");
+
+        // 自分から相手への攻撃
+        const effToOpp = getEffectiveness(my.types, opp.types);
+        document.getElementById('opp_eff').innerText = effToOpp >= 2 ? "✨ こちらの技が効果抜群！" : "";
+
+        document.getElementById('out_my_stats').innerText = `S:${my.stats.spe} H:${my.stats.hp} A:${my.stats.atk} B:${my.stats.def} C:${my.stats.spA} D:${my.stats.spD}`;
+        document.getElementById('out_opp_stats').innerText = `S:${opp.stats.spe} H:${opp.stats.hp} A:${opp.stats.atk} B:${opp.stats.def} C:${opp.stats.spA} D:${opp.stats.spD} ${opp.stats.spe > my.stats.spe ? ' (相手が速い)' : ''}`;
+        document.getElementById('out_advice').innerText = "💡 " + opp.advice;
     }
 
     loadDB();
 </script>
-
 </body>
 </html>
