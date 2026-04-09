@@ -59,25 +59,6 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var
 .immune{background:rgba(15,153,96,.15);color:#2ecc71;border:1px solid rgba(15,153,96,.25)}
 .half{background:rgba(26,115,232,.15);color:#60a5fa;border:1px solid rgba(26,115,232,.25)}
 .vs-sep{display:flex;align-items:center;justify-content:center;padding-top:42px;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--muted)}
-/* SETS */
-.sets-wrap{margin:0 16px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.set-block{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px}
-.set-block.me-set{border-top:2px solid var(--green)}
-.set-block.opp-set{border-top:2px solid var(--red)}
-.set-side{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-.set-side.me{color:var(--green)}
-.set-side.opp{color:var(--red)}
-.set-card{background:var(--surface2);border-radius:10px;padding:9px 10px;margin-bottom:6px}
-.set-card:last-child{margin-bottom:0}
-.set-name{font-size:12px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:5px}
-.set-badge{font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(26,115,232,.2);color:#60a5fa;border:1px solid rgba(26,115,232,.25)}
-.set-detail{font-size:11px;color:var(--muted);line-height:1.7}
-.set-detail span{color:var(--text);font-weight:700}
-.spe-note{font-size:10px;margin-top:4px;padding:3px 6px;border-radius:4px;line-height:1.4}
-.spe-note.warn{background:rgba(245,197,24,.1);color:#f5c518;border:1px solid rgba(245,197,24,.2)}
-.spe-note.info{background:rgba(26,115,232,.1);color:#60a5fa;border:1px solid rgba(26,115,232,.2)}
-.no-set{font-size:11px;color:var(--muted);padding:6px 0}
-/* ADVICE */
 .advice-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin:0 16px}
 .advice-header{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .advice-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
@@ -120,10 +101,6 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var
     <div class="vs-sep">VS</div>
     <div class="poke-card opp" id="opp_card"></div>
   </div>
-  <div class="sets-wrap">
-    <div class="set-block me-set" id="my_sets"></div>
-    <div class="set-block opp-set" id="opp_sets"></div>
-  </div>
   <div class="advice-card">
     <div class="advice-header"><div class="advice-dot"></div>この対面のアドバイス</div>
     <div id="advice_list"></div>
@@ -157,27 +134,6 @@ function buildCard(el,data,name,sc,sl){
   const s=data.stats||{};
   el.innerHTML=`<div class="card-side ${sc}">${sl}</div><div class="card-name">${name}</div><div class="types">${(data.types||[]).map(t=>`<span class="type-pill t-${t}">${t}</span>`).join('')}</div><div class="sec-lbl">種族値</div><div class="stats-grid"><div class="stat-item"><span class="stat-name">HP</span><span class="stat-val">${s.hp||0}</span></div><div class="stat-item"><span class="stat-name">こうげき</span><span class="stat-val">${s.atk||0}</span></div><div class="stat-item"><span class="stat-name">ぼうぎょ</span><span class="stat-val">${s.def||0}</span></div><div class="stat-item"><span class="stat-name">とくこう</span><span class="stat-val">${s.spA||0}</span></div><div class="stat-item"><span class="stat-name">とくぼう</span><span class="stat-val">${s.spD||0}</span></div><div class="stat-item"><span class="stat-name">すばやさ</span><span class="stat-val">${s.spe||0}</span></div></div><div class="sec-lbl">弱点 / 耐性</div><div class="weak-tags">${x4.map(t=>`<span class="weak-tag x4">${t}×4</span>`).join('')}${x2.map(t=>`<span class="weak-tag x2">${t}×2</span>`).join('')}${imm.map(t=>`<span class="weak-tag immune">${t}無効</span>`).join('')}${hlf.map(t=>`<span class="weak-tag half">${t}½</span>`).join('')}${(!x4.length&&!x2.length&&!imm.length&&!hlf.length)?'<span style="font-size:11px;color:var(--muted)">なし</span>':''}</div>`;
 }
-function calcRealSpe(baseSpe, nature, spe_ev=252){
-  const mult = ["おくびょう","ようき","せっかち","むじゃき"].includes(nature)?1.1:["ゆうかん","れいせい","のんき","なまいき"].includes(nature)?0.9:1.0;
-  return Math.floor((Math.floor((baseSpe*2+31+Math.floor(spe_ev/4))*50/100)+5)*mult);
-}
-function buildSets(el,data,name,sc,sl){
-  const sets=data.sets||[];
-  el.innerHTML=`<div class="set-side ${sc}">${sl}のよく使われる型</div>`;
-  if(!sets.length){el.innerHTML+=`<div class="no-set">型データなし</div>`;return;}
-  sets.forEach(s=>{
-    const realSpe = s.realSpe || calcRealSpe(data.stats?.spe||0, s.nature);
-    el.innerHTML+=`<div class="set-card">
-      <div class="set-name">${s.name}<span class="set-badge">${s.item||'?'}</span></div>
-      <div class="set-detail">
-        性格: <span>${s.nature||'?'}</span> ${s.natureEff?`<span style="color:var(--muted);font-weight:400">(${s.natureEff})</span>`:''}<br>
-        努力値: <span>${s.evs||'?'}</span><br>
-        技: <span>${(s.moves||[]).join(' / ')}</span><br>
-        すばやさ実数値: <span>${realSpe}</span>
-      </div>
-    </div>`;
-  });
-}
 function compare(){
   const mn=document.getElementById('my_name').value.trim();
   const on=document.getElementById('opp_name').value.trim();
@@ -196,22 +152,10 @@ function compare(){
   document.getElementById('verdict_score').textContent=`タイプスコア 自分 ${ms.toFixed(1)} / 相手 ${os.toFixed(1)}`;
   buildCard(document.getElementById('my_card'),my,mn,'me','自分');
   buildCard(document.getElementById('opp_card'),opp,on,'opp','相手');
-  buildSets(document.getElementById('my_sets'),my,mn,'me','自分');
-  buildSets(document.getElementById('opp_sets'),opp,on,'opp','相手');
-  // すばやさ比較（代表型の実数値で比較）
-  const myS0 = my.stats?.spe||0;
-  const opS0 = opp.stats?.spe||0;
-  const myBestSpe = my.sets?.length ? (my.sets[0].realSpe || calcRealSpe(myS0, my.sets[0].nature)) : calcRealSpe(myS0,'ようき');
-  const opBestSpe = opp.sets?.length ? (opp.sets[0].realSpe || calcRealSpe(opS0, opp.sets[0].nature)) : calcRealSpe(opS0,'ようき');
-  const spTip = myBestSpe > opBestSpe
-    ? `代表型の実数値で${mn}の方が速い（${myBestSpe} > ${opBestSpe}）。先手を取れる可能性が高い。`
-    : myBestSpe < opBestSpe
-    ? `代表型の実数値で${on}の方が速い（${opBestSpe} > ${myBestSpe}）。後手になる可能性が高い。`
-    : `代表型の素早さ実数値が同じ（${myBestSpe}）。性格・努力値次第で前後する。`;
-  const advices=[];
-  advices.push(spTip);
+  const myS=my.stats?.spe||0,opS=opp.stats?.spe||0;
+  const spTip=myS>opS?`種族値ベースで${mn}の方が速い（${myS} > ${opS}）`:myS<opS?`種族値ベースで${on}の方が速い（${opS} > ${myS}）`:`素早さ種族値が同じ（${myS}）`;
+  const advices=[spTip];
   advices.push(ms>os+.5?'タイプ相性で有利。積極的に攻めていきましょう。':os>ms+.5?'タイプ相性で不利。交代を検討しましょう。':'互角の対面。技・持ち物の読み合いが重要です。');
-  if(opp.sets?.length) advices.push(`相手の代表型: ${opp.sets[0].name}（${opp.sets[0].item}）`);
   document.getElementById('advice_list').innerHTML=advices.map((a,i)=>`<div class="advice-item"><span class="advice-num">${i+1}</span>${a}</div>`).join('');
   document.getElementById('result').style.display='block';
   document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
