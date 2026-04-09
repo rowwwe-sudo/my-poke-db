@@ -311,19 +311,27 @@ function buildAdvice(myTeam, oppTeam){
 }
 
 function analyze(){
-  const names = ['my1','my2','opp1','opp2'].map(id => document.getElementById(id).value.trim());
-  const data = names.map(n => DB[n]);
+  const ids = ['my1','my2','opp1','opp2'];
+  const names = ids.map(id => document.getElementById(id).value.trim());
   
-  if(data.some(d => !d)){
-    alert('すべてのポケモン名を正しく入力してください');
+  // 入力があるポケモンだけをデータ化する
+  const myTeam = [];
+  const oppTeam = [];
+
+  if (DB[names[0]]) myTeam.push({name: names[0], data: DB[names[0]]});
+  if (DB[names[1]]) myTeam.push({name: names[1], data: DB[names[1]]});
+  if (DB[names[2]]) oppTeam.push({name: names[2], data: DB[names[2]]});
+  if (DB[names[3]]) oppTeam.push({name: names[3], data: DB[names[3]]});
+
+  // 最低限、自分と相手に1体ずつ必要
+  if(myTeam.length === 0 || oppTeam.length === 0){
+    alert('自分と相手のポケモンをそれぞれ1体以上入力してください');
     return;
   }
   
   document.querySelectorAll('.suggest-list').forEach(l=>l.style.display='none');
   
-  const myTeam = [{name: names[0], data: data[0]}, {name: names[1], data: data[1]}];
-  const oppTeam = [{name: names[2], data: data[2]}, {name: names[3], data: data[3]}];
-  
+  // 以降の処理は、チームの配列の数に合わせて自動で描画されます
   buildMatrix(myTeam, oppTeam);
   buildCards(myTeam, oppTeam);
   buildAdvice(myTeam, oppTeam);
