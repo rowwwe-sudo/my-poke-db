@@ -13,7 +13,7 @@
       "spe": 80
     },
     "abilities": [
-      "overgrow",
+      "しんりょく",
       "ようりょくそ"
     ],
     "warningMoves": [
@@ -63,8 +63,8 @@
       "spe": 100
     },
     "abilities": [
-      "blaze",
-      "solar-power"
+      "もうか",
+      "サンパワー"
     ],
     "warningMoves": [
       "じしん",
@@ -91,7 +91,7 @@
       "spe": 100
     },
     "abilities": [
-      "tough-claws"
+      "かたいツメ"
     ],
     "warningMoves": [
       "じしん",
@@ -144,8 +144,8 @@
       "spe": 78
     },
     "abilities": [
-      "torrent",
-      "rain-dish"
+      "げきりゅう",
+      "あめうけざら"
     ],
     "warningMoves": [
       "なみのり",
@@ -171,7 +171,7 @@
       "spe": 78
     },
     "abilities": [
-      "mega-launcher"
+      "メガランチャー"
     ],
     "warningMoves": [
       "なみのり",
@@ -198,8 +198,8 @@
       "spe": 75
     },
     "abilities": [
-      "swarm",
-      "sniper"
+      "むしのしらせ",
+      "スナイパー"
     ],
     "warningMoves": [
       "どくどく",
@@ -245,9 +245,9 @@
       "spe": 101
     },
     "abilities": [
-      "keen-eye",
-      "tangled-feet",
-      "big-pecks"
+      "するどいめ",
+      "ちどりあし",
+      "はとむね"
     ],
     "warningMoves": [
       "どくどく",
@@ -271,7 +271,7 @@
       "spe": 121
     },
     "abilities": [
-      "no-guard"
+      "ノーガード"
     ],
     "warningMoves": [
       "どくどく",
@@ -294,7 +294,7 @@
     },
     "abilities": [
       "いかく",
-      "shed-skin",
+      "だっぴ",
       "きんちょうかん"
     ],
     "warningMoves": [
@@ -319,7 +319,7 @@
       "spe": 90
     },
     "abilities": [
-      "static",
+      "せいでんき",
       "ひらいしん"
     ],
     "warningMoves": [
@@ -346,7 +346,7 @@
       "spe": 110
     },
     "abilities": [
-      "static",
+      "せいでんき",
       "ひらいしん"
     ],
     "warningMoves": [
@@ -374,7 +374,7 @@
       "spe": 110
     },
     "abilities": [
-      "surge-surfer"
+      "サーフテール"
     ],
     "warningMoves": [
       "なみのり",
@@ -400,9 +400,9 @@
       "spe": 60
     },
     "abilities": [
-      "cute-charm",
+      "メロメロボディ",
       "マジックガード",
-      "unaware"
+      "てんねん"
     ],
     "warningMoves": [
       "でんじは",
@@ -456,7 +456,7 @@
       "spe": 109
     },
     "abilities": [
-      "snow-cloak",
+      "ゆきがくれ",
       "ゆきふらし"
     ],
     "warningMoves": [
@@ -485,7 +485,7 @@
     "abilities": [
       "いかく",
       "もらいび",
-      "justified"
+      "せいぎのこころ"
     ],
     "warningMoves": [
       "どくどく",
@@ -514,7 +514,7 @@
     "abilities": [
       "いかく",
       "もらいび",
-      "rock-head"
+      "いしあたま"
     ],
     "warningMoves": [
       "いわなだれ",
@@ -540,7 +540,7 @@
       "spe": 120
     },
     "abilities": [
-      "synchronize",
+      "シンクロ",
       "せいしんりょく",
       "マジックガード"
     ],
@@ -595,8 +595,8 @@
     },
     "abilities": [
       "こんじょう",
-      "no-guard",
-      "steadfast"
+      "ノーガード",
+      "ふくつのこころ"
     ],
     "warningMoves": [
       "じしん",
@@ -624,7 +624,7 @@
     },
     "abilities": [
       "ようりょくそ",
-      "gluttony"
+      "くいしんぼう"
     ],
     "warningMoves": [
       "ねむりごな",
@@ -676,7 +676,7 @@
       "spe": 30
     },
     "abilities": [
-      "shell-armor"
+      "シェルアーマー"
     ],
     "warningMoves": [
       "かなしばり",
@@ -732,17 +732,17 @@
       "spe": 110
     },
     "abilities": [
-      "cursed-body"
+      "のろわれボディ"
     ],
     "warningMoves": [
       "かなしばり",
       "でんじは",
       "どくどく",
       "まもる",
-      "ほろびのうた",
       "こごえるかぜ",
       "アンコール",
-      "おにび"
+      "おにび",
+      "ちょうはつ"
     ]
   },
   "メガゲンガー": {
@@ -785,8 +785,8 @@
       "spe": 90
     },
     "abilities": [
-      "early-bird",
-      "scrappy",
+      "はやおき",
+      "きもったま",
       "せいしんりょく"
     ],
     "warningMoves": [
@@ -813,7 +813,7 @@
       "spe": 100
     },
     "abilities": [
-      "parental-bond"
+      "おやこあい"
     ],
     "warningMoves": [
       "かなしばり",
@@ -840,8 +840,8 @@
       "spe": 115
     },
     "abilities": [
-      "illuminate",
-      "natural-cure",
+      "はっこう",
+      "しぜんかいふく",
       "アナライズ"
     ],
     "warningMoves": [
@@ -868,9 +868,9 @@
       "spe": 85
     },
     "abilities": [
-      "hyper-cutter",
+      "かいりきバサミ",
       "かたやぶり",
-      "moxie"
+      "じしんかじょう"
     ],
     "warningMoves": [
       "じしん",
@@ -895,7 +895,7 @@
       "spe": 105
     },
     "abilities": [
-      "aerilate"
+      "スカイスキン"
     ],
     "warningMoves": [
       "じしん",
@@ -920,8 +920,8 @@
     },
     "abilities": [
       "いかく",
-      "anger-point",
-      "sheer-force"
+      "いかりのつぼ",
+      "ちからずく"
     ],
     "warningMoves": [
       "なみのり",
@@ -948,7 +948,7 @@
     },
     "abilities": [
       "いかく",
-      "anger-point",
+      "いかりのつぼ",
       "はんすう"
     ],
     "warningMoves": [
@@ -974,7 +974,7 @@
     },
     "abilities": [
       "いかく",
-      "anger-point",
+      "いかりのつぼ",
       "はんすう"
     ],
     "warningMoves": [
@@ -1000,7 +1000,7 @@
     },
     "abilities": [
       "いかく",
-      "anger-point",
+      "いかりのつぼ",
       "はんすう"
     ],
     "warningMoves": [
@@ -1026,7 +1026,7 @@
     },
     "abilities": [
       "いかく",
-      "moxie"
+      "じしんかじょう"
     ],
     "warningMoves": [
       "なみのり",
@@ -1079,8 +1079,8 @@
       "spe": 48
     },
     "abilities": [
-      "limber",
-      "imposter"
+      "じゅうなん",
+      "かわりもの"
     ],
     "warningMoves": []
   },
@@ -1098,7 +1098,7 @@
     },
     "abilities": [
       "ちょすい",
-      "hydration"
+      "うるおいボディ"
     ],
     "warningMoves": [
       "なみのり",
@@ -1125,7 +1125,7 @@
     },
     "abilities": [
       "ちくでん",
-      "quick-feet"
+      "はやあし"
     ],
     "warningMoves": [
       "でんじは",
@@ -1179,7 +1179,7 @@
       "spe": 130
     },
     "abilities": [
-      "rock-head",
+      "いしあたま",
       "プレッシャー",
       "きんちょうかん"
     ],
@@ -1208,7 +1208,7 @@
       "spe": 150
     },
     "abilities": [
-      "tough-claws"
+      "かたいツメ"
     ],
     "warningMoves": [
       "じしん",
@@ -1236,7 +1236,7 @@
     "abilities": [
       "めんえき",
       "あついしぼう",
-      "gluttony"
+      "くいしんぼう"
     ],
     "warningMoves": [
       "なみのり",
@@ -1290,8 +1290,8 @@
       "spe": 80
     },
     "abilities": [
-      "overgrow",
-      "leaf-guard"
+      "しんりょく",
+      "リーフガード"
     ],
     "warningMoves": [
       "じしん",
@@ -1300,7 +1300,6 @@
       "みきり",
       "アンコール",
       "てだすけ",
-      "いやしのはどう",
       "じならし"
     ]
   },
@@ -1317,7 +1316,7 @@
       "spe": 100
     },
     "abilities": [
-      "blaze",
+      "もうか",
       "もらいび"
     ],
     "warningMoves": [
@@ -1345,8 +1344,8 @@
       "spe": 95
     },
     "abilities": [
-      "blaze",
-      "frisk"
+      "もうか",
+      "おみとおし"
     ],
     "warningMoves": [
       "じしん",
@@ -1370,8 +1369,8 @@
       "spe": 78
     },
     "abilities": [
-      "torrent",
-      "sheer-force"
+      "げきりゅう",
+      "ちからずく"
     ],
     "warningMoves": [
       "なみのり",
@@ -1398,9 +1397,9 @@
       "spe": 40
     },
     "abilities": [
-      "swarm",
-      "insomnia",
-      "sniper"
+      "むしのしらせ",
+      "ふみん",
+      "スナイパー"
     ],
     "warningMoves": [
       "かなしばり",
@@ -1423,8 +1422,8 @@
       "spe": 55
     },
     "abilities": [
-      "static",
-      "plus"
+      "せいでんき",
+      "プラス"
     ],
     "warningMoves": [
       "でんじは",
@@ -1505,7 +1504,7 @@
     },
     "abilities": [
       "ちょすい",
-      "damp",
+      "しめりけ",
       "あめふらし"
     ],
     "warningMoves": [
@@ -1513,10 +1512,10 @@
       "じしん",
       "どくどく",
       "まもる",
-      "ほろびのうた",
       "こごえるかぜ",
       "みきり",
-      "アンコール"
+      "アンコール",
+      "てだすけ"
     ]
   },
   "エーフィ": {
@@ -1532,7 +1531,7 @@
       "spe": 110
     },
     "abilities": [
-      "synchronize",
+      "シンクロ",
       "マジックミラー"
     ],
     "warningMoves": [
@@ -1559,7 +1558,7 @@
       "spe": 65
     },
     "abilities": [
-      "synchronize",
+      "シンクロ",
       "せいしんりょく"
     ],
     "warningMoves": [
@@ -1646,7 +1645,7 @@
     },
     "abilities": [
       "がんじょう",
-      "overcoat"
+      "ぼうじん"
     ],
     "warningMoves": [
       "でんじは",
@@ -1673,9 +1672,9 @@
       "spe": 30
     },
     "abilities": [
-      "rock-head",
+      "いしあたま",
       "がんじょう",
-      "sheer-force"
+      "ちからずく"
     ],
     "warningMoves": [
       "じしん",
@@ -1700,7 +1699,7 @@
       "spe": 30
     },
     "abilities": [
-      "sand-force"
+      "すなのちから"
     ],
     "warningMoves": [
       "じしん",
@@ -1725,9 +1724,9 @@
       "spe": 65
     },
     "abilities": [
-      "swarm",
+      "むしのしらせ",
       "テクニシャン",
-      "light-metal"
+      "ライトメタル"
     ],
     "warningMoves": [
       "どくどく",
@@ -1773,9 +1772,9 @@
       "spe": 85
     },
     "abilities": [
-      "swarm",
+      "むしのしらせ",
       "こんじょう",
-      "moxie"
+      "じしんかじょう"
     ],
     "warningMoves": [
       "じしん",
@@ -1802,7 +1801,7 @@
       "spe": 75
     },
     "abilities": [
-      "skill-link"
+      "スキルリンク"
     ],
     "warningMoves": [
       "じしん",
@@ -1827,9 +1826,9 @@
       "spe": 70
     },
     "abilities": [
-      "keen-eye",
+      "するどいめ",
       "がんじょう",
-      "weak-armor"
+      "くだけるよろい"
     ],
     "warningMoves": [
       "どくどく",
@@ -1855,7 +1854,7 @@
       "spe": 95
     },
     "abilities": [
-      "early-bird",
+      "はやおき",
       "もらいび",
       "きんちょうかん"
     ],
@@ -1884,7 +1883,7 @@
       "spe": 115
     },
     "abilities": [
-      "solar-power"
+      "サンパワー"
     ],
     "warningMoves": [
       "どくどく",
@@ -1965,9 +1964,9 @@
       "spe": 65
     },
     "abilities": [
-      "keen-eye",
+      "するどいめ",
       "あめふらし",
-      "rain-dish"
+      "あめうけざら"
     ],
     "warningMoves": [
       "なみのり",
@@ -1994,7 +1993,7 @@
       "spe": 80
     },
     "abilities": [
-      "synchronize",
+      "シンクロ",
       "トレース",
       "テレパシー"
     ],
@@ -2023,7 +2022,7 @@
       "spe": 100
     },
     "abilities": [
-      "pixilate"
+      "フェアリースキン"
     ],
     "warningMoves": [
       "でんじは",
@@ -2050,8 +2049,8 @@
       "spe": 50
     },
     "abilities": [
-      "keen-eye",
-      "stall",
+      "するどいめ",
+      "あとだし",
       "いたずらごころ"
     ],
     "warningMoves": [
@@ -2107,8 +2106,8 @@
     },
     "abilities": [
       "がんじょう",
-      "rock-head",
-      "heavy-metal"
+      "いしあたま",
+      "ヘヴィメタル"
     ],
     "warningMoves": [
       "なみのり",
@@ -2134,7 +2133,7 @@
       "spe": 50
     },
     "abilities": [
-      "filter"
+      "フィルター"
     ],
     "warningMoves": [
       "なみのり",
@@ -2212,9 +2211,9 @@
       "spe": 105
     },
     "abilities": [
-      "static",
+      "せいでんき",
       "ひらいしん",
-      "minus"
+      "マイナス"
     ],
     "warningMoves": [
       "でんじは",
@@ -2260,7 +2259,7 @@
       "spe": 95
     },
     "abilities": [
-      "rough-skin",
+      "さめはだ",
       "かそく"
     ],
     "warningMoves": [
@@ -2288,7 +2287,7 @@
       "spe": 105
     },
     "abilities": [
-      "strong-jaw"
+      "がんじょうあご"
     ],
     "warningMoves": [
       "なみのり",
@@ -2315,9 +2314,9 @@
       "spe": 40
     },
     "abilities": [
-      "magma-armor",
-      "solid-rock",
-      "anger-point"
+      "マグマのよろい",
+      "ハードロック",
+      "いかりのつぼ"
     ],
     "warningMoves": [
       "じしん",
@@ -2344,7 +2343,7 @@
       "spe": 20
     },
     "abilities": [
-      "sheer-force"
+      "ちからずく"
     ],
     "warningMoves": [
       "じしん",
@@ -2370,9 +2369,9 @@
       "spe": 20
     },
     "abilities": [
-      "white-smoke",
+      "しろいけむり",
       "ひでり",
-      "shell-armor"
+      "シェルアーマー"
     ],
     "warningMoves": [
       "じしん",
@@ -2399,18 +2398,18 @@
       "spe": 80
     },
     "abilities": [
-      "natural-cure",
-      "cloud-nine"
+      "しぜんかいふく",
+      "ノーてんき"
     ],
     "warningMoves": [
       "じしん",
       "どくどく",
       "まもる",
-      "ほろびのうた",
       "ねっぷう",
       "おにび",
       "てだすけ",
-      "ハイパーボイス"
+      "ハイパーボイス",
+      "おいかぜ"
     ]
   },
   "メガチルタリス": {
@@ -2427,17 +2426,17 @@
       "spe": 80
     },
     "abilities": [
-      "pixilate"
+      "フェアリースキン"
     ],
     "warningMoves": [
       "じしん",
       "どくどく",
       "まもる",
-      "ほろびのうた",
       "ねっぷう",
       "ハイパーボイス",
       "おいかぜ",
-      "じならし"
+      "じならし",
+      "マジカルシャイン"
     ]
   },
   "ミロカロス": {
@@ -2453,9 +2452,9 @@
       "spe": 81
     },
     "abilities": [
-      "marvel-scale",
+      "ふしぎなうろこ",
       "かちき",
-      "cute-charm"
+      "メロメロボディ"
     ],
     "warningMoves": [
       "なみのり",
@@ -2481,7 +2480,7 @@
       "spe": 70
     },
     "abilities": [
-      "forecast"
+      "てんきや"
     ],
     "warningMoves": [
       "かなしばり",
@@ -2505,9 +2504,9 @@
       "spe": 65
     },
     "abilities": [
-      "insomnia",
-      "frisk",
-      "cursed-body"
+      "ふみん",
+      "おみとおし",
+      "のろわれボディ"
     ],
     "warningMoves": [
       "でんじは",
@@ -2566,10 +2565,10 @@
       "でんじは",
       "どくどく",
       "まもる",
-      "ほろびのうた",
       "こごえるかぜ",
       "アンコール",
-      "ちょうはつ"
+      "ちょうはつ",
+      "てだすけ"
     ]
   },
   "アブソル": {
@@ -2586,18 +2585,18 @@
     },
     "abilities": [
       "プレッシャー",
-      "super-luck",
-      "justified"
+      "きょううん",
+      "せいぎのこころ"
     ],
     "warningMoves": [
       "でんじは",
       "どくどく",
       "いわなだれ",
       "まもる",
-      "ほろびのうた",
       "こごえるかぜ",
       "みきり",
-      "おにび"
+      "おにび",
+      "ちょうはつ"
     ]
   },
   "メガアブソル": {
@@ -2620,10 +2619,10 @@
       "どくどく",
       "いわなだれ",
       "まもる",
-      "ほろびのうた",
       "こごえるかぜ",
       "みきり",
-      "おにび"
+      "おにび",
+      "ちょうはつ"
     ]
   },
   "オニゴーリ": {
@@ -2640,8 +2639,8 @@
     },
     "abilities": [
       "せいしんりょく",
-      "ice-body",
-      "moody"
+      "アイスボディ",
+      "ムラっけ"
     ],
     "warningMoves": [
       "じしん",
@@ -2666,7 +2665,7 @@
       "spe": 100
     },
     "abilities": [
-      "refrigerate"
+      "フリーズスキン"
     ],
     "warningMoves": [
       "じしん",
@@ -2691,8 +2690,8 @@
       "spe": 56
     },
     "abilities": [
-      "overgrow",
-      "shell-armor"
+      "しんりょく",
+      "シェルアーマー"
     ],
     "warningMoves": [
       "ねむりごな",
@@ -2719,8 +2718,8 @@
       "spe": 108
     },
     "abilities": [
-      "blaze",
-      "iron-fist"
+      "もうか",
+      "てつのこぶし"
     ],
     "warningMoves": [
       "じしん",
@@ -2747,7 +2746,7 @@
       "spe": 60
     },
     "abilities": [
-      "torrent",
+      "げきりゅう",
       "かちき"
     ],
     "warningMoves": [
@@ -2774,7 +2773,7 @@
       "spe": 70
     },
     "abilities": [
-      "rivalry",
+      "とうそうしん",
       "いかく",
       "こんじょう"
     ],
@@ -2801,8 +2800,8 @@
       "spe": 90
     },
     "abilities": [
-      "natural-cure",
-      "poison-point",
+      "しぜんかいふく",
+      "どくのトゲ",
       "テクニシャン"
     ],
     "warningMoves": [
@@ -2825,7 +2824,7 @@
     },
     "abilities": [
       "かたやぶり",
-      "sheer-force"
+      "ちからずく"
     ],
     "warningMoves": [
       "なみのり",
@@ -2851,7 +2850,7 @@
     },
     "abilities": [
       "がんじょう",
-      "soundproof"
+      "ぼうおん"
     ],
     "warningMoves": [
       "じしん",
@@ -2876,9 +2875,9 @@
       "spe": 105
     },
     "abilities": [
-      "cute-charm",
-      "klutz",
-      "limber"
+      "メロメロボディ",
+      "ぶきよう",
+      "じゅうなん"
     ],
     "warningMoves": [
       "でんじは",
@@ -2904,7 +2903,7 @@
       "spe": 135
     },
     "abilities": [
-      "scrappy"
+      "きもったま"
     ],
     "warningMoves": [
       "でんじは",
@@ -2930,7 +2929,7 @@
     },
     "abilities": [
       "プレッシャー",
-      "infiltrator"
+      "すりぬけ"
     ],
     "warningMoves": [
       "かなしばり",
@@ -2957,8 +2956,8 @@
       "spe": 102
     },
     "abilities": [
-      "sand-veil",
-      "rough-skin"
+      "すながくれ",
+      "さめはだ"
     ],
     "warningMoves": [
       "なみのり",
@@ -2984,7 +2983,7 @@
       "spe": 92
     },
     "abilities": [
-      "sand-force"
+      "すなのちから"
     ],
     "warningMoves": [
       "なみのり",
@@ -3009,9 +3008,9 @@
       "spe": 90
     },
     "abilities": [
-      "steadfast",
+      "ふくつのこころ",
       "せいしんりょく",
-      "justified"
+      "せいぎのこころ"
     ],
     "warningMoves": [
       "じしん",
@@ -3021,7 +3020,7 @@
       "みきり",
       "てだすけ",
       "ファストガード",
-      "いやしのはどう"
+      "じならし"
     ]
   },
   "メガルカリオ": {
@@ -3048,7 +3047,7 @@
       "みきり",
       "てだすけ",
       "ファストガード",
-      "いやしのはどう"
+      "じならし"
     ]
   },
   "カバルドン": {
@@ -3065,7 +3064,7 @@
     },
     "abilities": [
       "すなおこし",
-      "sand-force"
+      "すなのちから"
     ],
     "warningMoves": [
       "じしん",
@@ -3092,9 +3091,9 @@
       "spe": 85
     },
     "abilities": [
-      "anticipation",
-      "dry-skin",
-      "poison-touch"
+      "きけんよち",
+      "かんそうはだ",
+      "どくしゅ"
     ],
     "warningMoves": [
       "じしん",
@@ -3122,7 +3121,7 @@
     },
     "abilities": [
       "ゆきふらし",
-      "soundproof"
+      "ぼうおん"
     ],
     "warningMoves": [
       "じしん",
@@ -3174,7 +3173,7 @@
     },
     "abilities": [
       "プレッシャー",
-      "pickpocket"
+      "わるいてぐせ"
     ],
     "warningMoves": [
       "なみのり",
@@ -3201,8 +3200,8 @@
     },
     "abilities": [
       "ひらいしん",
-      "solid-rock",
-      "reckless"
+      "ハードロック",
+      "すてみ"
     ],
     "warningMoves": [
       "なみのり",
@@ -3228,7 +3227,7 @@
       "spe": 95
     },
     "abilities": [
-      "leaf-guard",
+      "リーフガード",
       "ようりょくそ"
     ],
     "warningMoves": [
@@ -3251,8 +3250,8 @@
       "spe": 65
     },
     "abilities": [
-      "snow-cloak",
-      "ice-body"
+      "ゆきがくれ",
+      "アイスボディ"
     ],
     "warningMoves": [
       "どくどく",
@@ -3276,9 +3275,9 @@
       "spe": 95
     },
     "abilities": [
-      "hyper-cutter",
-      "sand-veil",
-      "poison-heal"
+      "かいりきバサミ",
+      "すながくれ",
+      "ポイズンヒール"
     ],
     "warningMoves": [
       "じしん",
@@ -3305,7 +3304,7 @@
     },
     "abilities": [
       "どんかん",
-      "snow-cloak",
+      "ゆきがくれ",
       "あついしぼう"
     ],
     "warningMoves": [
@@ -3331,9 +3330,9 @@
       "spe": 80
     },
     "abilities": [
-      "steadfast",
-      "sharpness",
-      "justified"
+      "ふくつのこころ",
+      "きれあじ",
+      "せいぎのこころ"
     ],
     "warningMoves": [
       "でんじは",
@@ -3387,8 +3386,8 @@
       "spe": 110
     },
     "abilities": [
-      "snow-cloak",
-      "cursed-body"
+      "ゆきがくれ",
+      "のろわれボディ"
     ],
     "warningMoves": [
       "でんじは",
@@ -3576,7 +3575,7 @@
       "spe": 113
     },
     "abilities": [
-      "overgrow",
+      "しんりょく",
       "あまのじゃく"
     ],
     "warningMoves": [
@@ -3600,8 +3599,8 @@
       "spe": 65
     },
     "abilities": [
-      "blaze",
-      "reckless"
+      "もうか",
+      "すてみ"
     ],
     "warningMoves": [
       "じしん",
@@ -3627,8 +3626,8 @@
       "spe": 70
     },
     "abilities": [
-      "torrent",
-      "shell-armor"
+      "げきりゅう",
+      "シェルアーマー"
     ],
     "warningMoves": [
       "なみのり",
@@ -3655,8 +3654,8 @@
       "spe": 85
     },
     "abilities": [
-      "torrent",
-      "sharpness"
+      "げきりゅう",
+      "きれあじ"
     ],
     "warningMoves": [
       "なみのり",
@@ -3682,8 +3681,8 @@
       "spe": 77
     },
     "abilities": [
-      "illuminate",
-      "keen-eye",
+      "はっこう",
+      "するどいめ",
       "アナライズ"
     ],
     "warningMoves": [
@@ -3708,8 +3707,8 @@
       "spe": 106
     },
     "abilities": [
-      "limber",
-      "unburden",
+      "じゅうなん",
+      "かるわざ",
       "いたずらごころ"
     ],
     "warningMoves": [
@@ -3736,8 +3735,8 @@
       "spe": 101
     },
     "abilities": [
-      "gluttony",
-      "overgrow"
+      "くいしんぼう",
+      "しんりょく"
     ],
     "warningMoves": [
       "どくどく",
@@ -3760,8 +3759,8 @@
       "spe": 101
     },
     "abilities": [
-      "gluttony",
-      "blaze"
+      "くいしんぼう",
+      "もうか"
     ],
     "warningMoves": [
       "どくどく",
@@ -3786,8 +3785,8 @@
       "spe": 101
     },
     "abilities": [
-      "gluttony",
-      "torrent"
+      "くいしんぼう",
+      "げきりゅう"
     ],
     "warningMoves": [
       "なみのり",
@@ -3814,7 +3813,7 @@
     },
     "abilities": [
       "すなかき",
-      "sand-force",
+      "すなのちから",
       "かたやぶり"
     ],
     "warningMoves": [
@@ -3839,9 +3838,9 @@
       "spe": 50
     },
     "abilities": [
-      "healer",
+      "いやしのこころ",
       "さいせいりょく",
-      "klutz"
+      "ぶきよう"
     ],
     "warningMoves": [
       "なみのり",
@@ -3868,7 +3867,7 @@
       "spe": 50
     },
     "abilities": [
-      "healer"
+      "いやしのこころ"
     ],
     "warningMoves": [
       "なみのり",
@@ -3895,8 +3894,8 @@
     },
     "abilities": [
       "こんじょう",
-      "sheer-force",
-      "iron-fist"
+      "ちからずく",
+      "てつのこぶし"
     ],
     "warningMoves": [
       "じしん",
@@ -3924,7 +3923,7 @@
     },
     "abilities": [
       "いたずらごころ",
-      "infiltrator",
+      "すりぬけ",
       "ようりょくそ"
     ],
     "warningMoves": [
@@ -3953,8 +3952,8 @@
     },
     "abilities": [
       "いかく",
-      "moxie",
-      "anger-point"
+      "じしんかじょう",
+      "いかりのつぼ"
     ],
     "warningMoves": [
       "じしん",
@@ -3980,7 +3979,7 @@
       "spe": 30
     },
     "abilities": [
-      "mummy"
+      "ミイラ"
     ],
     "warningMoves": [
       "かなしばり",
@@ -4006,9 +4005,9 @@
       "spe": 75
     },
     "abilities": [
-      "stench",
-      "weak-armor",
-      "aftermath"
+      "あくしゅう",
+      "くだけるよろい",
+      "ゆうばく"
     ],
     "warningMoves": [
       "どくどく",
@@ -4028,7 +4027,7 @@
       "spe": 105
     },
     "abilities": [
-      "illusion"
+      "イリュージョン"
     ],
     "warningMoves": [
       "どくどく",
@@ -4055,7 +4054,7 @@
       "spe": 110
     },
     "abilities": [
-      "illusion"
+      "イリュージョン"
     ],
     "warningMoves": [
       "まもる",
@@ -4081,7 +4080,7 @@
       "spe": 30
     },
     "abilities": [
-      "overcoat",
+      "ぼうじん",
       "マジックガード",
       "さいせいりょく"
     ],
@@ -4109,9 +4108,9 @@
       "spe": 79
     },
     "abilities": [
-      "ice-body",
+      "アイスボディ",
       "ゆきふらし",
-      "weak-armor"
+      "くだけるよろい"
     ],
     "warningMoves": [
       "どくどく",
@@ -4137,8 +4136,8 @@
       "spe": 103
     },
     "abilities": [
-      "static",
-      "motor-drive"
+      "せいでんき",
+      "でんきエンジン"
     ],
     "warningMoves": [
       "でんじは",
@@ -4166,8 +4165,8 @@
     },
     "abilities": [
       "もらいび",
-      "flame-body",
-      "infiltrator"
+      "ほのおのからだ",
+      "すりぬけ"
     ],
     "warningMoves": [
       "どくどく",
@@ -4193,7 +4192,7 @@
       "spe": 50
     },
     "abilities": [
-      "snow-cloak",
+      "ゆきがくれ",
       "ゆきかき",
       "すいすい"
     ],
@@ -4222,9 +4221,9 @@
       "spe": 32
     },
     "abilities": [
-      "static",
-      "limber",
-      "sand-veil"
+      "せいでんき",
+      "じゅうなん",
+      "すながくれ"
     ],
     "warningMoves": [
       "なみのり",
@@ -4251,7 +4250,7 @@
       "spe": 32
     },
     "abilities": [
-      "mimicry"
+      "ぎたい"
     ],
     "warningMoves": [
       "なみのり",
@@ -4278,9 +4277,9 @@
       "spe": 55
     },
     "abilities": [
-      "iron-fist",
-      "klutz",
-      "no-guard"
+      "てつのこぶし",
+      "ぶきよう",
+      "ノーガード"
     ],
     "warningMoves": [
       "じしん",
@@ -4334,8 +4333,8 @@
       "spe": 100
     },
     "abilities": [
-      "flame-body",
-      "swarm"
+      "ほのおのからだ",
+      "むしのしらせ"
     ],
     "warningMoves": [
       "どくどく",
@@ -4360,8 +4359,8 @@
       "spe": 64
     },
     "abilities": [
-      "overgrow",
-      "bulletproof"
+      "しんりょく",
+      "ぼうだん"
     ],
     "warningMoves": [
       "じしん",
@@ -4388,8 +4387,8 @@
       "spe": 104
     },
     "abilities": [
-      "blaze",
-      "magician"
+      "もうか",
+      "マジシャン"
     ],
     "warningMoves": [
       "どくどく",
@@ -4416,7 +4415,7 @@
       "spe": 122
     },
     "abilities": [
-      "torrent",
+      "げきりゅう",
       "へんげんじざい"
     ],
     "warningMoves": [
@@ -4426,8 +4425,7 @@
       "まもる",
       "こごえるかぜ",
       "ちょうはつ",
-      "てだすけ",
-      "たたみがえし"
+      "てだすけ"
     ]
   },
   "ホルード": {
@@ -4444,8 +4442,8 @@
       "spe": 78
     },
     "abilities": [
-      "pickup",
-      "cheek-pouch",
+      "ものひろい",
+      "ほおぶくろ",
       "ちからもち"
     ],
     "warningMoves": [
@@ -4471,8 +4469,8 @@
       "spe": 126
     },
     "abilities": [
-      "flame-body",
-      "gale-wings"
+      "ほのおのからだ",
+      "はやてのつばさ"
     ],
     "warningMoves": [
       "どくどく",
@@ -4497,17 +4495,16 @@
       "spe": 89
     },
     "abilities": [
-      "shield-dust",
-      "compound-eyes",
-      "friend-guard"
+      "りんぷん",
+      "ふくがん",
+      "フレンドガード"
     ],
     "warningMoves": [
       "ねむりごな",
       "どくどく",
       "まもる",
       "おいかぜ",
-      "エレキネット",
-      "かふんだんご"
+      "エレキネット"
     ]
   },
   "フラエッテ": {
@@ -4523,8 +4520,8 @@
       "spe": 52
     },
     "abilities": [
-      "flower-veil",
-      "symbiosis"
+      "フラワーベール",
+      "きょうせい"
     ],
     "warningMoves": [
       "どくどく",
@@ -4532,8 +4529,7 @@
       "てだすけ",
       "おさきにどうぞ",
       "サイドチェンジ",
-      "マジカルシャイン",
-      "かふんだんご"
+      "マジカルシャイン"
     ]
   },
   "フラージェス": {
@@ -4549,8 +4545,8 @@
       "spe": 75
     },
     "abilities": [
-      "flower-veil",
-      "symbiosis"
+      "フラワーベール",
+      "きょうせい"
     ],
     "warningMoves": [
       "どくどく",
@@ -4558,8 +4554,7 @@
       "てだすけ",
       "おさきにどうぞ",
       "サイドチェンジ",
-      "マジカルシャイン",
-      "かふんだんご"
+      "マジカルシャイン"
     ]
   },
   "ゴロンダ": {
@@ -4576,9 +4571,9 @@
       "spe": 58
     },
     "abilities": [
-      "iron-fist",
+      "てつのこぶし",
       "かたやぶり",
-      "scrappy"
+      "きもったま"
     ],
     "warningMoves": [
       "なみのり",
@@ -4629,8 +4624,8 @@
       "spe": 104
     },
     "abilities": [
-      "keen-eye",
-      "infiltrator",
+      "するどいめ",
+      "すりぬけ",
       "いたずらごころ"
     ],
     "warningMoves": [
@@ -4657,8 +4652,8 @@
       "spe": 104
     },
     "abilities": [
-      "keen-eye",
-      "infiltrator",
+      "するどいめ",
+      "すりぬけ",
       "かちき"
     ],
     "warningMoves": [
@@ -4685,8 +4680,8 @@
       "spe": 29
     },
     "abilities": [
-      "healer",
-      "aroma-veil"
+      "いやしのこころ",
+      "アロマベール"
     ],
     "warningMoves": [
       "どくどく",
@@ -4696,7 +4691,7 @@
       "トリックルーム",
       "おさきにどうぞ",
       "サイドチェンジ",
-      "いやしのはどう"
+      "マジカルシャイン"
     ]
   },
   "ペロリーム": {
@@ -4712,8 +4707,8 @@
       "spe": 72
     },
     "abilities": [
-      "sweet-veil",
-      "unburden"
+      "スイートベール",
+      "かるわざ"
     ],
     "warningMoves": [
       "なみのり",
@@ -4737,7 +4732,7 @@
       "spe": 59
     },
     "abilities": [
-      "mega-launcher"
+      "メガランチャー"
     ],
     "warningMoves": [
       "なみのり",
@@ -4746,8 +4741,7 @@
       "まもる",
       "こごえるかぜ",
       "てだすけ",
-      "だくりゅう",
-      "いやしのはどう"
+      "だくりゅう"
     ]
   },
   "エレザード": {
@@ -4764,9 +4758,9 @@
       "spe": 109
     },
     "abilities": [
-      "dry-skin",
-      "sand-veil",
-      "solar-power"
+      "かんそうはだ",
+      "すながくれ",
+      "サンパワー"
     ],
     "warningMoves": [
       "なみのり",
@@ -4793,8 +4787,8 @@
       "spe": 71
     },
     "abilities": [
-      "strong-jaw",
-      "rock-head"
+      "がんじょうあご",
+      "いしあたま"
     ],
     "warningMoves": [
       "じしん",
@@ -4819,7 +4813,7 @@
       "spe": 58
     },
     "abilities": [
-      "refrigerate",
+      "フリーズスキン",
       "ゆきふらし"
     ],
     "warningMoves": [
@@ -4846,8 +4840,8 @@
       "spe": 60
     },
     "abilities": [
-      "cute-charm",
-      "pixilate"
+      "メロメロボディ",
+      "フェアリースキン"
     ],
     "warningMoves": [
       "どくどく",
@@ -4871,8 +4865,8 @@
       "spe": 118
     },
     "abilities": [
-      "limber",
-      "unburden",
+      "じゅうなん",
+      "かるわざ",
       "かたやぶり"
     ],
     "warningMoves": [
@@ -4900,9 +4894,9 @@
       "spe": 101
     },
     "abilities": [
-      "cheek-pouch",
-      "pickup",
-      "plus"
+      "ほおぶくろ",
+      "ものひろい",
+      "プラス"
     ],
     "warningMoves": [
       "でんじは",
@@ -4928,8 +4922,8 @@
     },
     "abilities": [
       "そうしょく",
-      "hydration",
-      "gooey"
+      "うるおいボディ",
+      "ぬめぬめ"
     ],
     "warningMoves": [
       "なみのり",
@@ -4956,8 +4950,8 @@
     },
     "abilities": [
       "そうしょく",
-      "shell-armor",
-      "gooey"
+      "シェルアーマー",
+      "ぬめぬめ"
     ],
     "warningMoves": [
       "なみのり",
@@ -4983,7 +4977,7 @@
     },
     "abilities": [
       "いたずらごころ",
-      "magician"
+      "マジシャン"
     ],
     "warningMoves": [
       "でんじは",
@@ -5008,9 +5002,9 @@
       "spe": 56
     },
     "abilities": [
-      "natural-cure",
-      "frisk",
-      "harvest"
+      "しぜんかいふく",
+      "おみとおし",
+      "しゅうかく"
     ],
     "warningMoves": [
       "かなしばり",
@@ -5037,7 +5031,7 @@
     },
     "abilities": [
       "マイペース",
-      "ice-body",
+      "アイスボディ",
       "がんじょう"
     ],
     "warningMoves": [
@@ -5065,8 +5059,8 @@
       "spe": 38
     },
     "abilities": [
-      "strong-jaw",
-      "ice-body",
+      "がんじょうあご",
+      "アイスボディ",
       "がんじょう"
     ],
     "warningMoves": [
@@ -5092,8 +5086,8 @@
       "spe": 123
     },
     "abilities": [
-      "frisk",
-      "infiltrator",
+      "おみとおし",
+      "すりぬけ",
       "テレパシー"
     ],
     "warningMoves": [
@@ -5119,8 +5113,8 @@
       "spe": 70
     },
     "abilities": [
-      "overgrow",
-      "long-reach"
+      "しんりょく",
+      "えんかく"
     ],
     "warningMoves": [
       "どくどく",
@@ -5146,8 +5140,8 @@
       "spe": 60
     },
     "abilities": [
-      "overgrow",
-      "scrappy"
+      "しんりょく",
+      "きもったま"
     ],
     "warningMoves": [
       "まもる",
@@ -5171,7 +5165,7 @@
       "spe": 60
     },
     "abilities": [
-      "blaze",
+      "もうか",
       "いかく"
     ],
     "warningMoves": [
@@ -5199,18 +5193,18 @@
       "spe": 60
     },
     "abilities": [
-      "torrent",
-      "liquid-voice"
+      "げきりゅう",
+      "うるおいボイス"
     ],
     "warningMoves": [
       "なみのり",
       "どくどく",
       "まもる",
-      "ほろびのうた",
       "こごえるかぜ",
       "アンコール",
       "てだすけ",
-      "ハイパーボイス"
+      "ハイパーボイス",
+      "マジカルシャイン"
     ]
   },
   "ドデカバシ": {
@@ -5227,9 +5221,9 @@
       "spe": 60
     },
     "abilities": [
-      "keen-eye",
-      "skill-link",
-      "sheer-force"
+      "するどいめ",
+      "スキルリンク",
+      "ちからずく"
     ],
     "warningMoves": [
       "どくどく",
@@ -5255,9 +5249,9 @@
       "spe": 43
     },
     "abilities": [
-      "hyper-cutter",
-      "iron-fist",
-      "anger-point"
+      "かいりきバサミ",
+      "てつのこぶし",
+      "いかりのつぼ"
     ],
     "warningMoves": [
       "じしん",
@@ -5283,9 +5277,9 @@
       "spe": 112
     },
     "abilities": [
-      "keen-eye",
+      "するどいめ",
       "すなかき",
-      "steadfast"
+      "ふくつのこころ"
     ],
     "warningMoves": [
       "どくどく",
@@ -5311,7 +5305,7 @@
       "spe": 110
     },
     "abilities": [
-      "tough-claws"
+      "かたいツメ"
     ],
     "warningMoves": [
       "どくどく",
@@ -5337,9 +5331,9 @@
       "spe": 82
     },
     "abilities": [
-      "keen-eye",
-      "vital-spirit",
-      "no-guard"
+      "するどいめ",
+      "やるき",
+      "ノーガード"
     ],
     "warningMoves": [
       "どくどく",
@@ -5366,8 +5360,8 @@
       "spe": 35
     },
     "abilities": [
-      "merciless",
-      "limber",
+      "ひとでなし",
+      "じゅうなん",
       "さいせいりょく"
     ],
     "warningMoves": [
@@ -5395,7 +5389,7 @@
     },
     "abilities": [
       "マイペース",
-      "stamina",
+      "じきゅうりょく",
       "せいしんりょく"
     ],
     "warningMoves": [
@@ -5420,7 +5414,7 @@
       "spe": 42
     },
     "abilities": [
-      "water-bubble",
+      "すいほう",
       "ちょすい"
     ],
     "warningMoves": [
@@ -5445,7 +5439,7 @@
       "spe": 117
     },
     "abilities": [
-      "corrosion",
+      "ふしょく",
       "どんかん"
     ],
     "warningMoves": [
@@ -5472,9 +5466,9 @@
       "spe": 72
     },
     "abilities": [
-      "leaf-guard",
-      "queenly-majesty",
-      "sweet-veil"
+      "リーフガード",
+      "じょおうのいげん",
+      "スイートベール"
     ],
     "warningMoves": [
       "どくどく",
@@ -5500,7 +5494,7 @@
     "abilities": [
       "せいしんりょく",
       "テレパシー",
-      "symbiosis"
+      "きょうせい"
     ],
     "warningMoves": [
       "じしん",
@@ -5526,7 +5520,7 @@
       "spe": 80
     },
     "abilities": [
-      "receiver",
+      "レシーバー",
       "まけんき"
     ],
     "warningMoves": [
@@ -5554,9 +5548,9 @@
       "spe": 36
     },
     "abilities": [
-      "berserk",
+      "ぎゃくじょう",
       "そうしょく",
-      "cloud-nine"
+      "ノーてんき"
     ],
     "warningMoves": [
       "なみのり",
@@ -5583,9 +5577,9 @@
       "spe": 85
     },
     "abilities": [
-      "bulletproof",
-      "soundproof",
-      "overcoat"
+      "ぼうだん",
+      "ぼうおん",
+      "ぼうじん"
     ],
     "warningMoves": [
       "じしん",
@@ -5614,7 +5608,7 @@
     "abilities": [
       "プレッシャー",
       "きんちょうかん",
-      "mirror-armor"
+      "ミラーアーマー"
     ],
     "warningMoves": [
       "まもる",
@@ -5637,8 +5631,8 @@
     },
     "abilities": [
       "じゅくせい",
-      "gluttony",
-      "hustle"
+      "くいしんぼう",
+      "はりきり"
     ],
     "warningMoves": [
       "まもる"
@@ -5659,7 +5653,7 @@
     },
     "abilities": [
       "じゅくせい",
-      "gluttony",
+      "くいしんぼう",
       "あついしぼう"
     ],
     "warningMoves": [
@@ -5682,9 +5676,9 @@
       "spe": 71
     },
     "abilities": [
-      "sand-spit",
-      "shed-skin",
-      "sand-veil"
+      "すなはき",
+      "だっぴ",
+      "すながくれ"
     ],
     "warningMoves": [
       "じしん",
@@ -5706,8 +5700,8 @@
       "spe": 70
     },
     "abilities": [
-      "weak-armor",
-      "cursed-body"
+      "くだけるよろい",
+      "のろわれボディ"
     ],
     "warningMoves": [
       "まもる",
@@ -5731,8 +5725,8 @@
       "spe": 29
     },
     "abilities": [
-      "healer",
-      "anticipation",
+      "いやしのこころ",
+      "きけんよち",
       "マジックミラー"
     ],
     "warningMoves": [
@@ -5741,9 +5735,8 @@
       "てだすけ",
       "ふういん",
       "トリックルーム",
-      "いやしのはどう",
       "マジカルシャイン",
-      "いのちのしずく"
+      "ワイドフォース"
     ]
   },
   "バリコオル": {
@@ -5760,9 +5753,9 @@
       "spe": 70
     },
     "abilities": [
-      "tangled-feet",
-      "screen-cleaner",
-      "ice-body"
+      "ちどりあし",
+      "バリアフリー",
+      "アイスボディ"
     ],
     "warningMoves": [
       "でんじは",
@@ -5789,7 +5782,7 @@
       "spe": 30
     },
     "abilities": [
-      "wandering-spirit"
+      "さまようたましい"
     ],
     "warningMoves": [
       "かなしばり",
@@ -5815,8 +5808,8 @@
       "spe": 64
     },
     "abilities": [
-      "sweet-veil",
-      "aroma-veil"
+      "スイートベール",
+      "アロマベール"
     ],
     "warningMoves": [
       "まもる",
@@ -5842,8 +5835,8 @@
     },
     "abilities": [
       "クリアボディ",
-      "infiltrator",
-      "cursed-body"
+      "すりぬけ",
+      "のろわれボディ"
     ],
     "warningMoves": [
       "なみのり",
@@ -5869,7 +5862,7 @@
     },
     "abilities": [
       "いかく",
-      "frisk",
+      "おみとおし",
       "そうしょく"
     ],
     "warningMoves": [
@@ -5897,9 +5890,9 @@
       "spe": 85
     },
     "abilities": [
-      "swarm",
-      "sheer-force",
-      "sharpness"
+      "むしのしらせ",
+      "ちからずく",
+      "きれあじ"
     ],
     "warningMoves": [
       "いわなだれ",
@@ -5973,8 +5966,8 @@
     },
     "abilities": [
       "プレッシャー",
-      "unburden",
-      "poison-touch"
+      "かるわざ",
+      "どくしゅ"
     ],
     "warningMoves": [
       "どくどく",
@@ -5998,15 +5991,14 @@
       "spe": 123
     },
     "abilities": [
-      "overgrow",
+      "しんりょく",
       "へんげんじざい"
     ],
     "warningMoves": [
       "まもる",
       "ちょうはつ",
       "てだすけ",
-      "トリックルーム",
-      "かふんだんご"
+      "トリックルーム"
     ]
   },
   "ラウドボーン": {
@@ -6023,8 +6015,8 @@
       "spe": 66
     },
     "abilities": [
-      "blaze",
-      "unaware"
+      "もうか",
+      "てんねん"
     ],
     "warningMoves": [
       "じしん",
@@ -6051,8 +6043,8 @@
       "spe": 85
     },
     "abilities": [
-      "torrent",
-      "moxie"
+      "げきりゅう",
+      "じしんかじょう"
     ],
     "warningMoves": [
       "なみのり",
@@ -6077,7 +6069,7 @@
       "spe": 35
     },
     "abilities": [
-      "purifying-salt",
+      "きよめのしお",
       "がんじょう",
       "クリアボディ"
     ],
@@ -6105,7 +6097,7 @@
     },
     "abilities": [
       "もらいび",
-      "weak-armor"
+      "くだけるよろい"
     ],
     "warningMoves": [
       "まもる",
@@ -6133,7 +6125,7 @@
     },
     "abilities": [
       "もらいび",
-      "weak-armor"
+      "くだけるよろい"
     ],
     "warningMoves": [
       "まもる",
@@ -6159,8 +6151,8 @@
     },
     "abilities": [
       "でんきにかえる",
-      "static",
-      "damp"
+      "せいでんき",
+      "しめりけ"
     ],
     "warningMoves": [
       "でんじは",
@@ -6186,8 +6178,8 @@
     },
     "abilities": [
       "ようりょくそ",
-      "insomnia",
-      "moody"
+      "ふみん",
+      "ムラっけ"
     ],
     "warningMoves": [
       "まもる",
@@ -6209,7 +6201,7 @@
     },
     "abilities": [
       "びんじょう",
-      "frisk",
+      "おみとおし",
       "かそく"
     ],
     "warningMoves": [
@@ -6237,7 +6229,7 @@
     "abilities": [
       "かたやぶり",
       "マイペース",
-      "pickpocket"
+      "わるいてぐせ"
     ],
     "warningMoves": [
       "でんじは",
@@ -6263,7 +6255,7 @@
     },
     "abilities": [
       "どしょく",
-      "sand-veil"
+      "すながくれ"
     ],
     "warningMoves": [
       "じしん",
@@ -6288,7 +6280,7 @@
     },
     "abilities": [
       "どくげしょう",
-      "corrosion"
+      "ふしょく"
     ],
     "warningMoves": [
       "どくどく",
@@ -6367,14 +6359,13 @@
     },
     "abilities": [
       "おもてなし",
-      "heatproof"
+      "たいねつ"
     ],
     "warningMoves": [
       "まもる",
       "ふういん",
       "トリックルーム",
-      "いかりのこな",
-      "いのちのしずく"
+      "いかりのこな"
     ]
   },
   "カミツオロチ": {
@@ -6393,13 +6384,12 @@
     "abilities": [
       "かんろなミツ",
       "さいせいりょく",
-      "sticky-hold"
+      "ねんちゃく"
     ],
     "warningMoves": [
       "じしん",
       "まもる",
-      "あくび",
-      "かふんだんご"
+      "あくび"
     ]
   },
   "メガピクシー": {
@@ -6480,10 +6470,7 @@
     "abilities": [
       "マルチスケイル"
     ],
-    "warningMoves": [
-      "りゅうのまい",
-      "しんそく"
-    ]
+    "warningMoves": []
   },
   "メガメガニウム": {
     "types": [
@@ -6517,9 +6504,7 @@
     "abilities": [
       "ちからずく"
     ],
-    "warningMoves": [
-      "りゅうのまい"
-    ]
+    "warningMoves": []
   },
   "メガエアームド": {
     "types": [
@@ -6538,8 +6523,7 @@
       "がんじょう"
     ],
     "warningMoves": [
-      "おいかぜ",
-      "ステルスロック"
+      "おいかぜ"
     ]
   },
   "メガチリーン": {
@@ -6558,8 +6542,7 @@
       "ふゆう"
     ],
     "warningMoves": [
-      "トリックルーム",
-      "いやしのすず"
+      "トリックルーム"
     ]
   },
   "メガユキメノコ": {
@@ -6579,7 +6562,6 @@
       "のろわれボディ"
     ],
     "warningMoves": [
-      "ふぶき",
       "かなしばり"
     ]
   },
@@ -6722,10 +6704,7 @@
     "abilities": [
       "へんげんじざい"
     ],
-    "warningMoves": [
-      "れいとうビーム",
-      "あくのはどう"
-    ]
+    "warningMoves": []
   },
   "メガフラエッテ": {
     "types": [
