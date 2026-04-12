@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Pokémon Champions 対面チェッカー Pro</title>
+<title>Pokémon Champions Checker Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--red:#e3350d;--red-dark:#b02a09;--blue:#1a73e8;--green:#0f9960;--yellow:#f5c518;--bg:#0d0f14;--surface:#161922;--surface2:#1e2230;--border:rgba(255,255,255,0.08);--text:#f0f2f8;--muted:#8890a8}
@@ -11,9 +11,6 @@
 body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 0 60px}
 .header{padding:20px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
 .header-title{font-family:'Rajdhani',sans-serif;font-weight:900;font-size:20px;letter-spacing:1px;color:var(--red)}
-.btn-save-group{display:flex;gap:8px}
-button.action-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer}
-button.action-btn:active{background:var(--border)}
 
 .container{padding:16px;max-width:800px;margin:0 auto}
 .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
@@ -22,48 +19,54 @@ button.action-btn:active{background:var(--border)}
 .team-card{background:var(--surface);border-radius:12px;padding:16px;border:1px solid var(--border)}
 .team-label{font-weight:700;font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .team-label.me{color:var(--blue)}.team-label.opp{color:var(--red)}
+.action-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;margin-left:auto}
 
 .poke-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.input-group{position:relative}
 input.poke-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px;color:#fff;font-size:14px}
 .suggest-list{position:absolute;width:100%;background:var(--surface2);border:1px solid var(--border);z-index:10;max-height:150px;overflow-y:auto;border-radius:0 0 6px 6px;display:none}
 .suggest-item{padding:8px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border)}
-.suggest-item:hover{background:rgba(255,255,255,0.05)}
 
-.analyze-btn{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:12px;font-weight:900;font-size:18px;margin-bottom:20px;box-shadow:0 4px 15px rgba(227,53,13,0.3)}
+.analyze-btn{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:12px;font-weight:900;font-size:18px;margin-bottom:20px;cursor:pointer}
 
-.result-area{display:none}
+/* マトリクス設定 */
 .matrix-card{background:var(--surface);border-radius:12px;padding:16px;overflow-x:auto;margin-bottom:16px}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th,td{padding:8px;text-align:center;border:1px solid var(--border)}
-.eff-2{background:rgba(227,53,13,0.2);color:#ff4d4d;font-weight:bold}
-.eff-05{background:rgba(26,115,232,0.2);color:#4dadff}
-.eff-0{background:#333;color:#888}
+th,td{padding:10px;text-align:center;border:1px solid var(--border);cursor:pointer}
+th{background:var(--surface2)}
+.eff-2{background:rgba(227,53,13,0.3);color:#ff4d4d;font-weight:bold}
+.eff-05{background:rgba(26,115,232,0.3);color:#4dadff}
 
-.advice-card{background:var(--surface2);border-radius:12px;padding:16px;border-left:4px solid var(--yellow)}
-.advice-item{margin-bottom:8px;font-size:13px;line-height:1.5}
+/* 詳細エリア */
+.detail-card{display:none;background:var(--surface2);border-radius:12px;padding:20px;border:1px solid var(--yellow);margin-top:20px;animation:fadeIn 0.3s}
+.compare-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:15px;align-items:center}
+.side-title{font-weight:bold;font-size:16px;margin-bottom:10px;text-align:center}
+.stat-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.stat-label{color:var(--muted);width:30px}
+.stat-val{font-family:'Rajdhani';font-weight:700}
+.vs-label{text-align:center;font-weight:900;color:var(--yellow);font-size:24px}
+.moves-box{margin-top:15px;padding-top:15px;border-top:1px solid var(--border);font-size:12px}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--surface);margin:2px;font-size:11px;border:1px solid var(--border)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-title">POKÉMON CHAMPIONS CHECKER</div>
+  <div class="header-title">POKÉMON CHAMPIONS</div>
 </div>
 
 <div class="container">
   <div class="team-grid">
     <div class="team-card">
-      <div class="team-label me">
-        自分のチーム
+      <div class="team-label me">自分
         <button class="action-btn" onclick="saveTeam('my')">保存</button>
         <button class="action-btn" onclick="loadTeam('my')">読込</button>
       </div>
       <div class="poke-inputs" id="my-inputs"></div>
     </div>
-    
     <div class="team-card">
-      <div class="team-label opp">
-        相手のチーム
+      <div class="team-label opp">相手
         <button class="action-btn" onclick="saveTeam('opp')">保存</button>
         <button class="action-btn" onclick="loadTeam('opp')">読込</button>
       </div>
@@ -73,59 +76,42 @@ th,td{padding:8px;text-align:center;border:1px solid var(--border)}
 
   <button class="analyze-btn" onclick="analyze()">分析開始</button>
 
-  <div id="result-area" class="result-area">
+  <div id="result-area" style="display:none">
+    <p style="font-size:11px; color:var(--muted); margin-bottom:8px;">※セルをクリックして詳細対面を表示</p>
     <div class="matrix-card" id="matrix-container"></div>
-    <div class="advice-card" id="advice-card"></div>
+    
+    <div id="detail-card" class="detail-card">
+      <div class="compare-grid">
+        <div id="my-detail"></div>
+        <div class="vs-label">VS</div>
+        <div id="opp-detail"></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
 let DB = {};
-const TYPES = ["ノーマル","ほのお","みず","くさ","でんき","こおり","かくとう","どく","じめん","ひこう","エスパー","むし","いわ","ゴースト","ドラゴン","あく","はがね","フェアリー"];
-const CHART = {
-  "ノーマル": { "いわ": 0.5, "ゴースト": 0, "はがね": 0.5 },
-  "ほのお": { "みず": 0.5, "くさ": 2, "こおり": 2, "むし": 2, "いわ": 0.5, "ドラゴン": 0.5, "はがね": 2 },
-  "みず": { "ほのお": 2, "くさ": 0.5, "じめん": 2, "いわ": 2, "ドラゴン": 0.5 },
-  "くさ": { "ほのお": 0.5, "みず": 2, "どく": 0.5, "じめん": 2, "ひこう": 0.5, "むし": 0.5, "いわ": 2, "ドラゴン": 0.5, "はがね": 0.5 },
-  "でんき": { "みず": 2, "くさ": 0.5, "でんき": 0.5, "じめん": 0, "ひこう": 2, "ドラゴン": 0.5 },
-  "こおり": { "ほのお": 0.5, "みず": 0.5, "くさ": 2, "こおり": 0.5, "じめん": 2, "ひこう": 2, "ドラゴン": 2, "はがね": 0.5 },
-  "かくとう": { "ノーマル": 2, "こおり": 2, "どく": 0.5, "ひこう": 0.5, "エスパー": 0.5, "むし": 0.5, "いわ": 2, "あく": 2, "はがね": 2, "フェアリー": 0.5, "ゴースト": 0 },
-  "どく": { "くさ": 2, "どく": 0.5, "じめん": 0.5, "いわ": 0.5, "ゴースト": 0.5, "はがね": 0, "フェアリー": 2 },
-  "じめん": { "ほのお": 2, "くさ": 0.5, "でんき": 2, "どく": 2, "ひこう": 0, "むし": 0.5, "いわ": 2, "はがね": 2 },
-  "ひこう": { "くさ": 2, "でんき": 0.5, "かくとう": 2, "むし": 2, "いわ": 0.5, "はがね": 0.5 },
-  "エスパー": { "かくとう": 2, "どく": 2, "エスパー": 0.5, "あく": 0, "はがね": 0.5 },
-  "むし": { "ほのお": 0.5, "くさ": 2, "かくとう": 0.5, "どく": 0.5, "ひこう": 0.5, "エスパー": 2, "ゴースト": 0.5, "あく": 2, "はがね": 0.5, "フェアリー": 0.5 },
-  "いわ": { "ほのお": 2, "こおり": 2, "かくとう": 0.5, "じめん": 0.5, "ひこう": 2, "むし": 2, "はがね": 0.5 },
-  "ゴースト": { "ノーマル": 0, "エスパー": 2, "ゴースト": 2, "あく": 0.5 },
-  "ドラゴン": { "ドラゴン": 2, "はがね": 0.5, "フェアリー": 0 },
-  "あく": { "かくとう": 0.5, "エスパー": 2, "ゴースト": 2, "あく": 0.5, "フェアリー": 0.5 },
-  "はがね": { "ほのお": 0.5, "みず": 0.5, "でんき": 0.5, "こおり": 2, "いわ": 2, "はがね": 0.5, "フェアリー": 2 },
-  "フェアリー": { "ほのお": 0.5, "かくとう": 2, "どく": 0.5, "ドラゴン": 2, "あく": 2, "はがね": 0.5 }
-};
+const CHART = {"ノーマル":{"いわ":0.5,"ゴースト":0,"はがね":0.5},"ほのお":{"みず":0.5,"くさ":2,"こおり":2,"むし":2,"いわ":0.5,"ドラゴン":0.5,"はがね":2},"みず":{"ほのお":2,"くさ":0.5,"じめん":2,"いわ":2,"ドラゴン":0.5},"くさ":{"ほのお":0.5,"みず":2,"どく":0.5,"じめん":2,"ひこう":0.5,"むし":0.5,"いわ":2,"ドラゴン":0.5,"はがね":0.5},"でんき":{"みず":2,"くさ":0.5,"でんき":0.5,"じめん":0,"ひこう":2,"ドラゴン":0.5},"こおり":{"ほのお":0.5,"みず":0.5,"くさ":2,"こおり":0.5,"じめん":2,"ひこう":2,"ドラゴン":2,"はがね":0.5},"かくとう":{"ノーマル":2,"こおり":2,"どく":0.5,"ひこう":0.5,"エスパー":0.5,"むし":0.5,"いわ":2,"あく":2,"はがね":2,"フェアリー":0.5,"ゴースト":0},"どく":{"くさ":2,"どく":0.5,"じめん":0.5,"いわ":0.5,"ゴースト":0.5,"はがね":0,"フェアリー":2},"じめん":{"ほのお":2,"くさ":0.5,"でんき":2,"どく":2,"ひこう":0,"むし":0.5,"いわ":2,"はがね":2},"ひこう":{"くさ":2,"でんき":0.5,"かくとう":2,"むし":2,"いわ":0.5,"はがね":0.5},"エスパー":{"かくとう":2,"どく":2,"エスパー":0.5,"あく":0,"はがね":0.5},"むし":{"ほのお":0.5,"くさ":2,"かくとう":0.5,"どく":0.5,"ひこう":0.5,"エスパー":2,"ゴースト":0.5,"あく":2,"はがね":0.5,"フェアリー":0.5},"いわ":{"ほのお":2,"こおり":2,"かくとう":0.5,"じめん":0.5,"ひこう":2,"むし":2,"はがね":0.5},"ゴースト":{"ノーマル":0,"エスパー":2,"ゴースト":2,"あく":0.5},"ドラゴン":{"ドラゴン":2,"はがね":0.5,"フェアリー":0},"あく":{"かくとう":0.5,"エスパー":2,"ゴースト":2,"あく":0.5,"フェアリー":0.5},"はがね":{"ほのお":0.5,"みず":0.5,"でんき":0.5,"こおり":2,"いわ":2,"はがね":0.5,"フェアリー":2},"フェアリー":{"ほのお":0.5,"かくとう":2,"どく":0.5,"ドラゴン":2,"あく":2,"はがね":0.5}};
 
-// 入力枠生成
 function initInputs() {
   ['my', 'opp'].forEach(side => {
     const container = document.getElementById(`${side}-inputs`);
     for(let i=1; i<=6; i++) {
       const div = document.createElement('div');
       div.className = 'input-group';
-      div.innerHTML = `
-        <input type="text" id="${side}${i}" class="poke-input" placeholder="${i}体目" autocomplete="off" oninput="suggest('${side}${i}')">
-        <div id="sug_${side}${i}" class="suggest-list"></div>
-      `;
+      div.style.position = 'relative';
+      div.innerHTML = `<input type="text" id="${side}${i}" class="poke-input" placeholder="${i}体目" oninput="suggest('${side}${i}')"><div id="sug_${side}${i}" class="suggest-list"></div>`;
       container.appendChild(div);
     }
   });
 }
 
-// サジェスト機能
 function suggest(id) {
   const val = document.getElementById(id).value;
   const list = document.getElementById('sug_'+id);
   list.innerHTML = '';
   if(!val) { list.style.display = 'none'; return; }
-  
   const matches = Object.keys(DB).filter(name => name.includes(val)).slice(0, 5);
   if(matches.length > 0) {
     list.style.display = 'block';
@@ -133,20 +119,16 @@ function suggest(id) {
       const item = document.createElement('div');
       item.className = 'suggest-item';
       item.textContent = m;
-      item.onclick = () => { document.getElementById(id).value = m; list.style.display = 'none'; };
+      item.onclick = () => { document.getElementById(id).value = m; list.style.display = 'none'; analyze(); };
       list.appendChild(item);
     });
-  } else {
-    list.style.display = 'none';
-  }
+  } else { list.style.display = 'none'; }
 }
 
-// 保存・読込 (localStorage)
 function saveTeam(side) {
   const team = [];
   for(let i=1; i<=6; i++) team.push(document.getElementById(side+i).value);
   localStorage.setItem('pk_team_'+side, JSON.stringify(team));
-  alert('ブラウザに保存しました');
 }
 
 function loadTeam(side) {
@@ -154,6 +136,7 @@ function loadTeam(side) {
   if(saved) {
     const team = JSON.parse(saved);
     team.forEach((v, i) => document.getElementById(side+(i+1)).value = v);
+    analyze();
   }
 }
 
@@ -161,6 +144,33 @@ function getEff(atkType, defTypes) {
   let res = 1;
   defTypes.forEach(t => { if(CHART[atkType] && CHART[atkType][t] !== undefined) res *= CHART[atkType][t]; });
   return res;
+}
+
+function showDetail(myName, oppName) {
+  const my = DB[myName], opp = DB[oppName];
+  if(!my || !opp) return;
+
+  const renderSide = (p, name, color) => {
+    const stats = p.stats || {};
+    return `
+      <div class="side-title" style="color:${color}">${name}</div>
+      ${['hp','atk','def','spA','spD','spe'].map(s => `
+        <div class="stat-row">
+          <span class="stat-label">${s.toUpperCase()}</span>
+          <span class="stat-val">${stats[s] || '-'}</span>
+        </div>`).join('')}
+      <div class="moves-box">
+        <div style="color:var(--muted); margin-bottom:5px;">注意技/特性</div>
+        ${(p.abilities || []).map(a => `<span class="tag" style="border-color:var(--yellow)">${a}</span>`).join('')}
+        ${(p.warningMoves || []).map(m => `<span class="tag">${m}</span>`).join('')}
+      </div>
+    `;
+  };
+
+  document.getElementById('my-detail').innerHTML = renderSide(my, myName, 'var(--blue)');
+  document.getElementById('opp-detail').innerHTML = renderSide(opp, oppName, 'var(--red)');
+  document.getElementById('detail-card').style.display = 'block';
+  document.getElementById('detail-card').scrollIntoView({behavior: 'smooth'});
 }
 
 function analyze() {
@@ -171,14 +181,12 @@ function analyze() {
     const n2 = document.getElementById('opp'+i).value;
     if(DB[n2]) oppTeam.push({name:n2, data:DB[n2]});
   }
-
-  if(myTeam.length === 0 || oppTeam.length === 0) return alert('ポケモンを入力してください');
+  if(myTeam.length === 0 || oppTeam.length === 0) return;
   document.getElementById('result-area').style.display = 'block';
 
-  // マトリクス作成
   let html = '<table><tr><th>自分＼相手</th>' + oppTeam.map(p => `<th>${p.name}</th>`).join('') + '</tr>';
   myTeam.forEach(my => {
-    html += `<tr><td><strong>${my.name}</strong></td>`;
+    html += `<tr><td style="background:var(--surface2)"><strong>${my.name}</strong></td>`;
     oppTeam.forEach(opp => {
       let maxEff = 0;
       my.data.types.forEach(at => {
@@ -186,22 +194,14 @@ function analyze() {
         if(e > maxEff) maxEff = e;
       });
       const cls = maxEff >= 2 ? 'eff-2' : (maxEff <= 0.5 ? 'eff-05' : '');
-      html += `<td class="${cls}">${maxEff}x</td>`;
+      html += `<td class="${cls}" onclick="showDetail('${my.name}','${opp.name}')">${maxEff}x</td>`;
     });
     html += '</tr>';
   });
   html += '</table>';
   document.getElementById('matrix-container').innerHTML = html;
-
-  // アドバイス
-  const all = [...myTeam, ...oppTeam].sort((a,b) => (b.data.stats.spe) - (a.data.stats.spe));
-  document.getElementById('advice-card').innerHTML = `
-    <div class="advice-item"><strong>素早さ順:</strong> ${all.map(p => `${p.name}(${p.data.stats.spe})`).join(' > ')}</div>
-    <div class="advice-item">※表の数値は、自分のタイプ一致技が相手に与える最大倍率です。</div>
-  `;
 }
 
-// 起動時にDB読み込み
 fetch('pokemon-db.json').then(r => r.json()).then(data => {
   DB = data;
   initInputs();
