@@ -449,12 +449,11 @@ function openConfigModal(slot) {
   document.getElementById('cfg-title').textContent =
     editPoke ? `${pokeName} の設定` : `スロット${slot} の設定（ポケモン未選択）`;
 
-  // Nature select
+  // Nature select（onNatureChangeはEV行作成後に呼ぶ）
   const natSel = document.getElementById('cfg-nature');
   natSel.innerHTML = Object.keys(NATURES).map(n=>`<option value="${n}"${n===myConfig[slot].nature?' selected':''}>${n}</option>`).join('');
-  onNatureChange();
 
-  // EV rows
+  // EV rows を先に作成（onNatureChange→refreshEVDisplayが参照するDOM）
   const evRows = document.getElementById('cfg-ev-rows');
   evRows.innerHTML = '';
   STAT_KEYS.forEach(k=>{
@@ -482,7 +481,8 @@ function openConfigModal(slot) {
     moveGrid.appendChild(w);
   }
 
-  refreshEVDisplay();
+  // EV行作成後にnature hint + EV表示を更新
+  onNatureChange();
   document.getElementById('config-modal').style.display='flex';
 }
 
