@@ -446,8 +446,20 @@ function initInputs() {
       const div = document.createElement('div');
       div.className = 'input-group';
       div.style.position = 'relative';
-      div.innerHTML = `<input type="text" id="${side}${i}" class="poke-input" placeholder="${i}体目" oninput="suggest('${side}${i}')"><div id="sug_${side}${i}" class="suggest-list"></div>`;
-      container.appendChild(div);
+      div.innerHTML = `
+  <input type="text" id="${side}${i}" class="poke-input">
+
+  <select id="nature_${side}${i}">
+    <option value="neutral">補正なし</option>
+    <option value="atk_up">いじっぱり</option>
+    <option value="spe_up">ようき</option>
+  </select>
+
+  <input id="move_${side}${i}_1" placeholder="技1">
+  <input id="move_${side}${i}_2" placeholder="技2">
+  <input id="move_${side}${i}_3" placeholder="技3">
+  <input id="move_${side}${i}_4" placeholder="技4">
+`;
     }
   });
 }
@@ -482,8 +494,8 @@ function suggest(id) {
 }
 
 function quickSaveTeam(side) {
-  const team = [];
-  for(let i=1; i<=6; i++) team.push(document.getElementById(side+i).value);
+  const team = [];team.push
+  for(let i=1; i<=6; i++) (document.getElementById(side+i).value);
   localStorage.setItem('pk_team_'+side, JSON.stringify(team));
   showToast('相手チームを保存しました！', 'success');
 }
@@ -526,8 +538,16 @@ function openSaveModal() {
 }
 
 function saveToSlot(slotNum) {
-  const team = [];
-  for(let i=1; i<=6; i++) team.push(document.getElementById('my'+i).value);
+  const team = [];team.push({
+  name: document.getElementById('my'+i).value,
+  nature: document.getElementById(`nature_my${i}`).value,
+  moves: [
+    document.getElementById(`move_my${i}_1`).value,
+    document.getElementById(`move_my${i}_2`).value,
+    document.getElementById(`move_my${i}_3`).value,
+    document.getElementById(`move_my${i}_4`).value
+  ]
+});
   localStorage.setItem(`pk_myteam_${slotNum}`, JSON.stringify(team));
   showToast(`スロット${slotNum}に保存しました！`, 'success');
   closeSaveModal();
@@ -598,7 +618,7 @@ function showDetail(myName, oppName) {
 
   const renderSide = (p, name, color) => {
     const stats = p.stats || {};
-    const actualStats = getActualStats(stats);
+    const actualStats = getActualStats(stats, p.nature);
     const sprite = getPokemonSprite(name);
     const types = p.types || [];
     
@@ -643,8 +663,20 @@ function analyze() {
   const myTeam = [], oppTeam = [];
   for(let i=1; i<=6; i++) {
     const n1 = document.getElementById('my'+i).value;
-    if(DB[n1]) myTeam.push({name:n1, data:DB[n1]});
     const n2 = document.getElementById('opp'+i).value;
+    if(DB[n1]) {
+  myTeam.push({
+    name: n1,
+    data: DB[n1],
+    nature: document.getElementById(`nature_my${i}`).value,
+    moves: [
+      document.getElementById(`move_my${i}_1`).value,
+      document.getElementById(`move_my${i}_2`).value,
+      document.getElementById(`move_my${i}_3`).value,
+      document.getElementById(`move_my${i}_4`).value
+    ]
+  });
+}
     if(DB[n2]) oppTeam.push({name:n2, data:DB[n2]});
   }
   if(myTeam.length === 0 || oppTeam.length === 0) return;
@@ -660,7 +692,10 @@ function analyze() {
         if(e > maxEff) maxEff = e;
       });
       const cls = maxEff >= 2 ? 'eff-2' : (maxEff <= 0.5 ? 'eff-05' : '');
-      html += `<td class="${cls}" onclick="showDetail('${my.name}','${opp.name}')">${maxEff}x</td>`;
+      html += `<td class="${cls}" onclick="showDetail('${my.name}','${opp.name}'<div class="moves-box">
+  <div class="moves-title">技</div>
+  ${myData.moves.map(m => `<span class="tag">${m}</span>`).join('')}
+</div>)">${maxEff}x</td>`;
     });
     html += '</tr>';
   });
