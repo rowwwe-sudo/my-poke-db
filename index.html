@@ -462,7 +462,7 @@ function openConfigModal(slot) {
     r.innerHTML=`
       <span class="ev-key">${STAT_LABELS[k]}</span>
       <button class="ev-btn" onclick="changeEV('${k}',-1)">−</button>
-      <span class="ev-val" id="ev-v-${k}">0</span>
+      <input type="number" class="ev-val-input" id="ev-i-${k}" value="0" min="0" max="32" oninput="inputEV('${k}')">
       <button class="ev-btn" onclick="changeEV('${k}',1)">+</button>
       <div class="ev-bar-wrap"><div class="ev-bar" id="ev-b-${k}" style="width:0%"></div></div>
       <span class="ev-stat-val nu" id="ev-s-${k}">—</span>`;
