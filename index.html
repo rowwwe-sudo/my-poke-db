@@ -873,6 +873,18 @@ fetch('pokemon-db.json')
       .catch(()=>{});
   })
   .catch(()=>alert('pokemon-db.json が見つかりません。同じフォルダに配置してください。'));
+
+  let itemsDB = {};
+
+async function loadItemsFromGitHub(){
+  try{
+    const res = await fetch("https://github.com/rowwwe-sudo/my-poke-db/main/item.json");
+    itemsDB = await res.json();
+    showToast(`アイテムDB読込完了 (${Object.keys(itemsDB).length}件)`,'success');
+  }catch(e){
+    showToast('アイテムDB読込失敗','error');
+  }
+}
 </script>
 </body>
 </html>
