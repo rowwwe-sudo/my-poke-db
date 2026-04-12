@@ -1079,6 +1079,18 @@
     "power": 30,
     "accuracy": 90
   },
+  "りゅうのまい": {
+    "type": "ドラゴン",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "とんぼがえり": {
+    "type": "むし",
+    "category": "物理",
+    "power": 70,
+    "accuracy": 100
+  },
   "アシッドアーマー": {
     "type": "どく",
     "category": "変化",
@@ -1089,12 +1101,6 @@
     "type": "どく",
     "category": "特殊",
     "power": 40,
-    "accuracy": 100
-  },
-  "げんしのちから": {
-    "type": "いわ",
-    "category": "特殊",
-    "power": 60,
     "accuracy": 100
   },
   "アクアリング": {
@@ -1115,53 +1121,29 @@
     "power": null,
     "accuracy": 100
   },
-  "かみつく": {
-    "type": "あく",
+  "アームハンマー": {
+    "type": "かくとう",
     "category": "物理",
-    "power": 60,
-    "accuracy": 100
-  },
-  "ボーンラッシュ": {
-    "type": "じめん",
-    "category": "物理",
-    "power": 25,
+    "power": 100,
     "accuracy": 90
   },
-  "じならし": {
-    "type": "じめん",
+  "アイアンテール": {
+    "type": "はがね",
     "category": "物理",
-    "power": 60,
+    "power": 100,
+    "accuracy": 75
+  },
+  "アクロバット": {
+    "type": "ひこう",
+    "category": "物理",
+    "power": 55,
     "accuracy": 100
   },
-  "チャージビーム": {
-    "type": "でんき",
+  "エアカッター": {
+    "type": "ひこう",
     "category": "特殊",
-    "power": 50,
-    "accuracy": 90
-  },
-  "れんぞくぎり": {
-    "type": "むし",
-    "category": "物理",
-    "power": 40,
+    "power": 60,
     "accuracy": 95
-  },
-  "ドラゴンダンス": {
-    "type": "ドラゴン",
-    "category": "変化",
-    "power": null,
-    "accuracy": null
-  },
-  "エンバー": {
-    "type": "ほのお",
-    "category": "特殊",
-    "power": 40,
-    "accuracy": 100
-  },
-  "アンコール": {
-    "type": "ノーマル",
-    "category": "変化",
-    "power": null,
-    "accuracy": 100
   },
   "エナジーボール": {
     "type": "くさ",
@@ -1169,101 +1151,71 @@
     "power": 90,
     "accuracy": 100
   },
-  "ねこだまし": {
-    "type": "ノーマル",
-    "category": "物理",
-    "power": 40,
+  "オーロラビーム": {
+    "type": "こおり",
+    "category": "特殊",
+    "power": 65,
     "accuracy": 100
   },
-  "うそなき": {
+  "オーロラベール": {
+    "type": "こおり",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "おきみやげ": {
     "type": "あく",
     "category": "変化",
     "power": null,
     "accuracy": 100
   },
-  "りゅうのいぶき": {
-    "type": "ドラゴン",
-    "category": "特殊",
-    "power": 60,
-    "accuracy": 100
-  },
-  "こおりのキバ": {
-    "type": "こおり",
-    "category": "物理",
-    "power": 65,
-    "accuracy": 95
-  },
-  "アイススピナー": {
-    "type": "こおり",
-    "category": "物理",
-    "power": 80,
-    "accuracy": 100
-  },
-  "つららおとし": {
-    "type": "こおり",
-    "category": "物理",
-    "power": 85,
-    "accuracy": 90
-  },
-  "マッハパンチ": {
-    "type": "かくとう",
-    "category": "物理",
-    "power": 40,
-    "accuracy": 100
-  },
-  "マジカルリーフ": {
-    "type": "くさ",
-    "category": "特殊",
-    "power": 60,
-    "accuracy": null
-  },
-  "ねこにこばん": {
-    "type": "ノーマル",
-    "category": "物理",
-    "power": 40,
-    "accuracy": 100
-  },
-  "ミラーコート": {
-    "type": "エスパー",
-    "category": "特殊",
-    "power": null,
-    "accuracy": 100
-  },
-  "ニードルアーム": {
-    "type": "くさ",
-    "category": "物理",
-    "power": 60,
-    "accuracy": 100
-  },
-  "じこあんじ": {
+  "おさきにどうぞ": {
     "type": "ノーマル",
     "category": "変化",
     "power": null,
     "accuracy": null
   },
-  "パワーシフト": {
-    "type": "エスパー",
+  "おだてる": {
+    "type": "あく",
+    "category": "変化",
+    "power": null,
+    "accuracy": 100
+  },
+  "かげぶんしん": {
+    "type": "ノーマル",
     "category": "変化",
     "power": null,
     "accuracy": null
   },
-  "どくガス": {
-    "type": "どく",
-    "category": "変化",
-    "power": null,
-    "accuracy": 90
-  },
-  "どくどくのキバ": {
-    "type": "どく",
-    "category": "物理",
-    "power": 50,
+  "かぜおこし": {
+    "type": "ひこう",
+    "category": "特殊",
+    "power": 40,
     "accuracy": 100
   },
-  "シェルブレード": {
+  "かたくなる": {
+    "type": "ノーマル",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "かなしばり": {
+    "type": "ノーマル",
+    "category": "変化",
+    "power": null,
+    "accuracy": 100
+  },
+  "かふんだんご": {
+    "type": "むし",
+    "category": "特殊",
+    "power": 90,
+    "accuracy": 100
+  },
+  "からにこもる": {
     "type": "みず",
-    "category": "物理",
-    "power": 75,
-    "accuracy": 95
+    "category": "変化",
+    "power": null,
+    "accuracy": null
   },
   "からをやぶる": {
     "type": "ノーマル",
@@ -1271,22 +1223,208 @@
     "power": null,
     "accuracy": null
   },
-  "パワースワップ": {
+  "ガードシェア": {
     "type": "エスパー",
     "category": "変化",
     "power": null,
     "accuracy": null
   },
-  "すてゼリフ": {
-    "type": "あく",
-    "category": "変化",
-    "power": null,
+  "きあいぎり": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 50,
+    "accuracy": 95
+  },
+  "ギガインパクト": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 150,
+    "accuracy": 90
+  },
+  "ギガドレイン": {
+    "type": "くさ",
+    "category": "特殊",
+    "power": 75,
     "accuracy": 100
   },
-  "スパーク": {
-    "type": "でんき",
+  "クイックターン": {
+    "type": "みず",
     "category": "物理",
-    "power": 65,
+    "power": 60,
+    "accuracy": 100
+  },
+  "グラススライダー": {
+    "type": "くさ",
+    "category": "物理",
+    "power": 55,
+    "accuracy": 100
+  },
+  "クロスチョップ": {
+    "type": "かくとう",
+    "category": "物理",
+    "power": 100,
+    "accuracy": 80
+  },
+  "げきりん": {
+    "type": "ドラゴン",
+    "category": "物理",
+    "power": 120,
+    "accuracy": 100
+  },
+  "コットンガード": {
+    "type": "くさ",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "しねんのずつき": {
+    "type": "エスパー",
+    "category": "物理",
+    "power": 80,
+    "accuracy": 90
+  },
+  "じばく": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 200,
+    "accuracy": 100
+  },
+  "しびれごな": {
+    "type": "くさ",
+    "category": "変化",
+    "power": null,
+    "accuracy": 75
+  },
+  "シャドーパンチ": {
+    "type": "ゴースト",
+    "category": "物理",
+    "power": 60,
+    "accuracy": null
+  },
+  "じゅうでん": {
+    "type": "でんき",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "しんくうは": {
+    "type": "かくとう",
+    "category": "特殊",
+    "power": 40,
+    "accuracy": 100
+  },
+  "しんそく": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 80,
+    "accuracy": 100
+  },
+  "じんつうりき": {
+    "type": "エスパー",
+    "category": "特殊",
+    "power": 80,
+    "accuracy": 100
+  },
+  "しんぴのまもり": {
+    "type": "ノーマル",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "スイープビンタ": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 25,
+    "accuracy": 85
+  },
+  "すてみタックル": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 120,
+    "accuracy": 100
+  },
+  "スモッグ": {
+    "type": "どく",
+    "category": "特殊",
+    "power": 30,
+    "accuracy": 70
+  },
+  "ソウルクラッシュ": {
+    "type": "フェアリー",
+    "category": "物理",
+    "power": 75,
+    "accuracy": 100
+  },
+  "だいちのちから": {
+    "type": "じめん",
+    "category": "特殊",
+    "power": 90,
+    "accuracy": 100
+  },
+  "たくわえる": {
+    "type": "ノーマル",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "ダブルアタック": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 35,
+    "accuracy": 90
+  },
+  "チャージビーム": {
+    "type": "でんき",
+    "category": "特殊",
+    "power": 50,
+    "accuracy": 90
+  },
+  "チャームボイス": {
+    "type": "フェアリー",
+    "category": "特殊",
+    "power": 40,
+    "accuracy": null
+  },
+  "つららおとし": {
+    "type": "こおり",
+    "category": "物理",
+    "power": 85,
+    "accuracy": 90
+  },
+  "であいがしら": {
+    "type": "むし",
+    "category": "物理",
+    "power": 90,
+    "accuracy": 100
+  },
+  "テレキネシス": {
+    "type": "エスパー",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "でんこうせっか": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 40,
+    "accuracy": 100
+  },
+  "とける": {
+    "type": "どく",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "とっしん": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 90,
+    "accuracy": 85
+  },
+  "トライアタック": {
+    "type": "ノーマル",
+    "category": "特殊",
+    "power": 80,
     "accuracy": 100
   },
   "トリック": {
@@ -1295,15 +1433,21 @@
     "power": null,
     "accuracy": 100
   },
-  "ボルトチェンジ": {
-    "type": "でんき",
-    "category": "特殊",
-    "power": 70,
-    "accuracy": 100
+  "トリプルアクセル": {
+    "type": "こおり",
+    "category": "物理",
+    "power": 20,
+    "accuracy": 90
   },
-  "みずでっぽう": {
-    "type": "みず",
-    "category": "特殊",
+  "ドわすれ": {
+    "type": "エスパー",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "ねこだまし": {
+    "type": "ノーマル",
+    "category": "物理",
     "power": 40,
     "accuracy": 100
   },
@@ -1313,8 +1457,224 @@
     "power": null,
     "accuracy": null
   },
-  "からにこもる": {
+  "ねばねばネット": {
+    "type": "むし",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "のしかかり": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 85,
+    "accuracy": 100
+  },
+  "のろいばり": {
+    "type": "どく",
+    "category": "物理",
+    "power": 50,
+    "accuracy": 100
+  },
+  "はいよるいちげき": {
+    "type": "むし",
+    "category": "物理",
+    "power": 70,
+    "accuracy": 90
+  },
+  "ハサミギロチン": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": null,
+    "accuracy": 30
+  },
+  "パワースプリット": {
+    "type": "エスパー",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "ひみつのちから": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 70,
+    "accuracy": 100
+  },
+  "ファストガード": {
+    "type": "かくとう",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "ふくろだたき": {
+    "type": "あく",
+    "category": "物理",
+    "power": null,
+    "accuracy": 100
+  },
+  "ふんえん": {
+    "type": "ほのお",
+    "category": "特殊",
+    "power": 80,
+    "accuracy": 100
+  },
+  "ヘドロこうげき": {
+    "type": "どく",
+    "category": "特殊",
+    "power": 65,
+    "accuracy": 100
+  },
+  "ヘドロばくだん": {
+    "type": "どく",
+    "category": "特殊",
+    "power": 90,
+    "accuracy": 100
+  },
+  "ほえる": {
+    "type": "ノーマル",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "ほたるび": {
+    "type": "むし",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "ほのおのパンチ": {
+    "type": "ほのお",
+    "category": "物理",
+    "power": 75,
+    "accuracy": 100
+  },
+  "ボディプレス": {
+    "type": "かくとう",
+    "category": "物理",
+    "power": 80,
+    "accuracy": 100
+  },
+  "ボルトチェンジ": {
+    "type": "でんき",
+    "category": "特殊",
+    "power": 70,
+    "accuracy": 100
+  },
+  "まきつく": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 15,
+    "accuracy": 90
+  },
+  "まきびし": {
+    "type": "じめん",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "マジカルリーフ": {
+    "type": "くさ",
+    "category": "特殊",
+    "power": 60,
+    "accuracy": null
+  },
+  "マッハパンチ": {
+    "type": "かくとう",
+    "category": "物理",
+    "power": 40,
+    "accuracy": 100
+  },
+  "みずでっぽう": {
     "type": "みず",
+    "category": "特殊",
+    "power": 40,
+    "accuracy": 100
+  },
+  "みずのしゅりけん": {
+    "type": "みず",
+    "category": "特殊",
+    "power": 15,
+    "accuracy": 100
+  },
+  "みねうち": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 40,
+    "accuracy": 100
+  },
+  "みやぶる": {
+    "type": "ノーマル",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "めざめるダンス": {
+    "type": "ノーマル",
+    "category": "特殊",
+    "power": 90,
+    "accuracy": 100
+  },
+  "メガホーン": {
+    "type": "むし",
+    "category": "物理",
+    "power": 120,
+    "accuracy": 85
+  },
+  "メガドレイン": {
+    "type": "くさ",
+    "category": "特殊",
+    "power": 40,
+    "accuracy": 100
+  },
+  "やきつくす": {
+    "type": "ほのお",
+    "category": "特殊",
+    "power": 60,
+    "accuracy": 100
+  },
+  "やつあたり": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 102,
+    "accuracy": 100
+  },
+  "ようせいのかぜ": {
+    "type": "フェアリー",
+    "category": "特殊",
+    "power": 40,
+    "accuracy": 100
+  },
+  "りんしょう": {
+    "type": "ノーマル",
+    "category": "特殊",
+    "power": 60,
+    "accuracy": 100
+  },
+  "ルミナスストーム": {
+    "type": "エスパー",
+    "category": "特殊",
+    "power": 100,
+    "accuracy": 100
+  },
+  "ロケットずつき": {
+    "type": "ノーマル",
+    "category": "物理",
+    "power": 130,
+    "accuracy": 100
+  },
+  "ロックカット": {
+    "type": "いわ",
+    "category": "変化",
+    "power": null,
+    "accuracy": null
+  },
+  "ワイドフォース": {
+    "type": "エスパー",
+    "category": "特殊",
+    "power": 80,
+    "accuracy": 100
+  },
+  "ワンダールーム": {
+    "type": "エスパー",
     "category": "変化",
     "power": null,
     "accuracy": null
@@ -1325,65 +1685,11 @@
     "power": 120,
     "accuracy": 100
   },
-  "しねんのずつき": {
-    "type": "エスパー",
+  "アイススピナー": {
+    "type": "こおり",
     "category": "物理",
     "power": 80,
-    "accuracy": 90
-  },
-  "はねやすめ": {
-    "type": "ひこう",
-    "category": "変化",
-    "power": null,
-    "accuracy": null
-  },
-  "とびつく": {
-    "type": "むし",
-    "category": "物理",
-    "power": 50,
     "accuracy": 100
-  },
-  "ねむりごな": {
-    "type": "くさ",
-    "category": "変化",
-    "power": null,
-    "accuracy": 75
-  },
-  "しびれごな": {
-    "type": "くさ",
-    "category": "変化",
-    "power": null,
-    "accuracy": 75
-  },
-  "ふんじん": {
-    "type": "むし",
-    "category": "変化",
-    "power": null,
-    "accuracy": 100
-  },
-  "なきごえ": {
-    "type": "ノーマル",
-    "category": "変化",
-    "power": null,
-    "accuracy": 100
-  },
-  "じゅうでん": {
-    "type": "でんき",
-    "category": "変化",
-    "power": null,
-    "accuracy": null
-  },
-  "ほえる": {
-    "type": "ノーマル",
-    "category": "変化",
-    "power": null,
-    "accuracy": null
-  },
-  "おさきにどうぞ": {
-    "type": "ノーマル",
-    "category": "変化",
-    "power": null,
-    "accuracy": null
   },
   "いかりのこな": {
     "type": "むし",
