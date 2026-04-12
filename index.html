@@ -3,385 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ポケモン対面チェッカー（ダブル）</title>
+<title>Pokémon Champions 対面チェッカー Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--red:#e3350d;--red-dark:#b02a09;--blue:#1a73e8;--green:#0f9960;--yellow:#f5c518;--bg:#0d0f14;--surface:#161922;--surface2:#1e2230;--border:rgba(255,255,255,0.08);--text:#f0f2f8;--muted:#8890a8}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 0 60px}
-.header{padding:20px 16px 0;display:flex;align-items:center;gap:10px}
-.header-icon{width:36px;height:36px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.header-icon svg{width:20px;height:20px;fill:#fff}
-.header-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff}
-.header-sub{font-size:11px;color:var(--muted);margin-top:1px}
-.mode-badge{background:var(--yellow);color:#1a1a1a;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:8px}
-.search-wrap{padding:16px}
-.team-section{margin-bottom:16px}
-.team-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.team-label.me{color:var(--green)}
-.team-label.opp{color:var(--red)}
-.team-dot{width:8px;height:8px;border-radius:50%}
-.team-dot.me{background:var(--green)}
-.team-dot.opp{background:var(--red)}
-.team-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.input-group{display:flex;flex-direction:column;gap:4px;position:relative}
-.input-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
-.poke-input{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:15px;color:var(--text);font-family:'Zen Kaku Gothic New',sans-serif;outline:none;width:100%;transition:border-color .2s}
-.poke-input:focus{border-color:rgba(255,255,255,0.25)}
-.suggest-list{position:absolute;top:100%;left:0;right:0;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-top:4px;overflow:hidden;display:none;max-height:180px;overflow-y:auto;z-index:100}
-.suggest-item{padding:10px 14px;font-size:14px;cursor:pointer;border-bottom:1px solid var(--border)}
-.suggest-item:last-child{border-bottom:none}
-.suggest-item:hover{background:var(--surface)}
-.vs-divider{display:flex;align-items:center;justify-content:center;margin:12px 0}
-.vs-badge{background:var(--surface2);border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--muted)}
-.btn-check{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:'Zen Kaku Gothic New',sans-serif;cursor:pointer;letter-spacing:.03em;margin-top:8px}
-.btn-check:active{transform:scale(.98)}
+.header{padding:20px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.header-title{font-family:'Rajdhani',sans-serif;font-weight:900;font-size:20px;letter-spacing:1px;color:var(--red)}
+.btn-save-group{display:flex;gap:8px}
+button.action-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer}
+button.action-btn:active{background:var(--border)}
 
-#result{display:none}
-.result-section{margin:0 16px 16px}
-.section-header{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.section-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.container{padding:16px;max-width:800px;margin:0 auto}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:600px){.team-grid{grid-template-columns:1fr}}
 
-.matrix-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;overflow-x:auto}
-.matrix-table{width:100%;border-collapse:collapse;font-size:12px;min-width:300px}
-.matrix-table th,.matrix-table td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--border)}
-.matrix-table th{font-weight:700;color:var(--muted);font-size:10px}
-.matrix-table tr:last-child td{border-bottom:none}
-.matrix-table .row-label{text-align:left;font-weight:700;font-size:11px;color:var(--text);white-space:nowrap}
-.matrix-table .row-label.me{color:var(--green)}
-.matrix-table .row-label.opp{color:var(--red)}
-.eff-4{background:rgba(227,53,13,.25);color:#ff6b5b;font-weight:700}
-.eff-2{background:rgba(245,197,24,.2);color:#f5c518;font-weight:700}
-.eff-05{background:rgba(26,115,232,.15);color:#60a5fa}
-.eff-025{background:rgba(26,115,232,.25);color:#60a5fa}
-.eff-0{background:rgba(15,153,96,.2);color:#2ecc71;font-weight:700}
-.eff-1{color:var(--muted)}
+.team-card{background:var(--surface);border-radius:12px;padding:16px;border:1px solid var(--border)}
+.team-label{font-weight:700;font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.team-label.me{color:var(--blue)}.team-label.opp{color:var(--red)}
 
-.cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.poke-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px}
-.poke-card.me{border-top:3px solid var(--green)}
-.poke-card.opp{border-top:3px solid var(--red)}
-.card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
-.card-name{font-size:14px;font-weight:700;line-height:1.2}
-.card-side{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 5px;border-radius:3px}
-.card-side.me{background:rgba(15,153,96,.15);color:var(--green)}
-.card-side.opp{background:rgba(227,53,13,.15);color:var(--red)}
-.types{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}
-.type-pill{font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;letter-spacing:.03em}
-.info-box{background:var(--surface2);border-radius:6px;padding:6px 8px;margin-bottom:6px}
-.info-label{font-size:9px;color:var(--muted);margin-bottom:3px}
-.info-content{font-size:11px;font-weight:700}
-.type-compat{margin-bottom:6px}
-.compat-row{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
-.compat-tag{font-size:9px;font-weight:700;padding:2px 5px;border-radius:4px}
-.compat-tag.x4{background:rgba(227,53,13,.2);color:#ff6b5b;border:1px solid rgba(227,53,13,.3)}
-.compat-tag.x2{background:rgba(245,197,24,.15);color:#f5c518;border:1px solid rgba(245,197,24,.25)}
-.compat-tag.x05{background:rgba(26,115,232,.15);color:#60a5fa;border:1px solid rgba(26,115,232,.25)}
-.compat-tag.x025{background:rgba(26,115,232,.25);color:#60a5fa;border:1px solid rgba(26,115,232,.35)}
-.compat-tag.x0{background:rgba(15,153,96,.15);color:#2ecc71;border:1px solid rgba(15,153,96,.25)}
-.warning-box{background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);border-radius:6px;padding:6px 8px}
-.warning-label{font-size:9px;color:var(--yellow);margin-bottom:2px;display:flex;align-items:center;gap:4px}
-.warning-moves{font-size:10px;color:var(--text);line-height:1.5}
+.poke-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.input-group{position:relative}
+input.poke-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px;color:#fff;font-size:14px}
+.suggest-list{position:absolute;width:100%;background:var(--surface2);border:1px solid var(--border);z-index:10;max-height:150px;overflow-y:auto;border-radius:0 0 6px 6px;display:none}
+.suggest-item{padding:8px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border)}
+.suggest-item:hover{background:rgba(255,255,255,0.05)}
 
-.advice-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
-.advice-item{font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.6;display:flex;gap:8px}
-.advice-item:last-child{border-bottom:none;padding-bottom:0}
-.advice-num{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--blue);flex-shrink:0;margin-top:1px}
+.analyze-btn{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:12px;font-weight:900;font-size:18px;margin-bottom:20px;box-shadow:0 4px 15px rgba(227,53,13,0.3)}
 
-.t-ノーマル{background:#a8a090;color:#1a1a1a}.t-ほのお{background:#f07828;color:#fff}.t-みず{background:#6890f0;color:#fff}.t-くさ{background:#78c850;color:#1a1a1a}.t-でんき{background:#f8d030;color:#1a1a1a}.t-こおり{background:#98d8d8;color:#1a1a1a}.t-かくとう{background:#c03028;color:#fff}.t-どく{background:#a040a0;color:#fff}.t-じめん{background:#e0c068;color:#1a1a1a}.t-ひこう{background:#a890f0;color:#fff}.t-エスパー{background:#f85888;color:#fff}.t-むし{background:#a8b820;color:#1a1a1a}.t-いわ{background:#b8a038;color:#1a1a1a}.t-ゴースト{background:#705898;color:#fff}.t-ドラゴン{background:#7038f8;color:#fff}.t-あく{background:#705848;color:#fff}.t-はがね{background:#b8b8d0;color:#1a1a1a}.t-フェアリー{background:#ee99ac;color:#1a1a1a}
+.result-area{display:none}
+.matrix-card{background:var(--surface);border-radius:12px;padding:16px;overflow-x:auto;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:8px;text-align:center;border:1px solid var(--border)}
+.eff-2{background:rgba(227,53,13,0.2);color:#ff4d4d;font-weight:bold}
+.eff-05{background:rgba(26,115,232,0.2);color:#4dadff}
+.eff-0{background:#333;color:#888}
+
+.advice-card{background:var(--surface2);border-radius:12px;padding:16px;border-left:4px solid var(--yellow)}
+.advice-item{margin-bottom:8px;font-size:13px;line-height:1.5}
 </style>
 </head>
 <body>
+
 <div class="header">
-  <div class="header-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93s-3.05 7.44-7 7.93v2.02c5.05-.5 9-4.76 9-9.95S18.05 2.55 13 2.05M11 2.05C5.95 2.55 2 6.81 2 12s3.95 9.45 9 9.95v-2.02C6.05 19.44 4 16 4 12s2.05-7.44 7-7.93V2.05M12 6a6 6 0 0 0-6 6 6 6 0 0 0 6 6 6 6 0 0 0 6-6 6 6 0 0 0-6-6m0 2a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 2a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2"/></svg></div>
-  <div>
-    <div class="header-title">MATCHUP CHECKER<span class="mode-badge">DOUBLES</span></div>
-    <div class="header-sub">ダブルバトル対面分析</div>
-  </div>
+  <div class="header-title">POKÉMON CHAMPIONS CHECKER</div>
 </div>
 
-<div class="search-wrap">
-  <div class="team-section">
-    <div class="team-label me"><span class="team-dot me"></span>自分のポケモン</div>
-    <div class="team-inputs">
-      <div class="input-group">
-        <span class="input-label">1体目</span>
-        <input type="text" id="my1" class="poke-input" placeholder="ポケモン名" autocomplete="off" oninput="suggest('my1','sug_my1')">
-        <div id="sug_my1" class="suggest-list"></div>
+<div class="container">
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-label me">
+        自分のチーム
+        <button class="action-btn" onclick="saveTeam('my')">保存</button>
+        <button class="action-btn" onclick="loadTeam('my')">読込</button>
       </div>
-      <div class="input-group">
-        <span class="input-label">2体目</span>
-        <input type="text" id="my2" class="poke-input" placeholder="ポケモン名" autocomplete="off" oninput="suggest('my2','sug_my2')">
-        <div id="sug_my2" class="suggest-list"></div>
+      <div class="poke-inputs" id="my-inputs"></div>
+    </div>
+    
+    <div class="team-card">
+      <div class="team-label opp">
+        相手のチーム
+        <button class="action-btn" onclick="saveTeam('opp')">保存</button>
+        <button class="action-btn" onclick="loadTeam('opp')">読込</button>
       </div>
+      <div class="poke-inputs" id="opp-inputs"></div>
     </div>
   </div>
 
-  <div class="vs-divider"><div class="vs-badge">VS</div></div>
+  <button class="analyze-btn" onclick="analyze()">分析開始</button>
 
-  <div class="team-section">
-    <div class="team-label opp"><span class="team-dot opp"></span>相手のポケモン</div>
-    <div class="team-inputs">
-      <div class="input-group">
-        <span class="input-label">1体目</span>
-        <input type="text" id="opp1" class="poke-input" placeholder="ポケモン名" autocomplete="off" oninput="suggest('opp1','sug_opp1')">
-        <div id="sug_opp1" class="suggest-list"></div>
-      </div>
-      <div class="input-group">
-        <span class="input-label">2体目</span>
-        <input type="text" id="opp2" class="poke-input" placeholder="ポケモン名" autocomplete="off" oninput="suggest('opp2','sug_opp2')">
-        <div id="sug_opp2" class="suggest-list"></div>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn-check" onclick="analyze()">対面を分析する</button>
-</div>
-
-<div id="result">
-  <div class="result-section">
-    <div class="section-header"><span class="section-dot"></span>タイプ相性マトリクス</div>
-    <div class="matrix-card">
-      <table class="matrix-table" id="matrix-table"></table>
-    </div>
-  </div>
-
-  <div class="result-section">
-    <div class="section-header"><span class="section-dot"></span>ポケモン詳細</div>
-    <div class="cards-grid" id="cards-grid"></div>
-  </div>
-
-  <div class="result-section">
-    <div class="section-header"><span class="section-dot"></span>対戦アドバイス</div>
+  <div id="result-area" class="result-area">
+    <div class="matrix-card" id="matrix-container"></div>
     <div class="advice-card" id="advice-card"></div>
   </div>
 </div>
 
 <script>
-const TC={"ノーマル":{"いわ":.5,"ゴースト":0,"はがね":.5},"ほのお":{"ほのお":.5,"みず":.5,"くさ":2,"こおり":2,"むし":2,"いわ":.5,"ドラゴン":.5,"はがね":2},"みず":{"ほのお":2,"みず":.5,"くさ":.5,"じめん":2,"いわ":2,"ドラゴン":.5},"でんき":{"みず":2,"でんき":.5,"くさ":.5,"じめん":0,"ひこう":2,"ドラゴン":.5},"くさ":{"ほのお":.5,"みず":2,"くさ":.5,"どく":.5,"じめん":2,"ひこう":.5,"むし":.5,"いわ":2,"ドラゴン":.5,"はがね":.5},"こおり":{"ほのお":.5,"みず":.5,"くさ":2,"こおり":.5,"じめん":2,"ひこう":2,"ドラゴン":2,"はがね":.5},"かくとう":{"ノーマル":2,"こおり":2,"どく":.5,"ひこう":.5,"エスパー":.5,"むし":.5,"いわ":2,"ゴースト":0,"あく":2,"はがね":2,"フェアリー":.5},"どく":{"くさ":2,"どく":.5,"じめん":.5,"いわ":.5,"ゴースト":.5,"はがね":0,"フェアリー":2},"じめん":{"ほのお":2,"でんき":2,"くさ":.5,"どく":2,"ひこう":0,"むし":.5,"いわ":2,"はがね":2},"ひこう":{"でんき":.5,"くさ":2,"かくとう":2,"むし":2,"いわ":.5,"はがね":.5},"エスパー":{"かくとう":2,"どく":2,"エスパー":.5,"あく":0,"はがね":.5},"むし":{"ほのお":.5,"くさ":2,"かくとう":.5,"どく":.5,"ひこう":.5,"エスパー":2,"ゴースト":.5,"あく":2,"はがね":.5,"フェアリー":.5},"いわ":{"ほのお":2,"こおり":2,"かくとう":.5,"じめん":.5,"ひこう":2,"むし":2,"はがね":.5},"ゴースト":{"ノーマル":0,"エスパー":2,"ゴースト":2,"あく":.5},"ドラゴン":{"ドラゴン":2,"はがね":.5,"フェアリー":0},"あく":{"かくとう":.5,"エスパー":2,"ゴースト":2,"あく":.5,"フェアリー":.5},"はがね":{"ほのお":.5,"みず":.5,"でんき":.5,"こおり":2,"いわ":2,"はがね":.5,"フェアリー":2},"フェアリー":{"ほのお":.5,"かくとう":2,"どく":.5,"ドラゴン":2,"あく":2,"はがね":.5}};
-const ALL_TYPES = ["ノーマル","ほのお","みず","でんき","くさ","こおり","かくとう","どく","じめん","ひこう","エスパー","むし","いわ","ゴースト","ドラゴン","あく","はがね","フェアリー"];
+let DB = {};
+const TYPES = ["ノーマル","ほのお","みず","くさ","でんき","こおり","かくとう","どく","じめん","ひこう","エスパー","むし","いわ","ゴースト","ドラゴン","あく","はがね","フェアリー"];
+const CHART = {
+  "ノーマル": { "いわ": 0.5, "ゴースト": 0, "はがね": 0.5 },
+  "ほのお": { "みず": 0.5, "くさ": 2, "こおり": 2, "むし": 2, "いわ": 0.5, "ドラゴン": 0.5, "はがね": 2 },
+  "みず": { "ほのお": 2, "くさ": 0.5, "じめん": 2, "いわ": 2, "ドラゴン": 0.5 },
+  "くさ": { "ほのお": 0.5, "みず": 2, "どく": 0.5, "じめん": 2, "ひこう": 0.5, "むし": 0.5, "いわ": 2, "ドラゴン": 0.5, "はがね": 0.5 },
+  "でんき": { "みず": 2, "くさ": 0.5, "でんき": 0.5, "じめん": 0, "ひこう": 2, "ドラゴン": 0.5 },
+  "こおり": { "ほのお": 0.5, "みず": 0.5, "くさ": 2, "こおり": 0.5, "じめん": 2, "ひこう": 2, "ドラゴン": 2, "はがね": 0.5 },
+  "かくとう": { "ノーマル": 2, "こおり": 2, "どく": 0.5, "ひこう": 0.5, "エスパー": 0.5, "むし": 0.5, "いわ": 2, "あく": 2, "はがね": 2, "フェアリー": 0.5, "ゴースト": 0 },
+  "どく": { "くさ": 2, "どく": 0.5, "じめん": 0.5, "いわ": 0.5, "ゴースト": 0.5, "はがね": 0, "フェアリー": 2 },
+  "じめん": { "ほのお": 2, "くさ": 0.5, "でんき": 2, "どく": 2, "ひこう": 0, "むし": 0.5, "いわ": 2, "はがね": 2 },
+  "ひこう": { "くさ": 2, "でんき": 0.5, "かくとう": 2, "むし": 2, "いわ": 0.5, "はがね": 0.5 },
+  "エスパー": { "かくとう": 2, "どく": 2, "エスパー": 0.5, "あく": 0, "はがね": 0.5 },
+  "むし": { "ほのお": 0.5, "くさ": 2, "かくとう": 0.5, "どく": 0.5, "ひこう": 0.5, "エスパー": 2, "ゴースト": 0.5, "あく": 2, "はがね": 0.5, "フェアリー": 0.5 },
+  "いわ": { "ほのお": 2, "こおり": 2, "かくとう": 0.5, "じめん": 0.5, "ひこう": 2, "むし": 2, "はがね": 0.5 },
+  "ゴースト": { "ノーマル": 0, "エスパー": 2, "ゴースト": 2, "あく": 0.5 },
+  "ドラゴン": { "ドラゴン": 2, "はがね": 0.5, "フェアリー": 0 },
+  "あく": { "かくとう": 0.5, "エスパー": 2, "ゴースト": 2, "あく": 0.5, "フェアリー": 0.5 },
+  "はがね": { "ほのお": 0.5, "みず": 0.5, "でんき": 0.5, "こおり": 2, "いわ": 2, "はがね": 0.5, "フェアリー": 2 },
+  "フェアリー": { "ほのお": 0.5, "かくとう": 2, "どく": 0.5, "ドラゴン": 2, "あく": 2, "はがね": 0.5 }
+};
 
-let DB={};
-
-async function loadDB(){
-  try{const r=await fetch('./pokemon-db.json');DB=await r.json();}
-  catch(e){console.error('DB load failed',e);}
-}
-
-function suggest(iid,lid){
-  const val=document.getElementById(iid).value.trim();
-  const list=document.getElementById(lid);
-  if(!val){list.style.display='none';return;}
-  const m=Object.keys(DB).filter(k=>k.includes(val)).slice(0,8);
-  if(!m.length){list.style.display='none';return;}
-  list.innerHTML=m.map(n=>`<div class="suggest-item" onclick="pick('${iid}','${lid}','${n}')">${n}</div>`).join('');
-  list.style.display='block';
-}
-
-function pick(iid,lid,name){
-  document.getElementById(iid).value=name;
-  document.getElementById(lid).style.display='none';
-}
-
-document.addEventListener('click',e=>{
-  if(!e.target.closest('.input-group'))
-    document.querySelectorAll('.suggest-list').forEach(l=>l.style.display='none');
-});
-
-function calcDefMultiplier(atkTypes, defTypes){
-  let maxMult = 0;
-  for(const atk of atkTypes){
-    let mult = 1;
-    for(const def of defTypes){
-      const row = TC[atk] || {};
-      mult *= (row[def] !== undefined ? row[def] : 1);
+// 入力枠生成
+function initInputs() {
+  ['my', 'opp'].forEach(side => {
+    const container = document.getElementById(`${side}-inputs`);
+    for(let i=1; i<=6; i++) {
+      const div = document.createElement('div');
+      div.className = 'input-group';
+      div.innerHTML = `
+        <input type="text" id="${side}${i}" class="poke-input" placeholder="${i}体目" autocomplete="off" oninput="suggest('${side}${i}')">
+        <div id="sug_${side}${i}" class="suggest-list"></div>
+      `;
+      container.appendChild(div);
     }
-    if(mult > maxMult) maxMult = mult;
+  });
+}
+
+// サジェスト機能
+function suggest(id) {
+  const val = document.getElementById(id).value;
+  const list = document.getElementById('sug_'+id);
+  list.innerHTML = '';
+  if(!val) { list.style.display = 'none'; return; }
+  
+  const matches = Object.keys(DB).filter(name => name.includes(val)).slice(0, 5);
+  if(matches.length > 0) {
+    list.style.display = 'block';
+    matches.forEach(m => {
+      const item = document.createElement('div');
+      item.className = 'suggest-item';
+      item.textContent = m;
+      item.onclick = () => { document.getElementById(id).value = m; list.style.display = 'none'; };
+      list.appendChild(item);
+    });
+  } else {
+    list.style.display = 'none';
   }
-  return maxMult;
 }
 
-// 防御側の全タイプ相性を計算
-function calcDefenseChart(defTypes){
-  const result = {};
-  ALL_TYPES.forEach(atk => {
-    let mult = 1;
-    defTypes.forEach(def => {
-      const row = TC[atk] || {};
-      mult *= (row[def] !== undefined ? row[def] : 1);
-    });
-    result[atk] = mult;
-  });
-  return result;
+// 保存・読込 (localStorage)
+function saveTeam(side) {
+  const team = [];
+  for(let i=1; i<=6; i++) team.push(document.getElementById(side+i).value);
+  localStorage.setItem('pk_team_'+side, JSON.stringify(team));
+  alert('ブラウザに保存しました');
 }
 
-function buildMatrix(myTeam, oppTeam){
-  const table = document.getElementById('matrix-table');
-  let html = '<tr><th>攻撃→防御</th>';
-  oppTeam.forEach(p => { html += `<th style="color:var(--red)">${p.name}</th>`; });
-  html += '</tr>';
-  
-  myTeam.forEach(p => {
-    html += `<tr><td class="row-label me">${p.name}→</td>`;
+function loadTeam(side) {
+  const saved = localStorage.getItem('pk_team_'+side);
+  if(saved) {
+    const team = JSON.parse(saved);
+    team.forEach((v, i) => document.getElementById(side+(i+1)).value = v);
+  }
+}
+
+function getEff(atkType, defTypes) {
+  let res = 1;
+  defTypes.forEach(t => { if(CHART[atkType] && CHART[atkType][t] !== undefined) res *= CHART[atkType][t]; });
+  return res;
+}
+
+function analyze() {
+  const myTeam = [], oppTeam = [];
+  for(let i=1; i<=6; i++) {
+    const n1 = document.getElementById('my'+i).value;
+    if(DB[n1]) myTeam.push({name:n1, data:DB[n1]});
+    const n2 = document.getElementById('opp'+i).value;
+    if(DB[n2]) oppTeam.push({name:n2, data:DB[n2]});
+  }
+
+  if(myTeam.length === 0 || oppTeam.length === 0) return alert('ポケモンを入力してください');
+  document.getElementById('result-area').style.display = 'block';
+
+  // マトリクス作成
+  let html = '<table><tr><th>自分＼相手</th>' + oppTeam.map(p => `<th>${p.name}</th>`).join('') + '</tr>';
+  myTeam.forEach(my => {
+    html += `<tr><td><strong>${my.name}</strong></td>`;
     oppTeam.forEach(opp => {
-      const mult = calcDefMultiplier(p.data.types || [], opp.data.types || []);
-      const cls = mult >= 4 ? 'eff-4' : mult >= 2 ? 'eff-2' : mult === 0 ? 'eff-0' : mult <= 0.25 ? 'eff-025' : mult <= 0.5 ? 'eff-05' : 'eff-1';
-      const label = mult === 0 ? '無効' : mult === 0.25 ? '¼' : mult === 0.5 ? '½' : mult === 1 ? '1' : mult >= 4 ? '4倍' : '2倍';
-      html += `<td class="${cls}">${label}</td>`;
+      let maxEff = 0;
+      my.data.types.forEach(at => {
+        const e = getEff(at, opp.data.types);
+        if(e > maxEff) maxEff = e;
+      });
+      const cls = maxEff >= 2 ? 'eff-2' : (maxEff <= 0.5 ? 'eff-05' : '');
+      html += `<td class="${cls}">${maxEff}x</td>`;
     });
     html += '</tr>';
   });
-  
-  html += '<tr><td colspan="3" style="height:12px;border:none;background:var(--bg)"></td></tr>';
-  html += '<tr><th>攻撃→防御</th>';
-  myTeam.forEach(p => { html += `<th style="color:var(--green)">${p.name}</th>`; });
-  html += '</tr>';
-  
-  oppTeam.forEach(p => {
-    html += `<tr><td class="row-label opp">${p.name}→</td>`;
-    myTeam.forEach(my => {
-      const mult = calcDefMultiplier(p.data.types || [], my.data.types || []);
-      const cls = mult >= 4 ? 'eff-4' : mult >= 2 ? 'eff-2' : mult === 0 ? 'eff-0' : mult <= 0.25 ? 'eff-025' : mult <= 0.5 ? 'eff-05' : 'eff-1';
-      const label = mult === 0 ? '無効' : mult === 0.25 ? '¼' : mult === 0.5 ? '½' : mult === 1 ? '1' : mult >= 4 ? '4倍' : '2倍';
-      html += `<td class="${cls}">${label}</td>`;
-    });
-    html += '</tr>';
-  });
-  
-  table.innerHTML = html;
-}
+  html += '</table>';
+  document.getElementById('matrix-container').innerHTML = html;
 
-function buildCards(myTeam, oppTeam){
-  const grid = document.getElementById('cards-grid');
-  let html = '';
-  myTeam.forEach(p => { html += buildSingleCard(p, 'me', '自分'); });
-  oppTeam.forEach(p => { html += buildSingleCard(p, 'opp', '相手'); });
-  grid.innerHTML = html;
-}
-
-function buildSingleCard(p, side, sideLabel){
-  const d = p.data;
-  const types = (d.types || []).map(t => `<span class="type-pill t-${t}">${t}</span>`).join('');
-  const abilities = d.abilities ? d.abilities.join(' / ') : '—';
-  const warnings = d.warningMoves ? d.warningMoves.join('、') : '';
-  
-  // タイプ相性計算
-  const defChart = calcDefenseChart(d.types || []);
-  const x4 = [], x2 = [], x05 = [], x025 = [], x0 = [];
-  Object.entries(defChart).forEach(([t, m]) => {
-    if(m >= 4) x4.push(t);
-    else if(m >= 2) x2.push(t);
-    else if(m === 0) x0.push(t);
-    else if(m <= 0.25) x025.push(t);
-    else if(m <= 0.5) x05.push(t);
-  });
-  
-  let compatHtml = '';
-  if(x4.length) compatHtml += `<div class="info-label">4倍弱点</div><div class="compat-row">${x4.map(t=>`<span class="compat-tag x4">${t}</span>`).join('')}</div>`;
-  if(x2.length) compatHtml += `<div class="info-label">2倍弱点</div><div class="compat-row">${x2.map(t=>`<span class="compat-tag x2">${t}</span>`).join('')}</div>`;
-  if(x0.length) compatHtml += `<div class="info-label">無効</div><div class="compat-row">${x0.map(t=>`<span class="compat-tag x0">${t}</span>`).join('')}</div>`;
-  if(x025.length) compatHtml += `<div class="info-label">1/4耐性</div><div class="compat-row">${x025.map(t=>`<span class="compat-tag x025">${t}</span>`).join('')}</div>`;
-  if(x05.length) compatHtml += `<div class="info-label">1/2耐性</div><div class="compat-row">${x05.map(t=>`<span class="compat-tag x05">${t}</span>`).join('')}</div>`;
-  
-  return `
-    <div class="poke-card ${side}">
-      <div class="card-header">
-        <div class="card-name">${p.name}</div>
-        <span class="card-side ${side}">${sideLabel}</span>
-      </div>
-      <div class="types">${types}</div>
-      <div class="info-box">
-        <div class="info-label">特性</div>
-        <div class="info-content">${abilities}</div>
-      </div>
-      <div class="info-box type-compat">
-        ${compatHtml || '<div class="info-label">弱点・耐性なし</div>'}
-      </div>
-      ${warnings ? `
-      <div class="warning-box">
-        <div class="warning-label">⚠ 警戒技</div>
-        <div class="warning-moves">${warnings}</div>
-      </div>
-      ` : ''}
-    </div>
+  // アドバイス
+  const all = [...myTeam, ...oppTeam].sort((a,b) => (b.data.stats.spe) - (a.data.stats.spe));
+  document.getElementById('advice-card').innerHTML = `
+    <div class="advice-item"><strong>素早さ順:</strong> ${all.map(p => `${p.name}(${p.data.stats.spe})`).join(' > ')}</div>
+    <div class="advice-item">※表の数値は、自分のタイプ一致技が相手に与える最大倍率です。</div>
   `;
 }
 
-function buildAdvice(myTeam, oppTeam){
-  const advices = [];
-  
-  const dangerousAbilities = ['いかく', 'ひでり', 'あめふらし', 'すなおこし', 'ゆきふらし', 'かげふみ', 'ありじごく', 'ひらいしん', 'よびみず', 'このゆびとまれ', 'いたずらごころ', 'かそく', 'てんねん', 'マジックミラー'];
-  oppTeam.forEach(p => {
-    if(p.data.abilities){
-      p.data.abilities.forEach(ab => {
-        if(dangerousAbilities.some(d => ab.includes(d))){
-          advices.push(`⚠ ${p.name}の特性「${ab}」に注意`);
-        }
-      });
-    }
-  });
-  
-  oppTeam.forEach(p => {
-    if(p.data.warningMoves && p.data.warningMoves.length){
-      const critical = p.data.warningMoves.filter(mv => 
-        ['ねこだまし','このゆびとまれ','いかりのこな','ワイドガード','ふういん','トリックルーム','おいかぜ'].some(c => mv.includes(c))
-      );
-      if(critical.length){
-        advices.push(`⚠ ${p.name}の「${critical.join('・')}」を警戒`);
-      }
-    }
-  });
-  
-  let myAdv = 0, oppAdv = 0;
-  myTeam.forEach(my => {
-    oppTeam.forEach(opp => {
-      const myAtk = calcDefMultiplier(my.data.types || [], opp.data.types || []);
-      const oppAtk = calcDefMultiplier(opp.data.types || [], my.data.types || []);
-      if(myAtk >= 2) myAdv++;
-      if(oppAtk >= 2) oppAdv++;
-    });
-  });
-  
-  if(myAdv > oppAdv) advices.push('✓ タイプ相性で有利。積極的に攻めましょう');
-  else if(oppAdv > myAdv) advices.push('✗ タイプ相性で不利。まもる・交代を活用');
-  else advices.push('△ タイプ相性は互角。読み合いが重要');
-  
-  const allPoke = [...myTeam, ...oppTeam].sort((a,b) => (b.data.stats?.spe || 0) - (a.data.stats?.spe || 0));
-  advices.push(`素早さ順: ${allPoke.map(p => `${p.name}(${p.data.stats?.spe || '?'})`).join(' > ')}`);
-  
-  document.getElementById('advice-card').innerHTML = advices.map((a,i) => 
-    `<div class="advice-item"><span class="advice-num">${i+1}</span>${a}</div>`
-  ).join('');
-}
-
-function analyze(){
-  const ids = ['my1','my2','opp1','opp2'];
-  const names = ids.map(id => document.getElementById(id).value.trim());
-  
-  const myTeam = [];
-  const oppTeam = [];
-
-  if (DB[names[0]]) myTeam.push({name: names[0], data: DB[names[0]]});
-  if (DB[names[1]]) myTeam.push({name: names[1], data: DB[names[1]]});
-  if (DB[names[2]]) oppTeam.push({name: names[2], data: DB[names[2]]});
-  if (DB[names[3]]) oppTeam.push({name: names[3], data: DB[names[3]]});
-
-  if(myTeam.length === 0 || oppTeam.length === 0){
-    alert('自分と相手のポケモンをそれぞれ1体以上入力してください');
-    return;
-  }
-  
-  document.querySelectorAll('.suggest-list').forEach(l=>l.style.display='none');
-  
-  buildMatrix(myTeam, oppTeam);
-  buildCards(myTeam, oppTeam);
-  buildAdvice(myTeam, oppTeam);
-  
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-loadDB();
+// 起動時にDB読み込み
+fetch('pokemon-db.json').then(r => r.json()).then(data => {
+  DB = data;
+  initInputs();
+});
 </script>
 </body>
 </html>
