@@ -68,9 +68,17 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var
 .card-side.opp{background:rgba(227,53,13,.15);color:var(--red)}
 .types{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}
 .type-pill{font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;letter-spacing:.03em}
-.ability-box{background:var(--surface2);border-radius:6px;padding:6px 8px;margin-bottom:6px}
-.ability-label{font-size:9px;color:var(--muted);margin-bottom:2px}
-.ability-list{font-size:11px;font-weight:700}
+.info-box{background:var(--surface2);border-radius:6px;padding:6px 8px;margin-bottom:6px}
+.info-label{font-size:9px;color:var(--muted);margin-bottom:3px}
+.info-content{font-size:11px;font-weight:700}
+.type-compat{margin-bottom:6px}
+.compat-row{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+.compat-tag{font-size:9px;font-weight:700;padding:2px 5px;border-radius:4px}
+.compat-tag.x4{background:rgba(227,53,13,.2);color:#ff6b5b;border:1px solid rgba(227,53,13,.3)}
+.compat-tag.x2{background:rgba(245,197,24,.15);color:#f5c518;border:1px solid rgba(245,197,24,.25)}
+.compat-tag.x05{background:rgba(26,115,232,.15);color:#60a5fa;border:1px solid rgba(26,115,232,.25)}
+.compat-tag.x025{background:rgba(26,115,232,.25);color:#60a5fa;border:1px solid rgba(26,115,232,.35)}
+.compat-tag.x0{background:rgba(15,153,96,.15);color:#2ecc71;border:1px solid rgba(15,153,96,.25)}
 .warning-box{background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);border-radius:6px;padding:6px 8px}
 .warning-label{font-size:9px;color:var(--yellow);margin-bottom:2px;display:flex;align-items:center;gap:4px}
 .warning-moves{font-size:10px;color:var(--text);line-height:1.5}
@@ -151,6 +159,7 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var
 
 <script>
 const TC={"ノーマル":{"いわ":.5,"ゴースト":0,"はがね":.5},"ほのお":{"ほのお":.5,"みず":.5,"くさ":2,"こおり":2,"むし":2,"いわ":.5,"ドラゴン":.5,"はがね":2},"みず":{"ほのお":2,"みず":.5,"くさ":.5,"じめん":2,"いわ":2,"ドラゴン":.5},"でんき":{"みず":2,"でんき":.5,"くさ":.5,"じめん":0,"ひこう":2,"ドラゴン":.5},"くさ":{"ほのお":.5,"みず":2,"くさ":.5,"どく":.5,"じめん":2,"ひこう":.5,"むし":.5,"いわ":2,"ドラゴン":.5,"はがね":.5},"こおり":{"ほのお":.5,"みず":.5,"くさ":2,"こおり":.5,"じめん":2,"ひこう":2,"ドラゴン":2,"はがね":.5},"かくとう":{"ノーマル":2,"こおり":2,"どく":.5,"ひこう":.5,"エスパー":.5,"むし":.5,"いわ":2,"ゴースト":0,"あく":2,"はがね":2,"フェアリー":.5},"どく":{"くさ":2,"どく":.5,"じめん":.5,"いわ":.5,"ゴースト":.5,"はがね":0,"フェアリー":2},"じめん":{"ほのお":2,"でんき":2,"くさ":.5,"どく":2,"ひこう":0,"むし":.5,"いわ":2,"はがね":2},"ひこう":{"でんき":.5,"くさ":2,"かくとう":2,"むし":2,"いわ":.5,"はがね":.5},"エスパー":{"かくとう":2,"どく":2,"エスパー":.5,"あく":0,"はがね":.5},"むし":{"ほのお":.5,"くさ":2,"かくとう":.5,"どく":.5,"ひこう":.5,"エスパー":2,"ゴースト":.5,"あく":2,"はがね":.5,"フェアリー":.5},"いわ":{"ほのお":2,"こおり":2,"かくとう":.5,"じめん":.5,"ひこう":2,"むし":2,"はがね":.5},"ゴースト":{"ノーマル":0,"エスパー":2,"ゴースト":2,"あく":.5},"ドラゴン":{"ドラゴン":2,"はがね":.5,"フェアリー":0},"あく":{"かくとう":.5,"エスパー":2,"ゴースト":2,"あく":.5,"フェアリー":.5},"はがね":{"ほのお":.5,"みず":.5,"でんき":.5,"こおり":2,"いわ":2,"はがね":.5,"フェアリー":2},"フェアリー":{"ほのお":.5,"かくとう":2,"どく":.5,"ドラゴン":2,"あく":2,"はがね":.5}};
+const ALL_TYPES = ["ノーマル","ほのお","みず","でんき","くさ","こおり","かくとう","どく","じめん","ひこう","エスパー","むし","いわ","ゴースト","ドラゴン","あく","はがね","フェアリー"];
 
 let DB={};
 
@@ -190,6 +199,20 @@ function calcDefMultiplier(atkTypes, defTypes){
     if(mult > maxMult) maxMult = mult;
   }
   return maxMult;
+}
+
+// 防御側の全タイプ相性を計算
+function calcDefenseChart(defTypes){
+  const result = {};
+  ALL_TYPES.forEach(atk => {
+    let mult = 1;
+    defTypes.forEach(def => {
+      const row = TC[atk] || {};
+      mult *= (row[def] !== undefined ? row[def] : 1);
+    });
+    result[atk] = mult;
+  });
+  return result;
 }
 
 function buildMatrix(myTeam, oppTeam){
@@ -242,6 +265,24 @@ function buildSingleCard(p, side, sideLabel){
   const abilities = d.abilities ? d.abilities.join(' / ') : '—';
   const warnings = d.warningMoves ? d.warningMoves.join('、') : '';
   
+  // タイプ相性計算
+  const defChart = calcDefenseChart(d.types || []);
+  const x4 = [], x2 = [], x05 = [], x025 = [], x0 = [];
+  Object.entries(defChart).forEach(([t, m]) => {
+    if(m >= 4) x4.push(t);
+    else if(m >= 2) x2.push(t);
+    else if(m === 0) x0.push(t);
+    else if(m <= 0.25) x025.push(t);
+    else if(m <= 0.5) x05.push(t);
+  });
+  
+  let compatHtml = '';
+  if(x4.length) compatHtml += `<div class="info-label">4倍弱点</div><div class="compat-row">${x4.map(t=>`<span class="compat-tag x4">${t}</span>`).join('')}</div>`;
+  if(x2.length) compatHtml += `<div class="info-label">2倍弱点</div><div class="compat-row">${x2.map(t=>`<span class="compat-tag x2">${t}</span>`).join('')}</div>`;
+  if(x0.length) compatHtml += `<div class="info-label">無効</div><div class="compat-row">${x0.map(t=>`<span class="compat-tag x0">${t}</span>`).join('')}</div>`;
+  if(x025.length) compatHtml += `<div class="info-label">1/4耐性</div><div class="compat-row">${x025.map(t=>`<span class="compat-tag x025">${t}</span>`).join('')}</div>`;
+  if(x05.length) compatHtml += `<div class="info-label">1/2耐性</div><div class="compat-row">${x05.map(t=>`<span class="compat-tag x05">${t}</span>`).join('')}</div>`;
+  
   return `
     <div class="poke-card ${side}">
       <div class="card-header">
@@ -249,9 +290,12 @@ function buildSingleCard(p, side, sideLabel){
         <span class="card-side ${side}">${sideLabel}</span>
       </div>
       <div class="types">${types}</div>
-      <div class="ability-box">
-        <div class="ability-label">特性</div>
-        <div class="ability-list">${abilities}</div>
+      <div class="info-box">
+        <div class="info-label">特性</div>
+        <div class="info-content">${abilities}</div>
+      </div>
+      <div class="info-box type-compat">
+        ${compatHtml || '<div class="info-label">弱点・耐性なし</div>'}
       </div>
       ${warnings ? `
       <div class="warning-box">
@@ -266,7 +310,7 @@ function buildSingleCard(p, side, sideLabel){
 function buildAdvice(myTeam, oppTeam){
   const advices = [];
   
-  const dangerousAbilities = ['いかく', 'ひでり', 'あめふらし', 'すなおこし', 'ゆきふらし', 'かげふみ', 'ありじごく', 'ひらいしん', 'よびみず', 'このゆびとまれ'];
+  const dangerousAbilities = ['いかく', 'ひでり', 'あめふらし', 'すなおこし', 'ゆきふらし', 'かげふみ', 'ありじごく', 'ひらいしん', 'よびみず', 'このゆびとまれ', 'いたずらごころ', 'かそく', 'てんねん', 'マジックミラー'];
   oppTeam.forEach(p => {
     if(p.data.abilities){
       p.data.abilities.forEach(ab => {
@@ -314,7 +358,6 @@ function analyze(){
   const ids = ['my1','my2','opp1','opp2'];
   const names = ids.map(id => document.getElementById(id).value.trim());
   
-  // 入力があるポケモンだけをデータ化する
   const myTeam = [];
   const oppTeam = [];
 
@@ -323,7 +366,6 @@ function analyze(){
   if (DB[names[2]]) oppTeam.push({name: names[2], data: DB[names[2]]});
   if (DB[names[3]]) oppTeam.push({name: names[3], data: DB[names[3]]});
 
-  // 最低限、自分と相手に1体ずつ必要
   if(myTeam.length === 0 || oppTeam.length === 0){
     alert('自分と相手のポケモンをそれぞれ1体以上入力してください');
     return;
@@ -331,7 +373,6 @@ function analyze(){
   
   document.querySelectorAll('.suggest-list').forEach(l=>l.style.display='none');
   
-  // 以降の処理は、チームの配列の数に合わせて自動で描画されます
   buildMatrix(myTeam, oppTeam);
   buildCards(myTeam, oppTeam);
   buildAdvice(myTeam, oppTeam);
