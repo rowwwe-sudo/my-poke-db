@@ -161,6 +161,16 @@ input.move-input:focus{outline:none;border-color:var(--blue)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideIn{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.ev-val-input{
+  width:40px;
+  text-align:center;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:4px;
+  color:#fff;
+  font-family:'Rajdhani';
+  font-weight:700;
+}
 </style>
 </head>
 <body>
@@ -252,6 +262,11 @@ input.move-input:focus{outline:none;border-color:var(--blue)}
       <div class="move-grid" id="cfg-moves"></div>
     </div>
 
+    <div class="cfg-section">
+      <div class="cfg-section-title">持ち物</div>
+      <input type="text" id="cfg-item" class="move-input" placeholder="アイテム名">
+    </div>
+
     <button class="cfg-submit-btn" onclick="applyConfig()">✓ 設定を確定</button>
     <button class="modal-close" onclick="closeConfigModal()">キャンセル</button>
   </div>
@@ -265,7 +280,7 @@ const STAT_KEYS = ['hp','atk','def','spA','spD','spe'];
 const STAT_LABELS = {hp:'H', atk:'A', def:'B', spA:'C', spD:'D', spe:'S'};
 const MAX_TOTAL_EP = 66, MAX_EP = 32;
 
-function mkCfg() { return {nature:'まじめ', evs:{hp:0,atk:0,def:0,spA:0,spD:0,spe:0}, moves:['','','','']}; }
+function mkCfg() { return {nature:'まじめ', evs:{hp:0,atk:0,def:0,spA:0,spD:0,spe:0}, moves:['','','',''],item:''}; }
 let myConfig = {};
 for(let i=1;i<=6;i++) myConfig[i] = mkCfg();
 let editSlot = null, editPoke = null;
@@ -449,6 +464,8 @@ function openConfigModal(slot) {
   document.getElementById('cfg-title').textContent =
     editPoke ? `${pokeName} の設定` : `スロット${slot} の設定（ポケモン未選択）`;
 
+  document.getElementById('cfg-item').value = myConfig[slot].item || '';  
+
   // Nature select（onNatureChangeはEV行作成後に呼ぶ）
   const natSel = document.getElementById('cfg-nature');
   natSel.innerHTML = Object.keys(NATURES).map(n=>`<option value="${n}"${n===myConfig[slot].nature?' selected':''}>${n}</option>`).join('');
@@ -510,7 +527,7 @@ function refreshEVDisplay() {
     const ep = tempEvs[k]||0;
     const base = stats[k]||0;
     const actual = base > 0 ? calcStat(base, k, ep, nature) : '—';
-    document.getElementById(`ev-v-${k}`).textContent = ep;
+    document.getElementById(`ev-i-${k}`).value = ep;
     document.getElementById(`ev-b-${k}`).style.width = (ep/MAX_EP*100)+'%';
     const sEl = document.getElementById(`ev-s-${k}`);
     sEl.textContent = actual;
@@ -531,11 +548,28 @@ function changeEV(key, delta) {
   tempEvs[key] = ep;
   refreshEVDisplay();
 }
+function inputEV(key){
+  let val = parseInt(document.getElementById(`ev-i-${key}`).value) || 0;
+  if(val < 0) val = 0;
+  if(val > MAX_EP) val = MAX_EP;
 
+  const totalWithout = Object.entries(tempEvs)
+    .filter(([k])=>k!==key)
+    .reduce((a,[,v])=>a+v,0);
+
+  if(totalWithout + val > MAX_TOTAL_EP){
+    val = MAX_TOTAL_EP - totalWithout;
+  }
+
+  tempEvs[key] = val;
+  document.getElementById(`ev-i-${key}`).value = val;
+  refreshEVDisplay();
+}
 function applyConfig() {
   if(!editSlot) return;
   myConfig[editSlot].nature = document.getElementById('cfg-nature').value;
   myConfig[editSlot].evs = {...tempEvs};
+  myConfig[editSlot].item = document.getElementById('cfg-item').value;
   for(let i=0;i<4;i++) myConfig[editSlot].moves[i] = document.getElementById('cm'+i).value;
   updateCfgBtn(editSlot);
   closeConfigModal();
