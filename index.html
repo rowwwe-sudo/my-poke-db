@@ -663,10 +663,21 @@ function analyze() {
   document.getElementById('matrix-container').innerHTML = html;
 }
 
-fetch('pokemon-db.json').then(r => r.json()).then(data => {
-  DB = data;
-  initInputs();
-});
+// pokemon-db.json または pokemon-db-correct.json を読み込む
+fetch('pokemon-db.json')
+  .then(r => {
+    if (!r.ok) return fetch('pokemon-db-correct.json');
+    return r;
+  })
+  .then(r => r.json())
+  .then(data => {
+    DB = data;
+    initInputs();
+  })
+  .catch(err => {
+    console.error('ポケモンデータベースの読み込みに失敗しました:', err);
+    alert('pokemon-db.jsonファイルが見つかりません。同じフォルダに配置してください。');
+  });
 </script>
 </body>
 </html>
