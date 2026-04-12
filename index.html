@@ -390,15 +390,15 @@ function hiraganaToKatakana(str) {
 }
 
 function calcActualStat(base, statName, evs = 252) {
-  const iv = 31;    // 個体値V
+  const iv = 31;    // 個体値V想定
   const level = 50; // レベル50固定
 
   if (statName === 'hp') {
-    // HPの計算式: (種族値×2 + 個体値 + 努力値/4) × (レベル/100) + レベル + 10
+    // HPの計算式: (種族値×2 + 個体値 + 努力値/4) * 0.5 + 50 + 10
     return Math.floor((base * 2 + iv + Math.floor(evs / 4)) * (level / 100)) + level + 10;
   } else {
-    // 攻撃〜素早さの計算式: {(種族値×2 + 個体値 + 努力値/4) × (level/100) + 5} × 性格補正
-    // 性格補正は一旦1.0倍（無補正）で計算
+    // HP以外の計算式: {(種族値×2 + 個体値 + 努力値/4) * 0.5 + 5} * 性格補正
+    // とりあえず性格補正は1.0倍(無補正)で計算
     return Math.floor(Math.floor((base * 2 + iv + Math.floor(evs / 4)) * (level / 100)) + 5);
   }
 }
