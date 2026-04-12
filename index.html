@@ -154,6 +154,12 @@ input.move-input:focus{outline:none;border-color:var(--blue)}
 .msug-item-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .msug-meta{display:flex;align-items:center;gap:3px;flex-shrink:0}
 .mtype-badge{padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700}
+.item-wrap{position:relative}
+.item-sug-list{position:absolute;width:100%;left:0;background:var(--surface);border:1px solid var(--border);z-index:50;max-height:180px;overflow-y:auto;border-radius:0 0 6px 6px;display:none;box-shadow:0 6px 16px rgba(0,0,0,.8);top:100%}
+.item-sug-item{padding:8px 10px;font-size:11px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s}
+.item-sug-item:hover{background:var(--red)}
+.item-sug-name{font-weight:700;margin-bottom:2px}
+.item-sug-desc{color:var(--muted);font-size:10px;line-height:1.4}
 
 .cfg-submit-btn{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-weight:900;font-size:14px;cursor:pointer;transition:all .2s;margin-top:6px}
 .cfg-submit-btn:hover{background:#1558b0}
@@ -179,10 +185,14 @@ input.move-input:focus{outline:none;border-color:var(--blue)}
   <div class="header-title">POKÉMON CHAMPIONS</div>
   <div class="header-actions">
     <button class="action-btn" onclick="document.getElementById('moves-db-file').click()">📁 技DB読込</button>
+    <button class="action-btn" onclick="document.getElementById('items-db-file').click()">📁 アイテムDB読込</button>
+    <button class="action-btn" onclick="loadItemsFromGitHub()">🌐 GitHub読込</button>
     <span id="moves-db-status" class="db-status"></span>
+    <span id="items-db-status" class="db-status"></span>
   </div>
 </div>
 <input type="file" id="moves-db-file" accept=".json" style="display:none" onchange="loadMovesDB(event)">
+<input type="file" id="items-db-file" accept=".json" style="display:none" onchange="loadItemsDB(event)">
 
 <div class="container">
   <div class="team-grid">
@@ -276,6 +286,7 @@ input.move-input:focus{outline:none;border-color:var(--blue)}
 // ── State ─────────────────────────────────────────────────────
 let DB = {};
 let movesDB = {};
+let itemsDB = {};
 const STAT_KEYS = ['hp','atk','def','spA','spD','spe'];
 const STAT_LABELS = {hp:'H', atk:'A', def:'B', spA:'C', spD:'D', spe:'S'};
 const MAX_TOTAL_EP = 66, MAX_EP = 32;
@@ -500,6 +511,7 @@ function openConfigModal(slot) {
 
   // EV行作成後にnature hint + EV表示を更新
   onNatureChange();
+  hideItemSug();
   document.getElementById('config-modal').style.display='flex';
 }
 
@@ -580,7 +592,7 @@ function updateCfgBtn(slot) {
   const btn = document.getElementById('cfgbtn'+slot);
   if(!btn) return;
   const cfg = myConfig[slot];
-  const hasAny = cfg.nature !== 'まじめ' || Object.values(cfg.evs).some(v=>v>0) || cfg.moves.some(m=>m);
+  const hasAny = cfg.nature !== 'まじめ' || Object.values(cfg.evs).some(v=>v>0) || cfg.moves.some(m=>m) || !!cfg.item;
   btn.classList.toggle('configured', hasAny);
 }
 
@@ -618,6 +630,66 @@ function suggestMove(idx) {
   });
 }
 function hideMSug(idx){const l=document.getElementById('ms'+idx);if(l)l.style.display='none';}
+
+// ── Item Suggest / DB ──────────────────────────────────────────
+function suggestItem() {
+  const inp = document.getElementById('cfg-item');
+  const list = document.getElementById('item-sug-list');
+  if(!inp || !list) return;
+  const val = inp.value.trim();
+  list.innerHTML = '';
+  if(!val || Object.keys(itemsDB).length===0){ list.style.display='none'; return; }
+  const sv = h2k(val);
+  const matches = Object.keys(itemsDB).filter(name=>name.includes(val)||name.includes(sv)).slice(0,10);
+  if(!matches.length){ list.style.display='none'; return; }
+  list.style.display='block';
+  matches.forEach(name=>{
+    const data = itemsDB[name] || {};
+    const row = document.createElement('div');
+    row.className = 'item-sug-item';
+    row.innerHTML = `<div class="item-sug-name">${name}</div><div class="item-sug-desc">${data.desc||''}</div>`;
+    row.onclick = ()=>{ inp.value = name; list.style.display='none'; };
+    list.appendChild(row);
+  });
+}
+function hideItemSug(){ const l=document.getElementById('item-sug-list'); if(l) l.style.display='none'; }
+
+function loadItemsDB(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      itemsDB = JSON.parse(e.target.result);
+      const n = Object.keys(itemsDB).length;
+      document.getElementById('items-db-status').textContent = `✓ ${n}道具`;
+      showToast(`アイテムDB読込完了 (${n}件)`,'success');
+    } catch(err) {
+      showToast('アイテムJSON読み込み失敗','error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+async function loadItemsFromGitHub() {
+  const defaultUrl = localStorage.getItem('pk_items_db_url') || 'items_complete_pokemon_champions.json';
+  const url = prompt('GitHubのraw URLを入力してください。\n空欄のままOKで同じフォルダ内の items_complete_pokemon_champions.json を読み込みます。', defaultUrl);
+  if(url === null) return;
+  const finalUrl = (url || 'items_complete_pokemon_champions.json').trim();
+  try{
+    const res = await fetch(finalUrl, {cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    itemsDB = await res.json();
+    const n = Object.keys(itemsDB).length;
+    document.getElementById('items-db-status').textContent = `✓ ${n}道具`;
+    localStorage.setItem('pk_items_db_url', finalUrl);
+    showToast(`アイテムDB読込完了 (${n}件)`,'success');
+  }catch(err){
+    console.error(err);
+    showToast('アイテムDB読込失敗','error');
+  }
+}
 
 // ── Moves DB load ──────────────────────────────────────────────
 function loadMovesDB(event) {
@@ -681,6 +753,7 @@ function renderMySide(p, name, cfg) {
   const typeBadges = (p.types||[]).map(t=>`<span class="type-badge type-${t}">${t}</span>`).join('');
 
   let movesHTML='';
+  const item = cfg?.item || '';
   if(moves.length){
     movesHTML=`<div class="moves-box"><div class="moves-title">技構成</div>${moves.map(m=>{
       const mv=movesDB[m];
@@ -689,6 +762,7 @@ function renderMySide(p, name, cfg) {
       return `<span class="tag ${tc}">${m}${pw}</span>`;
     }).join('')}</div>`;
   }
+  const itemHTML = item ? `<div class="moves-box"><div class="moves-title">持ち物</div><span class="tag" style="border-color:var(--green)">${item}</span>${itemsDB[item]?.desc?`<div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5">${itemsDB[item].desc}</div>`:''}</div>` : '';
   const abHTML = (p.abilities||[]).length?`<div class="moves-box"><div class="moves-title">特性</div>${(p.abilities||[]).map(a=>`<span class="tag" style="border-color:var(--yellow)">${a}</span>`).join('')}</div>`:'';
 
   return `
@@ -704,7 +778,7 @@ function renderMySide(p, name, cfg) {
       <div class="stat-category">種族値 → 実数値 (Lv50)</div>
       ${statRows}
     </div>
-    ${movesHTML}${abHTML}`;
+    ${movesHTML}${itemHTML}${abHTML}`;
 }
 
 function renderOppSide(p, name) {
@@ -804,7 +878,7 @@ function saveToSlot(n){
   const names=[];
   for(let i=1;i<=6;i++) names.push(document.getElementById('my'+i).value);
   const deep={};
-  for(let i=1;i<=6;i++) deep[i]={nature:myConfig[i].nature,evs:{...myConfig[i].evs},moves:[...myConfig[i].moves]};
+  for(let i=1;i<=6;i++) deep[i]={nature:myConfig[i].nature,evs:{...myConfig[i].evs},moves:[...myConfig[i].moves],item:myConfig[i].item||''};
   localStorage.setItem(`pk_myteam_${n}`,JSON.stringify({names,configs:deep}));
   showToast(`スロット${n}に保存しました！`);
   closeSaveModal();
@@ -841,7 +915,8 @@ function loadFromSlot(n){
           myConfig[slot]={
             nature:d.configs[k].nature||'まじめ',
             evs:{...(d.configs[k].evs||{hp:0,atk:0,def:0,spA:0,spD:0,spe:0})},
-            moves:[...(d.configs[k].moves||['','','',''])]
+            moves:[...(d.configs[k].moves||['','','',''])],
+            item:d.configs[k].item||''
           };
           updateCfgBtn(slot);
         }
@@ -871,20 +946,20 @@ fetch('pokemon-db.json')
         }
       })
       .catch(()=>{});
+
+    // items_complete_pokemon_champions.json を自動読み込み（失敗しても無視）
+    fetch('items_complete_pokemon_champions.json', {cache:'no-store'})
+      .then(r=>r.ok?r.json():null)
+      .then(idata=>{
+        if(idata && typeof idata==='object'){
+          itemsDB = idata;
+          const n = Object.keys(idata).length;
+          document.getElementById('items-db-status').textContent = `✓ ${n}道具`;
+        }
+      })
+      .catch(()=>{});
   })
   .catch(()=>alert('pokemon-db.json が見つかりません。同じフォルダに配置してください。'));
-
-  let itemsDB = {};
-
-async function loadItemsFromGitHub(){
-  try{
-    const res = await fetch("https://github.com/rowwwe-sudo/my-poke-db/main/item.json");
-    itemsDB = await res.json();
-    showToast(`アイテムDB読込完了 (${Object.keys(itemsDB).length}件)`,'success');
-  }catch(e){
-    showToast('アイテムDB読込失敗','error');
-  }
-}
 </script>
 </body>
 </html>
