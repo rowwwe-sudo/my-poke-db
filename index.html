@@ -164,6 +164,24 @@ input.move-input:focus{outline:none;border-color:var(--blue)}
 .cfg-submit-btn{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-weight:900;font-size:14px;cursor:pointer;transition:all .2s;margin-top:6px}
 .cfg-submit-btn:hover{background:#1558b0}
 
+
+.damage-panel{margin-top:16px;background:var(--surface);border-radius:10px;padding:14px;border:1px solid var(--border)}
+.damage-title{font-size:11px;color:var(--yellow);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.damage-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.damage-grid{grid-template-columns:1fr}}
+.damage-box{background:var(--surface2);border-radius:8px;padding:10px;border:1px solid var(--border)}
+.damage-subtitle{font-size:11px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.damage-row{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.damage-row:last-child{border-bottom:none}
+.damage-move{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px}
+.damage-move-name{font-size:12px;font-weight:700}
+.damage-meta{font-size:10px;color:var(--muted);line-height:1.5}
+.damage-range{font-family:'Rajdhani';font-weight:700;color:var(--red);font-size:18px}
+.damage-range.good{color:#ff8a65}
+.damage-range.mid{color:var(--yellow)}
+.damage-range.low{color:#79b8ff}
+.damage-note{font-size:10px;color:var(--muted);line-height:1.5}
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideIn{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
@@ -214,6 +232,7 @@ input.move-input:focus{outline:none;border-color:var(--blue)}
         <div class="vs-label">VS</div>
         <div id="opp-detail" class="pokemon-detail"></div>
       </div>
+      <div id="damage-panel" class="damage-panel"></div>
     </div>
   </div>
 </div>
@@ -415,48 +434,62 @@ function matchJaKeyword(name, query){
 
 
 const ALT_SPRITES = {
-  'メガフシギバナ':'https://play.pokemonshowdown.com/sprites/xyani/venusaur-mega.gif',
-  'メガリザードンX':'https://play.pokemonshowdown.com/sprites/xyani/charizard-megax.gif',
-  'メガリザードンY':'https://play.pokemonshowdown.com/sprites/xyani/charizard-megay.gif',
-  'メガカメックス':'https://play.pokemonshowdown.com/sprites/xyani/blastoise-mega.gif',
-  'メガスピアー':'https://play.pokemonshowdown.com/sprites/xyani/beedrill-mega.gif',
-  'メガピジョット':'https://play.pokemonshowdown.com/sprites/xyani/pidgeot-mega.gif',
-  'メガフーディン':'https://play.pokemonshowdown.com/sprites/xyani/alakazam-mega.gif',
-  'メガヤドラン':'https://play.pokemonshowdown.com/sprites/xyani/slowbro-mega.gif',
-  'メガゲンガー':'https://play.pokemonshowdown.com/sprites/xyani/gengar-mega.gif',
-  'メガガルーラ':'https://play.pokemonshowdown.com/sprites/xyani/kangaskhan-mega.gif',
-  'メガカイロス':'https://play.pokemonshowdown.com/sprites/xyani/pinsir-mega.gif',
-  'メガギャラドス':'https://play.pokemonshowdown.com/sprites/xyani/gyarados-mega.gif',
-  'メガプテラ':'https://play.pokemonshowdown.com/sprites/xyani/aerodactyl-mega.gif',
-  'メガニウム':'https://play.pokemonshowdown.com/sprites/xyani/meganium.gif',
-  'メガデンリュウ':'https://play.pokemonshowdown.com/sprites/xyani/ampharos-mega.gif',
-  'メガハガネール':'https://play.pokemonshowdown.com/sprites/xyani/steelix-mega.gif',
-  'メガハッサム':'https://play.pokemonshowdown.com/sprites/xyani/scizor-mega.gif',
-  'メガヘラクロス':'https://play.pokemonshowdown.com/sprites/xyani/heracross-mega.gif',
-  'メガヘルガー':'https://play.pokemonshowdown.com/sprites/xyani/houndoom-mega.gif',
-  'メガバンギラス':'https://play.pokemonshowdown.com/sprites/xyani/tyranitar-mega.gif',
-  'メガサーナイト':'https://play.pokemonshowdown.com/sprites/xyani/gardevoir-mega.gif',
-  'メガヤミラミ':'https://play.pokemonshowdown.com/sprites/xyani/sableye-mega.gif',
-  'メガボスゴドラ':'https://play.pokemonshowdown.com/sprites/xyani/aggron-mega.gif',
-  'メガチャーレム':'https://play.pokemonshowdown.com/sprites/xyani/medicham-mega.gif',
-  'メガライボルト':'https://play.pokemonshowdown.com/sprites/xyani/manectric-mega.gif',
-  'メガサメハダー':'https://play.pokemonshowdown.com/sprites/xyani/sharpedo-mega.gif',
-  'メガバクーダ':'https://play.pokemonshowdown.com/sprites/xyani/camerupt-mega.gif',
-  'メガチルタリス':'https://play.pokemonshowdown.com/sprites/xyani/altaria-mega.gif',
-  'メガジュペッタ':'https://play.pokemonshowdown.com/sprites/xyani/banette-mega.gif',
-  'メガアブソル':'https://play.pokemonshowdown.com/sprites/xyani/absol-mega.gif',
-  'メガオニゴーリ':'https://play.pokemonshowdown.com/sprites/xyani/glalie-mega.gif',
-  'メガミミロップ':'https://play.pokemonshowdown.com/sprites/xyani/lopunny-mega.gif',
-  'メガガブリアス':'https://play.pokemonshowdown.com/sprites/xyani/garchomp-mega.gif',
-  'メガルカリオ':'https://play.pokemonshowdown.com/sprites/xyani/lucario-mega.gif',
-  'メガユキノオー':'https://play.pokemonshowdown.com/sprites/xyani/abomasnow-mega.gif',
-  'メガエルレイド':'https://play.pokemonshowdown.com/sprites/xyani/gallade-mega.gif'
+  'メガフシギバナ':['https://play.pokemonshowdown.com/sprites/xyani/venusaur-mega.gif','https://play.pokemonshowdown.com/sprites/ani/venusaur-mega.gif'],
+  'メガリザードンX':['https://play.pokemonshowdown.com/sprites/xyani/charizard-megax.gif','https://play.pokemonshowdown.com/sprites/ani/charizard-megax.gif'],
+  'メガリザードンY':['https://play.pokemonshowdown.com/sprites/xyani/charizard-megay.gif','https://play.pokemonshowdown.com/sprites/ani/charizard-megay.gif'],
+  'メガカメックス':['https://play.pokemonshowdown.com/sprites/xyani/blastoise-mega.gif','https://play.pokemonshowdown.com/sprites/ani/blastoise-mega.gif'],
+  'メガスピアー':['https://play.pokemonshowdown.com/sprites/xyani/beedrill-mega.gif','https://play.pokemonshowdown.com/sprites/ani/beedrill-mega.gif'],
+  'メガピジョット':['https://play.pokemonshowdown.com/sprites/xyani/pidgeot-mega.gif','https://play.pokemonshowdown.com/sprites/ani/pidgeot-mega.gif'],
+  'メガフーディン':['https://play.pokemonshowdown.com/sprites/xyani/alakazam-mega.gif','https://play.pokemonshowdown.com/sprites/ani/alakazam-mega.gif'],
+  'メガヤドラン':['https://play.pokemonshowdown.com/sprites/xyani/slowbro-mega.gif','https://play.pokemonshowdown.com/sprites/ani/slowbro-mega.gif'],
+  'メガゲンガー':['https://play.pokemonshowdown.com/sprites/xyani/gengar-mega.gif','https://play.pokemonshowdown.com/sprites/ani/gengar-mega.gif'],
+  'メガガルーラ':['https://play.pokemonshowdown.com/sprites/xyani/kangaskhan-mega.gif','https://play.pokemonshowdown.com/sprites/ani/kangaskhan-mega.gif'],
+  'メガカイロス':['https://play.pokemonshowdown.com/sprites/xyani/pinsir-mega.gif','https://play.pokemonshowdown.com/sprites/ani/pinsir-mega.gif'],
+  'メガギャラドス':['https://play.pokemonshowdown.com/sprites/xyani/gyarados-mega.gif','https://play.pokemonshowdown.com/sprites/ani/gyarados-mega.gif'],
+  'メガプテラ':['https://play.pokemonshowdown.com/sprites/xyani/aerodactyl-mega.gif','https://play.pokemonshowdown.com/sprites/ani/aerodactyl-mega.gif'],
+  'メガニウム':['https://play.pokemonshowdown.com/sprites/xyani/meganium.gif','https://play.pokemonshowdown.com/sprites/ani/meganium.gif'],
+  'メガデンリュウ':['https://play.pokemonshowdown.com/sprites/xyani/ampharos-mega.gif','https://play.pokemonshowdown.com/sprites/ani/ampharos-mega.gif'],
+  'メガハガネール':['https://play.pokemonshowdown.com/sprites/xyani/steelix-mega.gif','https://play.pokemonshowdown.com/sprites/ani/steelix-mega.gif'],
+  'メガハッサム':['https://play.pokemonshowdown.com/sprites/xyani/scizor-mega.gif','https://play.pokemonshowdown.com/sprites/ani/scizor-mega.gif'],
+  'メガヘラクロス':['https://play.pokemonshowdown.com/sprites/xyani/heracross-mega.gif','https://play.pokemonshowdown.com/sprites/ani/heracross-mega.gif'],
+  'メガヘルガー':['https://play.pokemonshowdown.com/sprites/xyani/houndoom-mega.gif','https://play.pokemonshowdown.com/sprites/ani/houndoom-mega.gif'],
+  'メガバンギラス':['https://play.pokemonshowdown.com/sprites/xyani/tyranitar-mega.gif','https://play.pokemonshowdown.com/sprites/ani/tyranitar-mega.gif'],
+  'メガサーナイト':['https://play.pokemonshowdown.com/sprites/xyani/gardevoir-mega.gif','https://play.pokemonshowdown.com/sprites/ani/gardevoir-mega.gif'],
+  'メガヤミラミ':['https://play.pokemonshowdown.com/sprites/xyani/sableye-mega.gif','https://play.pokemonshowdown.com/sprites/ani/sableye-mega.gif'],
+  'メガボスゴドラ':['https://play.pokemonshowdown.com/sprites/xyani/aggron-mega.gif','https://play.pokemonshowdown.com/sprites/ani/aggron-mega.gif'],
+  'メガチャーレム':['https://play.pokemonshowdown.com/sprites/xyani/medicham-mega.gif','https://play.pokemonshowdown.com/sprites/ani/medicham-mega.gif'],
+  'メガライボルト':['https://play.pokemonshowdown.com/sprites/xyani/manectric-mega.gif','https://play.pokemonshowdown.com/sprites/ani/manectric-mega.gif'],
+  'メガサメハダー':['https://play.pokemonshowdown.com/sprites/xyani/sharpedo-mega.gif','https://play.pokemonshowdown.com/sprites/ani/sharpedo-mega.gif'],
+  'メガバクーダ':['https://play.pokemonshowdown.com/sprites/xyani/camerupt-mega.gif','https://play.pokemonshowdown.com/sprites/ani/camerupt-mega.gif'],
+  'メガチルタリス':['https://play.pokemonshowdown.com/sprites/xyani/altaria-mega.gif','https://play.pokemonshowdown.com/sprites/ani/altaria-mega.gif'],
+  'メガジュペッタ':['https://play.pokemonshowdown.com/sprites/xyani/banette-mega.gif','https://play.pokemonshowdown.com/sprites/ani/banette-mega.gif'],
+  'メガアブソル':['https://play.pokemonshowdown.com/sprites/xyani/absol-mega.gif','https://play.pokemonshowdown.com/sprites/ani/absol-mega.gif'],
+  'メガオニゴーリ':['https://play.pokemonshowdown.com/sprites/xyani/glalie-mega.gif','https://play.pokemonshowdown.com/sprites/ani/glalie-mega.gif'],
+  'メガミミロップ':['https://play.pokemonshowdown.com/sprites/xyani/lopunny-mega.gif','https://play.pokemonshowdown.com/sprites/ani/lopunny-mega.gif'],
+  'メガガブリアス':['https://play.pokemonshowdown.com/sprites/xyani/garchomp-mega.gif','https://play.pokemonshowdown.com/sprites/ani/garchomp-mega.gif'],
+  'メガルカリオ':['https://play.pokemonshowdown.com/sprites/xyani/lucario-mega.gif','https://play.pokemonshowdown.com/sprites/ani/lucario-mega.gif'],
+  'メガユキノオー':['https://play.pokemonshowdown.com/sprites/xyani/abomasnow-mega.gif','https://play.pokemonshowdown.com/sprites/ani/abomasnow-mega.gif'],
+  'メガエルレイド':['https://play.pokemonshowdown.com/sprites/xyani/gallade-mega.gif','https://play.pokemonshowdown.com/sprites/ani/gallade-mega.gif']
 };
+
+function spriteFallback(img, ab){
+  try{
+    const arr = JSON.parse(img.dataset.fallbacks || '[]');
+    const idx = Number(img.dataset.idx || 0) + 1;
+    if(arr[idx]){
+      img.dataset.idx = String(idx);
+      img.src = arr[idx];
+      return;
+    }
+  }catch(e){}
+  img.outerHTML = `<div style="font-size:16px;font-weight:bold;color:var(--muted)">${ab}</div>`;
+}
 
 function getSprite(name) {
   const ab = name.substring(0,3).replace(/'/g,'');
   if (ALT_SPRITES[name]) {
-    return `<img src="${ALT_SPRITES[name]}" alt="${name}" style="width:100%;height:100%;object-fit:contain">`;
+    const arr = ALT_SPRITES[name];
+    return `<img src="${arr[0]}" data-fallbacks='${JSON.stringify(arr)}' data-idx="0" alt="${name}" style="width:100%;height:100%;object-fit:contain" onerror="spriteFallback(this,'${ab}')">`;
   }
   const id = SM[name];
   if (!id) return `<div style="font-size:16px;font-weight:bold;color:var(--muted)">${ab}</div>`;
@@ -737,6 +770,7 @@ function showDetail(myName, oppName) {
   const cfg = slot ? myConfig[slot] : null;
   document.getElementById('my-detail').innerHTML = renderMySide(my, myName, cfg);
   document.getElementById('opp-detail').innerHTML = renderOppSide(opp, oppName);
+  document.getElementById('damage-panel').innerHTML = buildDamagePanel(myName, oppName, my, opp, cfg);
   const dc = document.getElementById('detail-card');
   dc.style.display='block';
   dc.scrollIntoView({behavior:'smooth'});
@@ -825,6 +859,112 @@ function renderOppSide(p, name) {
     ${abHTML}`;
 }
 
+
+function getTypeEffect(moveType, defenderTypes){
+  if(!moveType || !defenderTypes?.length) return 1;
+  let eff = 1;
+  defenderTypes.forEach(t=>{
+    if(CHART[moveType] && CHART[moveType][t] !== undefined) eff *= CHART[moveType][t];
+  });
+  return eff;
+}
+
+function getStatBlock(poke, cfg){
+  const stats = poke?.stats || {};
+  const nature = cfg?.nature || 'まじめ';
+  const evs = cfg?.evs || {hp:0,atk:0,def:0,spA:0,spD:0,spe:0};
+  return {
+    hp: calcStat(stats.hp||0, 'hp', evs.hp||0, nature),
+    atk: calcStat(stats.atk||0, 'atk', evs.atk||0, nature),
+    def: calcStat(stats.def||0, 'def', evs.def||0, nature),
+    spA: calcStat(stats.spA||0, 'spA', evs.spA||0, nature),
+    spD: calcStat(stats.spD||0, 'spD', evs.spD||0, nature),
+    spe: calcStat(stats.spe||0, 'spe', evs.spe||0, nature)
+  };
+}
+
+function getItemModifier(itemName, move, eff){
+  if(!itemName || !move) return 1;
+  const t = move.type;
+  const cat = move.category;
+  const typeBoost = {
+    'くろおび':'かくとう','くろいメガネ':'あく','もくたん':'ほのお','りゅうのキバ':'ドラゴン','ようせいのハネ':'フェアリー',
+    'かたいいし':'いわ','じしゃく':'でんき','きせきのタネ':'くさ','しんぴのしずく':'みず','とけないこおり':'こおり',
+    'どくバリ':'どく','するどいくちばし':'ひこう','シルクのスカーフ':'ノーマル','ぎんのこな':'むし','やわらかいすな':'じめん',
+    'のろいのおふだ':'ゴースト','まがったスプーン':'エスパー','メタルコート':'はがね'
+  };
+  if(typeBoost[itemName] && typeBoost[itemName] === t) return 1.2;
+  if(itemName === 'いのちのたま') return 1.3;
+  if(itemName === 'こだわりハチマキ' && cat === '物理') return 1.5;
+  if(itemName === 'こだわりメガネ' && cat === '特殊') return 1.5;
+  if(itemName === 'たつじんのおび' && eff > 1) return 1.2;
+  if(itemName === 'ちからのハチマキ' && cat === '物理') return 1.1;
+  if(itemName === 'ものしりメガネ' && cat === '特殊') return 1.1;
+  return 1;
+}
+
+function estimateMoveDamage(attacker, attackerName, cfg, defender, defenderName, moveName){
+  const move = movesDB[moveName];
+  if(!move) return {kind:'unknown', moveName, text:'技DB未登録'};
+  if(move.category === '変化') return {kind:'status', moveName, text:'変化技'};
+  if(move.power == null) return {kind:'variable', moveName, text:'威力可変'};
+  const atkStats = getStatBlock(attacker, cfg);
+  const defStats = getStatBlock(defender, null);
+  const level = 50;
+  const power = Number(move.power);
+  const atk = move.category === '物理' ? atkStats.atk : atkStats.spA;
+  const defense = move.category === '物理' ? defStats.def : defStats.spD;
+  const hp = defStats.hp || 1;
+  const stab = (attacker.types||[]).includes(move.type) ? 1.5 : 1;
+  const eff = getTypeEffect(move.type, defender.types||[]);
+  const itemMod = getItemModifier(cfg?.item || '', move, eff);
+  const base = Math.floor(Math.floor((Math.floor((2*level/5+2) * power * atk / Math.max(1, defense)) / 50)) + 2);
+  const min = Math.max(1, Math.floor(base * stab * eff * itemMod * 0.85));
+  const max = Math.max(1, Math.floor(base * stab * eff * itemMod));
+  const minPct = (min / hp * 100);
+  const maxPct = (max / hp * 100);
+  let klass = 'low';
+  if(maxPct >= 100) klass = 'good';
+  else if(maxPct >= 50) klass = 'mid';
+  const hitsMin = Math.ceil(hp / Math.max(1, max));
+  const hitsMax = Math.ceil(hp / Math.max(1, min));
+  return {kind:'damage', moveName, move, eff, min, max, hp, minPct, maxPct, hitsMin, hitsMax, klass};
+}
+
+function renderDamageResult(res){
+  if(res.kind !== 'damage'){
+    return `<div class="damage-row"><div class="damage-move"><span class="damage-move-name">${res.moveName}</span><span class="damage-range low">${res.text}</span></div></div>`;
+  }
+  const effText = res.eff === 0 ? '無効' : `${res.eff}x`;
+  return `<div class="damage-row">
+    <div class="damage-move">
+      <span class="damage-move-name">${res.moveName}</span>
+      <span class="damage-range ${res.klass}">${res.min}〜${res.max}</span>
+    </div>
+    <div class="damage-meta">
+      ${res.minPct.toFixed(1)}%〜${res.maxPct.toFixed(1)}% / タイプ相性 ${effText} / ${res.hitsMin}〜${res.hitsMax}発目安
+    </div>
+  </div>`;
+}
+
+function buildDamagePanel(myName, oppName, my, opp, cfg){
+  const moves = (cfg?.moves || []).filter(Boolean);
+  if(!moves.length){
+    return `<div class="damage-title">ダメージ計算（目安）</div><div class="damage-note">自分側の技を設定すると、相手へのダメージ目安を表示します。</div>`;
+  }
+  const results = moves.map(m => estimateMoveDamage(my, myName, cfg, opp, oppName, m));
+  return `<div class="damage-title">ダメージ計算（目安）</div>
+    <div class="damage-grid">
+      <div class="damage-box">
+        <div class="damage-subtitle">${myName} → ${oppName}</div>
+        ${results.map(renderDamageResult).join('')}
+      </div>
+      <div class="damage-box">
+        <div class="damage-subtitle">計算メモ</div>
+        <div class="damage-note">Lv50固定 / 自分は設定した性格・EP・持ち物を反映 / 相手は無補正・EP0想定の目安です。急所・天候・特性・やけど・壁・乱数16段階などは簡略化しています。</div>
+      </div>
+    </div>`;
+}
 // ── Analyze ────────────────────────────────────────────────────
 function getEff(at, defTypes) {
   let r=1;
